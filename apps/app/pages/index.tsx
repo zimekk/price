@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Layout, Page, Text, List, Code } from '@vercel/examples-ui'
+import { Price } from '@acme/price'
 import { Button } from '@acme/ui'
 import { matchingTextColor, randomColor } from '@acme/utils'
 
@@ -16,6 +17,7 @@ export default function Index() {
 
   return (
     <Page>
+      <Price />
       <Text variant="h1" className="mb-6">
         Monorepo
       </Text>

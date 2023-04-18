@@ -11,6 +11,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@acme/price": "workspace:*",
     "@acme/ui": "workspace:*",
     "@acme/utils": "workspace:*",
     "@vercel/examples-ui": "^1.0.4",

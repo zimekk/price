@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // experimental: {
+    transpilePackages: ['@acme/price'],
     transpilePackages: ['@acme/ui'],
   // },
 }
