@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Layout, Page, Text, List, Code } from '@vercel/examples-ui'
+import { Hello } from '@acme/hello'
 import { Price } from '@acme/price'
 import { Button } from '@acme/ui'
 import { matchingTextColor, randomColor } from '@acme/utils'
@@ -17,7 +18,6 @@ export default function Index() {
 
   return (
     <Page>
-      <Price />
       <Text variant="h1" className="mb-6">
         Monorepo
       </Text>
@@ -52,6 +52,8 @@ export default function Index() {
           </Button>
         </>
       )}
+      <Hello />
+      <Price />
     </Page>
   )
 }

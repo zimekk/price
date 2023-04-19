@@ -16,6 +16,9 @@ importers:
 
   apps/app:
     dependencies:
+      '@acme/hello':
+        specifier: workspace:*
+        version: link:../../packages/hello
       '@acme/price':
         specifier: workspace:*
         version: link:../../packages/price
@@ -43,7 +46,7 @@ importers:
         version: 18.11.9
       '@types/react':
         specifier: latest
-        version: 18.0.30
+        version: 18.0.37
       autoprefixer:
         specifier: ^10.4.12
         version: 10.4.13(postcss@8.4.19)
@@ -59,6 +62,37 @@ importers:
       tailwindcss:
         specifier: ^3.2.1
         version: 3.2.4(postcss@8.4.19)
+      typescript:
+        specifier: 4.8.4
+        version: 4.8.4
+
+  packages/hello:
+    dependencies:
+      '@swc/helpers':
+        specifier: ^0.4.12
+        version: 0.4.14
+      clsx:
+        specifier: ^1.1.1
+        version: 1.2.1
+      next:
+        specifier: '*'
+        version: 0.1.0
+      react:
+        specifier: ^17.0.0 || ^18.0.0-0
+        version: 18.2.0
+      react-dom:
+        specifier: ^17.0.0 || ^18.0.0-0
+        version: 18.2.0(react@18.2.0)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@types/react':
+        specifier: latest
+        version: 18.0.37
+      eslint:
+        specifier: ^8.11.0
+        version: 8.38.0
       typescript:
         specifier: 4.8.4
         version: 4.8.4
@@ -80,10 +114,13 @@ importers:
       react-dom:
         specifier: ^17.0.0 || ^18.0.0-0
         version: 18.2.0(react@18.2.0)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
     devDependencies:
       '@types/react':
         specifier: latest
-        version: 18.0.30
+        version: 18.0.37
       eslint:
         specifier: ^8.11.0
         version: 8.38.0
@@ -111,7 +148,7 @@ importers:
     devDependencies:
       '@types/react':
         specifier: latest
-        version: 18.0.30
+        version: 18.0.37
       eslint:
         specifier: ^8.11.0
         version: 8.38.0
@@ -340,8 +377,8 @@ packages:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: true
 
-  /@types/react@18.0.30:
-    resolution: {integrity: sha512-AnME2cHDH11Pxt/yYX6r0w448BfTwQOLEhQEjCdwB7QskEI7EKtxhGUsExTQe/MsY3D9D5rMtu62WRocw9A8FA==}
+  /@types/react@18.0.37:
+    resolution: {integrity: sha512-4yaZZtkRN3ZIQD3KSEwkfcik8s0SWV+82dlJot1AbGYHCzJkWP3ENBY6wYeDRmKZ6HkrgoGAmR2HqdwYGp6OEw==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -2673,3 +2710,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod@3.21.4:
+    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
+    dev: false

@@ -8,9 +8,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "next telemetry disable"
   },
   "dependencies": {
+    "@acme/hello": "workspace:*",
     "@acme/price": "workspace:*",
     "@acme/ui": "workspace:*",
     "@acme/utils": "workspace:*",
