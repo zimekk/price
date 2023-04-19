@@ -2,6 +2,11 @@
   "repository": "https://github.com/vercel/examples.git",
   "license": "MIT",
   "private": true,
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -12,11 +17,17 @@
     "start": "turbo run start",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
-    "update:latest": "pnpm up -i"
+    "update:latest": "pnpm up -i",
+    "prepare": "husky install"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
     "eslint": "^8.38.0",
     "eslint-config-turbo": "latest",
+    "husky": "^8.0.3",
+    "prettier": "^2.8.7",
+    "pretty-quick": "^3.1.3",
     "turbo": "^1.9.3"
   }
 }
