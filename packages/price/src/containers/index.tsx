@@ -1,47 +1,12 @@
-import { useEffect,useMemo, useState,  } from 'react'
-import {z} from 'zod'
+import { useEffect, useMemo, useState } from "react";
+import dayjs from "dayjs";
+import { z } from "zod";
 
 function Loading() {
   return <div>Loading...</div>;
 }
 
-interface Item {
-  id:number;
-  item:string;
-}
-
-export function List({list}: {
-  list: Item[]
-}) {
-  const [show, setShow] = useState(false);
-
-  return (
-    <ul>
-    {(show ? list : list.slice(0, 1)).map((item) => (
-      <li key={item.id}>
-        <pre>{JSON.stringify(item, null, 2)}</pre>
-</li>
-))}
-{!show && list.length > 1 && (
-  <li><a href="#" onClick={e => (e.preventDefault(), setShow(true))}><pre>[...]</pre></a></li>
-)}
-</ul>
-)
-}
-
-export function Price(
-  ) {
-  const [data, setData] = useState<{result: Item[]} | null>(null);
-
-  useEffect(() => {
-    fetch("/api/price")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(z.object({
-          result: z.object({
-id: z.number(),
-item: z.string(),
-data: z.object({
+const DataSchema = z.object({
   name: z.string().optional(),
   unit: z.string(),
   brand: z.string(),
@@ -55,26 +20,153 @@ data: z.object({
   price: z.number(),
   oldPrice: z.number().optional(),
   lastLowestPrice: z.number().optional(),
-  })
-  ,
-created: z.string(),
-checked: z.string().nullable(),
-          })
-          .array()
-        })
-        .parse(data));
+  pictures: z
+    .object({
+      small: z.string(),
+    })
+    .array(),
+});
+
+const ItemSchema = z.object({
+  id: z.number(),
+  item: z.string(),
+  data: DataSchema,
+  created: z.string(),
+  checked: z.string().nullable(),
+});
+
+type Data = z.infer<typeof DataSchema>;
+
+type Item = z.infer<typeof ItemSchema>;
+
+function Gallery({ data }: { data: Data }) {
+  return (
+    <div style={{ marginRight: "1em" }}>
+      {data.pictures.slice(0, 1).map((item, key) => (
+        <img key={key} src={item.small} referrerPolicy="no-referrer" />
+      ))}
+    </div>
+  );
+}
+
+function Summary({ data }: { data: Data }) {
+  return (
+    <div>
+      <strong>{data.brand}</strong>
+      {data.name && <i>{` ${data.name}`}</i>}
+      <div>{data.caption}</div>
+    </div>
+  );
+}
+
+function Details({
+  data,
+  created,
+  checked,
+}: {
+  data: Data;
+  created: string;
+  checked: string | null;
+}) {
+  return (
+    <div style={{ borderTop: "1px solid lightgray", marginTop: ".25em" }}>
+      <div style={{ float: "right" }}>
+        <small>{dayjs(created).format("MMM D, YYYY H:mm")}</small>
+        {checked && (
+          <small> / {dayjs(checked).format("MMM D, YYYY H:mm")}</small>
+        )}
+      </div>
+      <strong>
+        {data.oldPrice && (
+          <span>
+            <span
+              style={{ color: "lightgray", textDecoration: "line-through" }}
+            >
+              {data.oldPrice}
+            </span>{" "}
+          </span>
+        )}
+        <span
+          style={{
+            color: data.oldPrice ? "orangered" : "darkslateblue",
+          }}
+        >
+          {data.price}
+        </span>
+      </strong>
+      {data.pricePerUnit && <span>{` ${data.pricePerUnit}`}</span>}
+      {data.lastLowestPrice && (
+        <small>{` (last lowest price: ${data.lastLowestPrice})`}</small>
+      )}
+    </div>
+  );
+}
+
+export function List({ list }: { list: Item[] }) {
+  const [show, setShow] = useState(false);
+
+  return (
+    <div style={{ display: "flex", margin: "1em 0" }}>
+      {list.slice(0, 1).map((item) => (
+        <Gallery key={item.id} data={item.data} />
+      ))}
+      <div style={{ flexGrow: 1 }}>
+        {(show ? list : list.slice(0, 1)).map((item, key) => (
+          <div key={item.id}>
+            {!key && <Summary data={item.data} />}
+            <Details
+              data={item.data}
+              created={item.created}
+              checked={item.checked}
+            />
+            {!show && list.length > 1 && (
+              <div>
+                <a
+                  href="#"
+                  onClick={(e) => (e.preventDefault(), setShow(true))}
+                >
+                  <pre>[...]</pre>
+                </a>
+              </div>
+            )}
+            {/* <pre>{JSON.stringify(item, null, 2)}</pre> */}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function Price() {
+  const [data, setData] = useState<{ result: Item[] } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/price")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(
+          z
+            .object({
+              result: ItemSchema.array(),
+            })
+            .parse(data)
+        );
       });
   }, []);
 
   const grouped = useMemo(
     () =>
-    (data ?data.result:[]).reduce(
-        (list, item) =>
-          Object.assign(list, {
-            [item.item]: (list[item.item] || []).concat(item),
-          }),
-        {} as Record<string, Item[]>
-      ),
+      Object.entries(
+        (data ? data.result : [])
+          .sort((a, b) => b.created.localeCompare(a.created))
+          .reduce(
+            (list, item) =>
+              Object.assign(list, {
+                [item.item]: (list[item.item] || []).concat(item),
+              }),
+            {} as Record<string, Item[]>
+          )
+      ).sort((a, b) => b[1][0].created.localeCompare(a[1][0].created)),
     [data]
   );
 
@@ -83,13 +175,12 @@ checked: z.string().nullable(),
   return (
     <section>
       <ol>
-      {Object.entries(grouped).map(([id, list]) => (
-                              <li key={id}>
-                              [{id}]
-                              <List list={list}/>
-              </li>
+        {grouped.map(([id, list]) => (
+          <li key={id}>
+            <List list={list} />
+          </li>
         ))}
       </ol>
     </section>
-  )
+  );
 }
