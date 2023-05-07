@@ -1,6 +1,19 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  type ChangeEventHandler,
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import dayjs from "dayjs";
+import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
+
+interface FiltersState {
+  search: string;
+}
 
 function Loading() {
   return <div>Loading...</div>;
@@ -114,6 +127,34 @@ function Details({
   );
 }
 
+function Filters({
+  filters,
+  setFilters,
+}: {
+  filters: FiltersState;
+  setFilters: Dispatch<SetStateAction<FiltersState>>;
+}) {
+  return (
+    <fieldset>
+      <label>
+        <span>Search</span>
+        <input
+          type="search"
+          value={filters.search}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                search: target.value,
+              })),
+            []
+          )}
+        />
+      </label>
+    </fieldset>
+  );
+}
+
 export function List({ list }: { list: Item[] }) {
   const [show, setShow] = useState(false);
 
@@ -151,6 +192,35 @@ export function List({ list }: { list: Item[] }) {
 
 export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
+  const [filters, setFilters] = useState<FiltersState>(() => ({
+    search: "",
+  }));
+
+  const [queries, setQueries] = useState(() => filters);
+  const search$ = useMemo(() => new Subject<any>(), []);
+
+  useEffect(() => {
+    const subscription = search$
+      .pipe(
+        map(({ search, ...filters }) =>
+          JSON.stringify({
+            ...queries,
+            ...filters,
+            search: search.toLowerCase().trim(),
+          })
+        ),
+        distinctUntilChanged(),
+        debounceTime(400)
+      )
+      .subscribe((filters) =>
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+      );
+    return () => subscription.unsubscribe();
+  }, [search$]);
+
+  useEffect(() => {
+    search$.next(filters);
+  }, [filters]);
 
   useEffect(() => {
     fetch("/api/price")
@@ -182,12 +252,27 @@ export function Price() {
     [data]
   );
 
-  if (data === null) return <Loading />;
+  const filtered = useMemo(
+    () =>
+      grouped.filter(
+        ([id, [{ data }]]) =>
+          queries.search === "" ||
+          queries.search === id ||
+          data.brand?.toLowerCase().match(queries.search) ||
+          data.name?.toLowerCase().match(queries.search) ||
+          data.caption?.toLowerCase().match(queries.search) ||
+          data.cmpDescription?.toLowerCase().match(queries.search)
+      ),
+    [queries, grouped]
+  );
 
+  if (data === null) return <Loading />;
+  console.log({ filters, filtered });
   return (
     <section>
+      <Filters filters={filters} setFilters={setFilters} />
       <ol>
-        {grouped.map(([id, list]) => (
+        {filtered.map(([id, list]) => (
           <li key={id}>
             <List list={list} />
           </li>

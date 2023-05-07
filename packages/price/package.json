@@ -37,6 +37,7 @@
     "@swc/helpers": "^0.4.12",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.7",
+    "rxjs": "^7.8.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
