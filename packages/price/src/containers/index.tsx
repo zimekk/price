@@ -12,6 +12,7 @@ const DataSchema = z.object({
   brand: z.string(),
   caption: z.string(),
   category: z.string(),
+  cmpDescription: z.string().optional(),
   availability: z.string(),
   pricePerUnit: z.string(),
   promotion: z.unknown(),
@@ -55,6 +56,17 @@ function Summary({ data }: { data: Data }) {
       <strong>{data.brand}</strong>
       {data.name && <i>{` ${data.name}`}</i>}
       <div>{data.caption}</div>
+      {data.cmpDescription && (
+        <div
+          style={{
+            fontSize: "small",
+            color: "orangered",
+            background: "lightyellow",
+          }}
+        >
+          {data.cmpDescription}
+        </div>
+      )}
     </div>
   );
 }
