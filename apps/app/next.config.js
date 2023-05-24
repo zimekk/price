@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // experimental: {
-    transpilePackages: ['@acme/hello'],
-    transpilePackages: ['@acme/price'],
-    transpilePackages: ['@acme/ui'],
-  // },
-}
+  transpilePackages: [
+    "@acme/euro",
+    "@acme/hello",
+    "@acme/ross",
+    "@acme/xkom",
+    "@acme/ui",
+  ],
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

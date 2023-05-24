@@ -1,43 +1,26 @@
-import { useState, useEffect } from 'react'
-import { Layout, Page, Text, List, Code } from '@vercel/examples-ui'
-import { Hello } from '@acme/hello'
-import { Price } from '@acme/price'
-import { Button } from '@acme/ui'
-import { matchingTextColor, randomColor } from '@acme/utils'
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Layout, Page, Text } from "@vercel/examples-ui";
+import { Hello } from "@acme/hello";
+import { Button } from "@acme/ui";
+import { matchingTextColor, randomColor } from "@acme/utils";
 
 export default function Index() {
-  const [bgColor, setBgColor] = useState('')
-  const [textColor, setTextColor] = useState('')
+  const [bgColor, setBgColor] = useState("");
+  const [textColor, setTextColor] = useState("");
   const changeColor = () => {
-    const bg = randomColor()
-    setBgColor(bg)
-    setTextColor(matchingTextColor(bg))
-  }
+    const bg = randomColor();
+    setBgColor(bg);
+    setTextColor(matchingTextColor(bg));
+  };
 
-  useEffect(changeColor, [])
+  useEffect(changeColor, []);
 
   return (
     <Page>
       <Text variant="h1" className="mb-6">
         Monorepo
       </Text>
-      <Text className="mb-4">
-        In this monorepo app we have a single site with two installed
-        dependencies that are available in the same repository.
-      </Text>
-      <List className="mb-4">
-        <li>
-          <Code>app</Code> is the current Next.js site you&apos;re looking at
-        </li>
-        <li>
-          <Code>packages/ui</Code> is a package that exports the button you see
-          below
-        </li>
-        <li>
-          <Code>packages/utils</Code> is a package that exports a function that
-          generates random colors. Click the button to see it in action
-        </li>
-      </List>
       {bgColor && textColor && (
         <>
           <Button
@@ -52,10 +35,11 @@ export default function Index() {
           </Button>
         </>
       )}
+      |<Link href="/ross">ross</Link>|<Link href="/euro">euro</Link>|
+      <Link href="/xkom">xkom</Link>
       <Hello />
-      <Price />
     </Page>
-  )
+  );
 }
 
-Index.Layout = Layout
+Index.Layout = Layout;

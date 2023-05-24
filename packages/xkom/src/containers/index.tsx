@@ -1,7 +1,7 @@
 import {
-  type ChangeEventHandler,
-  type Dispatch,
-  type SetStateAction,
+  ChangeEventHandler,
+  Dispatch,
+  SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -19,27 +19,59 @@ function Loading() {
   return <div>Loading...</div>;
 }
 
-const DataSchema = z.object({
-  name: z.string().optional(),
-  unit: z.string(),
-  brand: z.string(),
-  caption: z.string(),
-  category: z.string(),
-  cmpDescription: z.string().optional(),
-  availability: z.string(),
-  pricePerUnit: z.string(),
-  promotion: z.unknown(),
-  promotionTo: z.string().optional(),
-  promotionFrom: z.string().optional(),
-  price: z.number(),
-  oldPrice: z.number().optional(),
-  lastLowestPrice: z.number().optional(),
-  pictures: z
-    .object({
-      small: z.string(),
-    })
-    .array(),
+export const PhotoSchema = z.object({
+  url: z.string().optional(),
+  thumbnailUrl: z.string().optional(),
+  urlTemplate: z.string().optional(),
 });
+
+export const DataSchema = z
+  .object({
+    featureSummary: z.string().array().optional(),
+    featureSummaryStructured: z
+      .object({
+        shortName: z.string(),
+        description: z.string().nullable(),
+        valueSeparator: z.string(),
+        valueGroups: z
+          .object({ shortName: z.string(), description: z.string().nullable() })
+          .array(),
+      })
+      .array()
+      .optional(),
+    availabilityStatus: z.enum(["Available", "Unavailable"]).optional(),
+    producerCode: z.string().optional(),
+    freeInstallment: z.boolean().optional(),
+    installmentMinimum: z.number().optional(),
+    alternativeGroupId: z.string().optional(),
+    alternativeProducts: z.unknown().array().optional(),
+    mark: z.string().optional(),
+    oldPrice: z.number().optional(),
+    priceInfo: z.object({
+      price: z.number(),
+      oldPrice: z.number().nullable(),
+      isPriceVisible: z.boolean(),
+    }),
+    producer: z.object({ id: z.string(), name: z.string() }),
+    isEsd: z.boolean(),
+    esdType: z.string(),
+    productLink: z.string(),
+    photo: PhotoSchema,
+    rating: z.number().optional(),
+    ratingCount: z.number().optional(),
+    commentsCount: z.number().optional(),
+    freeShipping: z.boolean().optional(),
+    id: z.string(),
+    name: z.string(),
+    price: z.number(),
+    category: z.object({
+      id: z.string(),
+      parentGroupId: z.string().optional(),
+    }),
+    questionsAndAnswers: z.boolean(),
+    isFetching: z.boolean(),
+  })
+  .strict();
 
 const ItemSchema = z.object({
   id: z.number(),
@@ -56,8 +88,13 @@ type Item = z.infer<typeof ItemSchema>;
 function Gallery({ data }: { data: Data }) {
   return (
     <div style={{ marginRight: "1em" }}>
-      {data.pictures.slice(0, 1).map((item, key) => (
-        <img key={key} src={item.small} referrerPolicy="no-referrer" />
+      {[data.photo].map((item, key) => (
+        <img
+          key={key}
+          src={item.thumbnailUrl}
+          width="100"
+          referrerPolicy="no-referrer"
+        />
       ))}
     </div>
   );
@@ -66,20 +103,22 @@ function Gallery({ data }: { data: Data }) {
 function Summary({ data }: { data: Data }) {
   return (
     <div>
-      <strong>{data.brand}</strong>
+      <strong>{data.producer.name}</strong>
       {data.name && <i>{` ${data.name}`}</i>}
-      <div>{data.caption}</div>
-      {data.cmpDescription && (
-        <div
-          style={{
-            fontSize: "small",
-            color: "orangered",
-            background: "lightyellow",
-          }}
-        >
-          {data.cmpDescription}
-        </div>
-      )}
+      <div
+        style={{
+          fontSize: "small",
+        }}
+      >
+        {data.featureSummary && (
+          <ul>
+            {data.featureSummary?.map((text, key) => (
+              <li key={key}>{text}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
   );
 }
@@ -102,27 +141,31 @@ function Details({
         )}
       </div>
       <strong>
-        {data.oldPrice && (
+        {data.priceInfo.oldPrice && (
           <span>
             <span
               style={{ color: "lightgray", textDecoration: "line-through" }}
             >
-              {data.oldPrice}
+              {data.priceInfo.oldPrice}
             </span>{" "}
           </span>
         )}
         <span
           style={{
-            color: data.oldPrice ? "orangered" : "darkslateblue",
+            color: data.priceInfo.oldPrice ? "orangered" : "darkslateblue",
           }}
         >
-          {data.price}
+          {data.priceInfo.price}
         </span>
       </strong>
-      {data.pricePerUnit && <span>{` ${data.pricePerUnit}`}</span>}
-      {data.lastLowestPrice && (
-        <small>{` (last lowest price: ${data.lastLowestPrice})`}</small>
-      )}
+      {data.availabilityStatus && <span>{` ${data.availabilityStatus}`}</span>}
+      {data.freeShipping && <small>{` (FreeShipping)`}</small>}
+      {data.ratingCount ? (
+        <span>
+          {` / ${data.rating}`}
+          <small>{` (${data.ratingCount})`}</small>
+        </span>
+      ) : null}
     </div>
   );
 }
@@ -223,7 +266,7 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch("/api/price")
+    fetch("/api/xkom")
       .then((res) => res.json())
       .then((data) => {
         setData(
@@ -258,10 +301,8 @@ export function Price() {
         ([id, [{ data }]]) =>
           queries.search === "" ||
           queries.search === id ||
-          data.brand?.toLowerCase().match(queries.search) ||
-          data.name?.toLowerCase().match(queries.search) ||
-          data.caption?.toLowerCase().match(queries.search) ||
-          data.cmpDescription?.toLowerCase().match(queries.search)
+          data.producer.name?.toLowerCase().match(queries.search) ||
+          data.name?.toLowerCase().match(queries.search)
       ),
     [queries, grouped]
   );
