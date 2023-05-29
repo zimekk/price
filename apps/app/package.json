@@ -12,6 +12,7 @@
     "prepare": "next telemetry disable"
   },
   "dependencies": {
+    "@acme/auto": "workspace:*",
     "@acme/euro": "workspace:*",
     "@acme/hello": "workspace:*",
     "@acme/ross": "workspace:*",
