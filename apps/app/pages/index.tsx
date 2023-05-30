@@ -35,9 +35,9 @@ export default function Index() {
           </Button>
         </>
       )}
-      |<Link href="/rate">rate</Link>|<Link href="/ross">ross</Link>|
-      <Link href="/auto">auto</Link>|<Link href="/euro">euro</Link>|
-      <Link href="/xkom">xkom</Link>
+      |<Link href="/auto">auto</Link>|<Link href="/euro">euro</Link>|
+      <Link href="/plot">plot</Link>|<Link href="/rate">rate</Link>|
+      <Link href="/ross">ross</Link>|<Link href="/xkom">xkom</Link>
       <Hello />
     </Page>
   );
