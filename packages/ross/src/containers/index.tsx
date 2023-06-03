@@ -10,6 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
+import { LazyImage } from "@acme/components";
 
 interface FiltersState {
   search: string;
@@ -55,9 +56,9 @@ type Item = z.infer<typeof ItemSchema>;
 
 function Gallery({ data }: { data: Data }) {
   return (
-    <div style={{ marginRight: "1em" }}>
+    <div style={{ width: 120, height: 120, marginRight: "1em" }}>
       {data.pictures.slice(0, 1).map((item, key) => (
-        <img key={key} src={item.small} referrerPolicy="no-referrer" />
+        <LazyImage key={key} src={item.small} />
       ))}
     </div>
   );
@@ -163,7 +164,7 @@ export function List({ list }: { list: Item[] }) {
       {list.slice(0, 1).map((item) => (
         <Gallery key={item.id} data={item.data} />
       ))}
-      <div style={{ flexGrow: 1 }}>
+      <div style={{ flex: 1 }}>
         {(show ? list : list.slice(0, 1)).map((item, key) => (
           <div key={item.id}>
             {!key && <Summary data={item.data} />}

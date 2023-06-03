@@ -2,6 +2,7 @@
 const nextConfig = {
   transpilePackages: [
     "@acme/auto",
+    // "@acme/components",
     "@acme/euro",
     "@acme/hello",
     "@acme/ross",
