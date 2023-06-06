@@ -11,9 +11,13 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  return fetch(`${API_URL}/stock/v1`)
+  return fetch(
+    `${API_URL}/stock/v1?${new URLSearchParams({
+      limit: String(100),
+    })}`
+  )
     .then((res) => res.json())
     .then((data) =>
-      res.status(200).json({ result: data.result.splice(0, 50) })
+      res.status(200).json({ result: data.result.splice(0, 10000) })
     );
 }
