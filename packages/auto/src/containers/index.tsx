@@ -56,14 +56,14 @@ function Summary({ data }: { data: Data }) {
       >
         {data.ordering.distributionData.locationOutletNickname}
       </div>
-      <div
+      {/* <div
         style={{
           fontSize: "small",
         }}
       >
-        {data.equipments ? (
+        {data.vehicleSpecification.modelAndOption.equipments ? (
           <ul>
-            {Object.values(data.equipments).map(
+            {Object.values(data.vehicleSpecification.modelAndOption.equipments).map(
               ({ name, offerPriceGross }, key) => (
                 <li key={key}>
                   {name.pl_PL} <small>{offerPriceGross}</small>
@@ -72,7 +72,7 @@ function Summary({ data }: { data: Data }) {
             )}
           </ul>
         ) : null}
-      </div>
+      </div> */}
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
   );
@@ -237,14 +237,10 @@ export function Price() {
   useEffect(() => {
     fetch("/api/auto")
       .then((res) => res.json())
-      .then((data) => {
-        setData(
-          z
-            .object({
-              result: ItemSchema.array(),
-            })
-            .parse(data)
-        );
+      .then(({ result }: { result: Item[] }) => {
+        setData({
+          result,
+        });
       });
   }, []);
 

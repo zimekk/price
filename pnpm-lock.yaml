@@ -133,6 +133,9 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
     devDependencies:
+      '@types/node':
+        specifier: ^18.0.0
+        version: 18.11.9
       '@types/react':
         specifier: latest
         version: 18.2.8
