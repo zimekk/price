@@ -53,6 +53,9 @@ importers:
       '@acme/ross':
         specifier: workspace:*
         version: link:../../packages/ross
+      '@acme/sale':
+        specifier: workspace:*
+        version: link:../../packages/sale
       '@acme/shot':
         specifier: workspace:*
         version: link:../../packages/shot
@@ -352,6 +355,49 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
     devDependencies:
+      '@types/react':
+        specifier: latest
+        version: 18.2.9
+      eslint:
+        specifier: ^8.11.0
+        version: 8.38.0
+      typescript:
+        specifier: 5.1.3
+        version: 5.1.3
+
+  packages/sale:
+    dependencies:
+      '@acme/components':
+        specifier: workspace:*
+        version: link:../components
+      '@swc/helpers':
+        specifier: ^0.5.0
+        version: 0.5.1
+      clsx:
+        specifier: ^1.1.1
+        version: 1.2.1
+      dayjs:
+        specifier: ^1.11.7
+        version: 1.11.7
+      next:
+        specifier: '*'
+        version: 0.1.0
+      react:
+        specifier: ^17.0.0 || ^18.0.0-0
+        version: 18.2.0
+      react-dom:
+        specifier: ^17.0.0 || ^18.0.0-0
+        version: 18.2.0(react@18.2.0)
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@types/node':
+        specifier: ^18.0.0
+        version: 18.11.9
       '@types/react':
         specifier: latest
         version: 18.2.9

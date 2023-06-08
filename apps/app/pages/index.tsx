@@ -37,8 +37,8 @@ export default function Index() {
       )}
       |<Link href="/auto">auto</Link>|<Link href="/euro">euro</Link>|
       <Link href="/plot">plot</Link>|<Link href="/rate">rate</Link>|
-      <Link href="/ross">ross</Link>|<Link href="/shot">shot</Link>|
-      <Link href="/xkom">xkom</Link>
+      <Link href="/ross">ross</Link>|<Link href="/sale">sale</Link>|
+      <Link href="/shot">shot</Link>|<Link href="/xkom">xkom</Link>
       <Hello />
     </Page>
   );
