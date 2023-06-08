@@ -331,8 +331,8 @@ export function Price() {
         ({ id, data }) =>
           queries.search === "" ||
           queries.search === id ||
-          data.title.toLowerCase().match(queries.search) ||
-          data.location.pathName.toLowerCase().match(queries.search)
+          data.title.toLowerCase().includes(queries.search) ||
+          data.location.pathName.toLowerCase().includes(queries.search)
       ),
     [queries, grouped]
   );

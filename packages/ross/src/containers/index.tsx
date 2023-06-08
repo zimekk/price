@@ -259,10 +259,10 @@ export function Price() {
         ([id, [{ data }]]) =>
           queries.search === "" ||
           queries.search === id ||
-          data.brand?.toLowerCase().match(queries.search) ||
-          data.name?.toLowerCase().match(queries.search) ||
-          data.caption?.toLowerCase().match(queries.search) ||
-          data.cmpDescription?.toLowerCase().match(queries.search)
+          data.brand?.toLowerCase().includes(queries.search) ||
+          data.name?.toLowerCase().includes(queries.search) ||
+          data.caption?.toLowerCase().includes(queries.search) ||
+          data.cmpDescription?.toLowerCase().includes(queries.search)
       ),
     [queries, grouped]
   );

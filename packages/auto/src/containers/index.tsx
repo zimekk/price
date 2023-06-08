@@ -268,10 +268,10 @@ export function Price() {
             queries.search === id ||
             data.vehicleSpecification.modelAndOption.model.modelName
               .toLowerCase()
-              .match(queries.search) ||
+              .includes(queries.search) ||
             data.vehicleSpecification.modelAndOption.modelRange.name
               .toLowerCase()
-              .match(queries.search)) &&
+              .includes(queries.search)) &&
           (queries.availability === "" ||
             queries.availability === data.salesProcess.type)
       ),
