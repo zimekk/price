@@ -1,5 +1,6 @@
 import {
   ChangeEventHandler,
+  ComponentPropsWithoutRef,
   Dispatch,
   SetStateAction,
   useCallback,
@@ -43,6 +44,19 @@ function Gallery({ data }: { data: Data }) {
   );
 }
 
+export function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
+  const hash = href[0] === "#";
+
+  return (
+    <a
+      href={href}
+      target={hash ? undefined : "_blank"}
+      rel={hash ? undefined : "noopener noreferrer"}
+      {...props}
+    />
+  );
+}
+
 function Summary({ data }: { data: Data }) {
   return (
     <div>
@@ -54,7 +68,23 @@ function Summary({ data }: { data: Data }) {
           fontSize: "small",
         }}
       >
-        {data.ordering.distributionData.locationOutletNickname}
+        [
+        <Link
+          href={`#/details/${data.documentId}`}
+          onClick={(e) => {
+            const range = document.createRange();
+            e.preventDefault();
+            range.selectNode(e.target as HTMLElement);
+            ((selection) =>
+              selection &&
+              (selection.removeAllRanges(), selection.addRange(range)))(
+              window.getSelection()
+            );
+          }}
+        >
+          {data.documentId}
+        </Link>
+        ] {data.ordering.distributionData.locationOutletNickname}
       </div>
       {/* <div
         style={{
@@ -205,7 +235,7 @@ export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
     availability: TYPE[0],
-    search: "G01",
+    search: "M40i",
   }));
 
   const [queries, setQueries] = useState(() => filters);
