@@ -1,5 +1,6 @@
 import {
   ChangeEventHandler,
+  ComponentPropsWithoutRef,
   Dispatch,
   SetStateAction,
   useCallback,
@@ -11,48 +12,37 @@ import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { LazyImage } from "@acme/components";
+import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
   search: string;
+}
+
+function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
+  const hash = href[0] === "#";
+
+  return (
+    <a
+      href={href}
+      target={hash ? undefined : "_blank"}
+      rel={hash ? undefined : "noopener noreferrer"}
+      {...props}
+    />
+  );
 }
 
 function Loading() {
   return <div>Loading...</div>;
 }
 
-const DataSchema = z.object({
-  name: z.string().optional(),
-  unit: z.string(),
-  brand: z.string(),
-  caption: z.string(),
-  category: z.string(),
-  cmpDescription: z.string().optional(),
-  availability: z.string(),
-  pricePerUnit: z.string(),
-  promotion: z.unknown(),
-  promotionTo: z.string().optional(),
-  promotionFrom: z.string().optional(),
-  price: z.number(),
-  oldPrice: z.number().optional(),
-  lastLowestPrice: z.number().optional(),
-  pictures: z
-    .object({
-      small: z.string(),
-    })
-    .array(),
-});
-
-const ItemSchema = z.object({
-  id: z.number(),
-  item: z.string(),
-  data: DataSchema,
-  created: z.string(),
-  checked: z.string().nullable(),
-});
-
 type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
+
+const formatPrice = (price: number) =>
+  `${new Intl.NumberFormat("pl-PL", {
+    minimumFractionDigits: 2,
+  }).format(price)} zł`;
 
 function Gallery({ data }: { data: Data }) {
   return (
@@ -67,6 +57,24 @@ function Gallery({ data }: { data: Data }) {
 function Summary({ data }: { data: Data }) {
   return (
     <div>
+      <div style={{ float: "right", fontSize: "small" }}>
+        #
+        <Link
+          href={`#${data.id}`}
+          onClick={(e) => {
+            const range = document.createRange();
+            e.preventDefault();
+            range.selectNode(e.target as HTMLElement);
+            ((selection) =>
+              selection &&
+              (selection.removeAllRanges(), selection.addRange(range)))(
+              window.getSelection()
+            );
+          }}
+        >
+          {data.id}
+        </Link>
+      </div>
       <strong>{data.brand}</strong>
       {data.name && <i>{` ${data.name}`}</i>}
       <div>{data.caption}</div>
@@ -108,7 +116,7 @@ function Details({
             <span
               style={{ color: "lightgray", textDecoration: "line-through" }}
             >
-              {data.oldPrice}
+              {formatPrice(data.oldPrice)}
             </span>{" "}
           </span>
         )}
@@ -117,12 +125,14 @@ function Details({
             color: data.oldPrice ? "orangered" : "darkslateblue",
           }}
         >
-          {data.price}
+          {formatPrice(data.price)}
         </span>
       </strong>
       {data.pricePerUnit && <span>{` ${data.pricePerUnit}`}</span>}
       {data.lastLowestPrice && (
-        <small>{` (last lowest price: ${data.lastLowestPrice})`}</small>
+        <small>{` (last lowest price: ${formatPrice(
+          data.lastLowestPrice
+        )})`}</small>
       )}
     </div>
   );
@@ -268,10 +278,15 @@ export function Price() {
   );
 
   if (data === null) return <Loading />;
-  console.log({ filters, filtered });
+  console.log({ result: data.result, filters, filtered });
   return (
     <section>
       <Filters filters={filters} setFilters={setFilters} />
+      <small>
+        {filtered.length === grouped.length
+          ? `Showing all of ${grouped.length}`
+          : `Found ${filtered.length} items out of a total of ${grouped.length}`}
+      </small>
       <ol>
         {filtered.map(([id, list]) => (
           <li key={id}>
