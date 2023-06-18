@@ -60,15 +60,8 @@ export function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
 function Summary({ data }: { data: Data }) {
   return (
     <div>
-      <strong>{data.vehicleSpecification.modelAndOption.brand}</strong>
-      <i>{` ${data.vehicleSpecification.modelAndOption.model.modelName}`}</i>
-      <small>{` (${data.vehicleSpecification.modelAndOption.modelRange.name})`}</small>
-      <div
-        style={{
-          fontSize: "small",
-        }}
-      >
-        [
+      <div style={{ float: "right", fontSize: "small" }}>
+        #
         <Link
           href={`#/details/${data.documentId}`}
           onClick={(e) => {
@@ -84,7 +77,16 @@ function Summary({ data }: { data: Data }) {
         >
           {data.documentId}
         </Link>
-        ] {data.ordering.distributionData.locationOutletNickname}
+      </div>
+      <strong>{data.vehicleSpecification.modelAndOption.brand}</strong>
+      <i>{` ${data.vehicleSpecification.modelAndOption.model.modelName}`}</i>
+      <small>{` (${data.vehicleSpecification.modelAndOption.modelRange.name})`}</small>
+      <div
+        style={{
+          fontSize: "small",
+        }}
+      >
+        {data.ordering.distributionData.locationOutletNickname}
       </div>
       {/* <div
         style={{
@@ -309,10 +311,15 @@ export function Price() {
   );
 
   if (data === null) return <Loading />;
-  console.log({ data, filters, filtered });
+  console.log({ result: data.result, filters, filtered, grouped });
   return (
     <section>
       <Filters filters={filters} setFilters={setFilters} />
+      <small>
+        {filtered.length === grouped.length
+          ? `Showing all of ${grouped.length}`
+          : `Found ${filtered.length} items out of a total of ${grouped.length}`}
+      </small>
       <ol>
         {filtered.map(([id, list]) => (
           <li key={id}>
