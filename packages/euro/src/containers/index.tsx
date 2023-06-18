@@ -1,5 +1,6 @@
 import {
   ChangeEventHandler,
+  ComponentPropsWithoutRef,
   Dispatch,
   SetStateAction,
   useCallback,
@@ -17,6 +18,19 @@ interface FiltersState {
   search: string;
 }
 
+function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
+  const hash = href[0] === "#";
+
+  return (
+    <a
+      href={href}
+      target={hash ? undefined : "_blank"}
+      rel={hash ? undefined : "noopener noreferrer"}
+      {...props}
+    />
+  );
+}
+
 function Loading() {
   return <div>Loading...</div>;
 }
@@ -24,6 +38,11 @@ function Loading() {
 type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
+
+const formatPrice = (price: number) =>
+  `${new Intl.NumberFormat("pl-PL", {
+    minimumFractionDigits: 2,
+  }).format(price)} zł`;
 
 function Gallery({ data }: { data: Data }) {
   return (
@@ -41,6 +60,24 @@ function Gallery({ data }: { data: Data }) {
 function Summary({ data }: { data: Data }) {
   return (
     <div>
+      <div style={{ float: "right", fontSize: "small" }}>
+        #
+        <Link
+          href={`#${data.identifiers.plu}`}
+          onClick={(e) => {
+            const range = document.createRange();
+            e.preventDefault();
+            range.selectNode(e.target as HTMLElement);
+            ((selection) =>
+              selection &&
+              (selection.removeAllRanges(), selection.addRange(range)))(
+              window.getSelection()
+            );
+          }}
+        >
+          {data.identifiers.plu}
+        </Link>
+      </div>
       <strong>{data.brand}</strong>
       {data.name && <i>{` ${data.name}`}</i>}
       <div>{data.productGroupName}</div>
@@ -72,7 +109,7 @@ function Details({
             <span
               style={{ color: "lightgray", textDecoration: "line-through" }}
             >
-              {data.prices.mainPrice}
+              {formatPrice(data.prices.mainPrice)}
             </span>{" "}
           </span>
         )}
@@ -81,16 +118,24 @@ function Details({
             color: data.prices.promotionalPrice ? "orangered" : "darkslateblue",
           }}
         >
-          {data.prices.promotionalPrice
-            ? data.prices.promotionalPrice.price
-            : data.prices.mainPrice}
+          {formatPrice(
+            data.prices.promotionalPrice
+              ? data.prices.promotionalPrice.price
+              : data.prices.mainPrice
+          )}
           {data.prices.promotionalPrice && (
-            <small>{`${data.prices.promotionalPrice.fromDatetime} - ${data.prices.promotionalPrice.toDatetime}`}</small>
+            <small>{`${dayjs(data.prices.promotionalPrice.fromDatetime).format(
+              "MMM D, YYYY H:mm"
+            )} - ${dayjs(data.prices.promotionalPrice.toDatetime).format(
+              "MMM D, YYYY H:mm"
+            )}`}</small>
           )}
         </span>
       </strong>
       {data.prices.lowestPrice.price && (
-        <small>{` (last lowest price: ${data.prices.lowestPrice.price})`}</small>
+        <small>{` (last lowest price: ${formatPrice(
+          data.prices.lowestPrice.price
+        )})`}</small>
       )}
       {data.deliveryPriceMessage && (
         <span>{` ${data.deliveryPriceMessage}`}</span>
@@ -237,10 +282,15 @@ export function Price() {
   );
 
   if (data === null) return <Loading />;
-  console.log({ filters, filtered });
+  console.log({ result: data.result, filters, filtered });
   return (
     <section>
       <Filters filters={filters} setFilters={setFilters} />
+      <small>
+        {filtered.length === grouped.length
+          ? `Showing all of ${grouped.length}`
+          : `Found ${filtered.length} items out of a total of ${grouped.length}`}
+      </small>
       <ol>
         {filtered.map(([id, list]) => (
           <li key={id}>
