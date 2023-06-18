@@ -11,80 +11,37 @@ import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { LazyImage } from "@acme/components";
+import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
   search: string;
+}
+
+function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
+  const hash = href[0] === "#";
+
+  return (
+    <a
+      href={href}
+      target={hash ? undefined : "_blank"}
+      rel={hash ? undefined : "noopener noreferrer"}
+      {...props}
+    />
+  );
 }
 
 function Loading() {
   return <div>Loading...</div>;
 }
 
-export const PhotoSchema = z.object({
-  url: z.string().optional(),
-  thumbnailUrl: z.string().optional(),
-  urlTemplate: z.string().optional(),
-});
-
-export const DataSchema = z
-  .object({
-    featureSummary: z.string().array().optional(),
-    featureSummaryStructured: z
-      .object({
-        shortName: z.string(),
-        description: z.string().nullable(),
-        valueSeparator: z.string(),
-        valueGroups: z
-          .object({ shortName: z.string(), description: z.string().nullable() })
-          .array(),
-      })
-      .array()
-      .optional(),
-    availabilityStatus: z.enum(["Available", "Unavailable"]).optional(),
-    producerCode: z.string().optional(),
-    freeInstallment: z.boolean().optional(),
-    installmentMinimum: z.number().optional(),
-    alternativeGroupId: z.string().optional(),
-    alternativeProducts: z.unknown().array().optional(),
-    mark: z.string().optional(),
-    oldPrice: z.number().optional(),
-    priceInfo: z.object({
-      price: z.number(),
-      oldPrice: z.number().nullable(),
-      isPriceVisible: z.boolean(),
-    }),
-    producer: z.object({ id: z.string(), name: z.string() }),
-    isEsd: z.boolean(),
-    esdType: z.string(),
-    productLink: z.string(),
-    photo: PhotoSchema,
-    rating: z.number().optional(),
-    ratingCount: z.number().optional(),
-    commentsCount: z.number().optional(),
-    freeShipping: z.boolean().optional(),
-    id: z.string(),
-    name: z.string(),
-    price: z.number(),
-    category: z.object({
-      id: z.string(),
-      parentGroupId: z.string().optional(),
-    }),
-    questionsAndAnswers: z.boolean(),
-    isFetching: z.boolean(),
-  })
-  .strict();
-
-const ItemSchema = z.object({
-  id: z.number(),
-  item: z.string(),
-  data: DataSchema,
-  created: z.string(),
-  checked: z.string().nullable(),
-});
-
 type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
+
+const formatPrice = (price: number) =>
+  `${new Intl.NumberFormat("pl-PL", {
+    minimumFractionDigits: 2,
+  }).format(price)} zł`;
 
 function Gallery({ data }: { data: Data }) {
   return (
@@ -100,6 +57,24 @@ function Gallery({ data }: { data: Data }) {
 function Summary({ data }: { data: Data }) {
   return (
     <div>
+      <div style={{ float: "right", fontSize: "small" }}>
+        #
+        <Link
+          href={`#${data.id}`}
+          onClick={(e) => {
+            const range = document.createRange();
+            e.preventDefault();
+            range.selectNode(e.target as HTMLElement);
+            ((selection) =>
+              selection &&
+              (selection.removeAllRanges(), selection.addRange(range)))(
+              window.getSelection()
+            );
+          }}
+        >
+          {data.id}
+        </Link>
+      </div>
       <strong>{data.producer.name}</strong>
       {data.name && <i>{` ${data.name}`}</i>}
       <div
@@ -143,7 +118,7 @@ function Details({
             <span
               style={{ color: "lightgray", textDecoration: "line-through" }}
             >
-              {data.priceInfo.oldPrice}
+              {formatPrice(data.priceInfo.oldPrice)}
             </span>{" "}
           </span>
         )}
@@ -152,7 +127,7 @@ function Details({
             color: data.priceInfo.oldPrice ? "orangered" : "darkslateblue",
           }}
         >
-          {data.priceInfo.price}
+          {formatPrice(data.priceInfo.price)}
         </span>
       </strong>
       {data.availabilityStatus && <span>{` ${data.availabilityStatus}`}</span>}
@@ -305,10 +280,15 @@ export function Price() {
   );
 
   if (data === null) return <Loading />;
-  console.log({ filters, filtered });
+  console.log({ result: data.result, filters, filtered });
   return (
     <section>
       <Filters filters={filters} setFilters={setFilters} />
+      <small>
+        {filtered.length === grouped.length
+          ? `Showing all of ${grouped.length}`
+          : `Found ${filtered.length} items out of a total of ${grouped.length}`}
+      </small>
       <ol>
         {filtered.map(([id, list]) => (
           <li key={id}>
