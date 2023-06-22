@@ -41,12 +41,7 @@ export const DataSchema = z.object({
   productGroupName: z.string(),
   productType: z.string(),
   deliveryAvailability: z.object({
-    shopDeliveryAvailability: z
-      .object({
-        code: z.string(),
-        deliveryDate: z.null(),
-      })
-      .nullable(),
+    shopDeliveryAvailability: DeliveryAvailability.nullable(),
     homeDeliveryAvailability: DeliveryAvailability.nullable(),
     commonDeliveryAvailability: DeliveryAvailability.nullable(),
     reserveAndCollectAvailable: z.boolean(),
@@ -131,7 +126,12 @@ export const DataSchema = z.object({
       automatic: z.boolean(),
       beginTime: z.string(),
       endTime: z.string(),
-      usageLimit: z.null(),
+      usageLimit: z
+        .object({
+          remainingUsageLimit: z.number(),
+          totalUsageLimit: z.number(),
+        })
+        .nullable(),
       description: z.string(),
     })
     .nullable(),
