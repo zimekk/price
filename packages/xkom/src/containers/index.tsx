@@ -49,6 +49,12 @@ type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
 
+type Meta = {
+  minPrice: number;
+  maxPrice: number;
+  minPriceChanged: number;
+};
+
 const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
     minimumFractionDigits: 2,
@@ -243,7 +249,7 @@ function Filters({
   );
 }
 
-export function List({ list }: { list: Item[] }) {
+export function List({ list, meta }: { list: Item[]; meta: Meta }) {
   const [show, setShow] = useState(false);
 
   return (
@@ -252,6 +258,9 @@ export function List({ list }: { list: Item[] }) {
         <Gallery key={item.id} data={item.data} />
       ))}
       <div style={{ flex: 1 }}>
+        {/* [{meta.minPrice}]
+        [{meta.maxPrice}]
+        [{dayjs(meta.minPriceChanged).format("MMM D, YYYY H:mm")}] */}
         {(show ? list : list.slice(0, 1)).map((item, key) => (
           <div key={item.id}>
             {!key && <Summary data={item.data} />}
@@ -339,7 +348,33 @@ export function Price() {
               }),
             {} as Record<string, Item[]>
           )
-      ).sort((a, b) => b[1][0].created.localeCompare(a[1][0].created)),
+      )
+        .map(
+          ([item, list]) =>
+            [
+              item,
+              list,
+              list.reduce(
+                (meta, { data, created }) =>
+                  Object.assign(
+                    meta,
+                    data.price <= meta.minPrice && {
+                      minPrice: data.price,
+                      minPriceChanged: new Date(created).getTime(),
+                    },
+                    data.price > meta.maxPrice && {
+                      maxPrice: data.price,
+                    }
+                  ),
+                {
+                  minPrice: Infinity,
+                  maxPrice: 0,
+                  minPriceChanged: 0,
+                }
+              ),
+            ] as [string, Item[], Meta]
+        )
+        .sort((a, b) => b[2].minPriceChanged - a[2].minPriceChanged),
     [data]
   );
 
@@ -393,9 +428,9 @@ export function Price() {
           : `Found ${filtered.length} items out of a total of ${grouped.length}`}
       </small>
       <ol>
-        {filtered.map(([id, list]) => (
+        {filtered.map(([id, list, meta]) => (
           <li key={id}>
-            <List list={list} />
+            <List list={list} meta={meta} />
           </li>
         ))}
       </ol>
