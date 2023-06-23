@@ -15,7 +15,14 @@ import { LazyImage } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
+  brand: string;
+  group: string;
   search: string;
+}
+
+interface OptionsState {
+  brand: string[];
+  group: string[];
 }
 
 function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
@@ -144,14 +151,56 @@ function Details({
 }
 
 function Filters({
+  options,
   filters,
   setFilters,
 }: {
+  options: OptionsState;
   filters: FiltersState;
   setFilters: Dispatch<SetStateAction<FiltersState>>;
 }) {
   return (
     <fieldset>
+      <label>
+        <span>Brand</span>
+        <select
+          value={filters.brand}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                brand: target.value,
+              })),
+            []
+          )}
+        >
+          {[""].concat(options.brand).map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label>
+        <span>Group</span>
+        <select
+          value={filters.group}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                group: target.value,
+              })),
+            []
+          )}
+        >
+          {[""].concat(options.group).map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </label>
       <label>
         <span>Search</span>
         <input
@@ -209,6 +258,8 @@ export function List({ list }: { list: Item[] }) {
 export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
+    brand: "",
+    group: "",
     search: "",
   }));
 
@@ -272,19 +323,46 @@ export function Price() {
     () =>
       grouped.filter(
         ([id, [{ data }]]) =>
-          queries.search === "" ||
-          queries.search === id ||
-          data.producer.name?.toLowerCase().includes(queries.search) ||
-          data.name?.toLowerCase().includes(queries.search)
+          (queries.search === "" ||
+            queries.search === id ||
+            data.producer.name?.toLowerCase().includes(queries.search) ||
+            data.name?.toLowerCase().includes(queries.search)) &&
+          [data.producer.name, ""].includes(queries.brand) &&
+          [data.category.id, ""].includes(queries.group)
       ),
     [queries, grouped]
   );
 
+  const options = useMemo(
+    () =>
+      Object.entries(
+        (data ? data.result : []).reduce(
+          (options, { data }) =>
+            Object.assign(options, {
+              brand: Object.assign(options.brand || {}, {
+                [data.producer.name]: true,
+              }),
+              group: Object.assign(options.group || {}, {
+                [data.category.id]: true,
+              }),
+            }),
+          {} as OptionsState
+        )
+      ).reduce(
+        (options, [key, value]) =>
+          Object.assign(options, {
+            [key]: Object.keys(value).sort(),
+          }),
+        {} as OptionsState
+      ),
+    [data]
+  );
+
   if (data === null) return <Loading />;
-  console.log({ result: data.result, filters, filtered });
+  console.log({ result: data.result, options, filters, filtered });
   return (
     <section>
-      <Filters filters={filters} setFilters={setFilters} />
+      <Filters options={options} filters={filters} setFilters={setFilters} />
       <small>
         {filtered.length === grouped.length
           ? `Showing all of ${grouped.length}`
