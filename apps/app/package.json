@@ -17,6 +17,7 @@
     "@acme/hello": "workspace:*",
     "@acme/plot": "workspace:*",
     "@acme/rate": "workspace:*",
+    "@acme/real": "workspace:*",
     "@acme/ross": "workspace:*",
     "@acme/sale": "workspace:*",
     "@acme/shot": "workspace:*",
