@@ -18,12 +18,15 @@ interface FiltersState {
   brand: string;
   group: string;
   search: string;
+  limit: number;
 }
 
 interface OptionsState {
   brand: string[];
   group: string[];
 }
+
+const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
 
 function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
   const hash = href[0] === "#";
@@ -216,6 +219,26 @@ function Filters({
           )}
         />
       </label>
+      <label>
+        <span>Limit</span>
+        <select
+          value={String(filters.limit)}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                limit: Number(target.value),
+              })),
+            []
+          )}
+        >
+          {LIMIT.map((value) => (
+            <option key={value} value={String(value)}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </label>
     </fieldset>
   );
 }
@@ -261,6 +284,7 @@ export function Price() {
     brand: "",
     group: "",
     search: "",
+    limit: LIMIT[0],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -290,7 +314,7 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch("/api/xkom")
+    fetch(`/api/xkom?limit=${filters.limit}`)
       .then((res) => res.json())
       .then((data) => {
         setData(
@@ -301,7 +325,7 @@ export function Price() {
             .parse(data)
         );
       });
-  }, []);
+  }, [filters.limit]);
 
   const grouped = useMemo(
     () =>
