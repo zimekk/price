@@ -1,8 +1,7 @@
 import {
-  ChangeEventHandler,
-  ComponentPropsWithoutRef,
-  Dispatch,
-  SetStateAction,
+  type ChangeEventHandler,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -12,12 +11,14 @@ import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { LazyImage } from "@acme/components";
+import { Link, Loading, formatPrice, getPercentage } from "@acme/xkom";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
   search: string;
   brand: string;
   group: string;
+  limit: number;
 }
 
 interface OptionsState {
@@ -25,31 +26,23 @@ interface OptionsState {
   group: string[];
 }
 
-function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
-  const hash = href[0] === "#";
-
-  return (
-    <a
-      href={href}
-      target={hash ? undefined : "_blank"}
-      rel={hash ? undefined : "noopener noreferrer"}
-      {...props}
-    />
-  );
-}
-
-function Loading() {
-  return <div>Loading...</div>;
-}
-
 type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
 
-const formatPrice = (price: number) =>
-  `${new Intl.NumberFormat("pl-PL", {
-    minimumFractionDigits: 2,
-  }).format(price)} zł`;
+type Meta = {
+  minPrice: number;
+  maxPrice: number;
+  minPriceChanged: number;
+};
+
+const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
+
+const getPromotionalPrice = ({
+  promotionalPrice,
+  voucherDiscountedPrice,
+}: Data["prices"]) =>
+  promotionalPrice ? promotionalPrice.price : voucherDiscountedPrice;
 
 function Gallery({ data }: { data: Data }) {
   return (
@@ -102,6 +95,8 @@ function Details({
   created: string;
   checked: string | null;
 }) {
+  const promotionalPrice = getPromotionalPrice(data.prices);
+
   return (
     <div style={{ borderTop: "1px solid lightgray", marginTop: ".25em" }}>
       <div style={{ float: "right" }}>
@@ -111,7 +106,7 @@ function Details({
         )}
       </div>
       <strong>
-        {data.prices.promotionalPrice && (
+        {promotionalPrice && (
           <span>
             <span
               style={{ color: "lightgray", textDecoration: "line-through" }}
@@ -122,13 +117,21 @@ function Details({
         )}
         <span
           style={{
-            color: data.prices.promotionalPrice ? "orangered" : "darkslateblue",
+            color: promotionalPrice ? "orangered" : "darkslateblue",
           }}
         >
           {formatPrice(
-            data.prices.promotionalPrice
-              ? data.prices.promotionalPrice.price
-              : data.prices.mainPrice
+            promotionalPrice ? promotionalPrice : data.prices.mainPrice
+          )}
+          {promotionalPrice && (
+            <small>{` (${new Intl.NumberFormat("pl-PL", {
+              maximumFractionDigits: 2,
+            }).format(
+              getPercentage({
+                oldPrice: data.prices.mainPrice,
+                price: promotionalPrice,
+              })
+            )}%)`}</small>
           )}
           {data.prices.promotionalPrice && (
             <small>{`${dayjs(data.prices.promotionalPrice.fromDatetime).format(
@@ -217,11 +220,31 @@ function Filters({
           )}
         />
       </label>
+      <label>
+        <span>Limit</span>
+        <select
+          value={String(filters.limit)}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                limit: Number(target.value),
+              })),
+            []
+          )}
+        >
+          {LIMIT.map((value) => (
+            <option key={value} value={String(value)}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </label>
     </fieldset>
   );
 }
 
-export function List({ list }: { list: Item[] }) {
+export function List({ list, meta }: { list: Item[]; meta: Meta }) {
   const [show, setShow] = useState(false);
 
   return (
@@ -230,6 +253,9 @@ export function List({ list }: { list: Item[] }) {
         <Gallery key={item.id} data={item.data} />
       ))}
       <div style={{ flex: 1 }}>
+        {/* [{meta.minPrice}]
+        [{meta.maxPrice}]
+        [{dayjs(meta.minPriceChanged).format("MMM D, YYYY H:mm")}] */}
         {(show ? list : list.slice(0, 1)).map((item, key) => (
           <div key={item.id}>
             {!key && <Summary data={item.data} />}
@@ -262,6 +288,7 @@ export function Price() {
     brand: "",
     group: "",
     search: "",
+    limit: LIMIT[0],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -291,7 +318,7 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch("/api/euro")
+    fetch(`/api/euro?limit=${filters.limit}`)
       .then((res) => res.json())
       .then((data) => {
         setData(
@@ -302,7 +329,7 @@ export function Price() {
             .parse(data)
         );
       });
-  }, []);
+  }, [filters.limit]);
 
   const grouped = useMemo(
     () =>
@@ -316,7 +343,36 @@ export function Price() {
               }),
             {} as Record<string, Item[]>
           )
-      ).sort((a, b) => b[1][0].created.localeCompare(a[1][0].created)),
+      )
+        .map(
+          ([item, list]) =>
+            [
+              item,
+              list,
+              list.reduce(
+                (meta, { data, created }) =>
+                  ((price: number) =>
+                    Object.assign(
+                      meta,
+                      price <= meta.minPrice && {
+                        minPrice: price,
+                        minPriceChanged: new Date(created).getTime(),
+                      },
+                      price > meta.maxPrice && {
+                        maxPrice: price,
+                      }
+                    ))(
+                    getPromotionalPrice(data.prices) || data.prices.mainPrice
+                  ),
+                {
+                  minPrice: Infinity,
+                  maxPrice: 0,
+                  minPriceChanged: 0,
+                }
+              ),
+            ] as [string, Item[], Meta]
+        )
+        .sort((a, b) => b[2].minPriceChanged - a[2].minPriceChanged),
     [data]
   );
 
@@ -360,7 +416,7 @@ export function Price() {
   );
 
   if (data === null) return <Loading />;
-  console.log({ result: data.result, filters, filtered });
+  console.log({ result: data.result, options, filters, filtered });
   return (
     <section>
       <Filters options={options} filters={filters} setFilters={setFilters} />
@@ -370,9 +426,9 @@ export function Price() {
           : `Found ${filtered.length} items out of a total of ${grouped.length}`}
       </small>
       <ol>
-        {filtered.map(([id, list]) => (
+        {filtered.map(([id, list, meta]) => (
           <li key={id}>
-            <List list={list} />
+            <List list={list} meta={meta} />
           </li>
         ))}
       </ol>

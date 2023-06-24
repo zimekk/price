@@ -62,7 +62,7 @@ function Gallery({ data }: { data: Data }) {
   );
 }
 
-function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
+export function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
   const hash = href[0] === "#";
 
   return (
@@ -75,7 +75,7 @@ function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
   );
 }
 
-function Loading() {
+export function Loading() {
   return <div>Loading...</div>;
 }
 
