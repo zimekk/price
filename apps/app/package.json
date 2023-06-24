@@ -15,6 +15,7 @@
     "@acme/auto": "workspace:*",
     "@acme/euro": "workspace:*",
     "@acme/hello": "workspace:*",
+    "@acme/moto": "workspace:*",
     "@acme/plot": "workspace:*",
     "@acme/rate": "workspace:*",
     "@acme/real": "workspace:*",

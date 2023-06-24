@@ -28,35 +28,28 @@ interface OptionsState {
 
 type Data = z.infer<typeof DataSchema>;
 
-type Item = z.infer<typeof ItemSchema>;
+type Item = z.infer<typeof ItemSchema> & {
+  item: string;
+  checked: string | null;
+};
 
 type Meta = {
-  minPrice: number;
-  maxPrice: number;
-  minPriceChanged: number;
+  created: number;
 };
 
 const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
 
-export const formatPrice = (price: number) =>
-  `${new Intl.NumberFormat("pl-PL", {
+const formatPrice = (price: number) =>
+  new Intl.NumberFormat("pl-PL", {
     minimumFractionDigits: 2,
-  }).format(price)} zł`;
-
-export const getPercentage = ({
-  price,
-  oldPrice = price,
-}: {
-  price: number;
-  oldPrice: number | null;
-}) => (oldPrice !== null ? (price / oldPrice - 1) * 100 : 0);
+  }).format(price);
 
 function Gallery({ data }: { data: Data }) {
   return (
     <div style={{ width: 120, height: 120, marginRight: "1em" }}>
-      {[data.photo].map(
-        (item, key) =>
-          item.thumbnailUrl && <LazyImage key={key} src={item.thumbnailUrl} />
+      {[data.thumbnail].map(
+        (thumbnail, key) =>
+          thumbnail && <LazyImage key={key} src={thumbnail.x1} />
       )}
     </div>
   );
@@ -100,17 +93,18 @@ function Summary({ data }: { data: Data }) {
           {data.id}
         </Link>
       </div>
-      <strong>{data.producer.name}</strong>
-      {data.name && <i>{` ${data.name}`}</i>}
+      <strong>{data.title}</strong>
+      {/* {data.name && <i>{` ${data.name}`}</i>} */}
       <div
         style={{
           fontSize: "small",
         }}
       >
-        {data.featureSummary && (
+        <div>{data.shortDescription}</div>
+        {data.parameters && (
           <ul>
-            {data.featureSummary?.map((text, key) => (
-              <li key={key}>{text}</li>
+            {data.parameters.map(({ key, displayValue }) => (
+              <li key={key}>{`${key}: ${displayValue}`}</li>
             ))}
           </ul>
         )}
@@ -138,36 +132,24 @@ function Details({
         )}
       </div>
       <strong>
-        {data.priceInfo.oldPrice && (
-          <span>
-            <span
-              style={{ color: "lightgray", textDecoration: "line-through" }}
-            >
-              {formatPrice(data.priceInfo.oldPrice)}
-            </span>{" "}
-          </span>
-        )}
         <span
           style={{
-            color: data.priceInfo.oldPrice ? "orangered" : "darkslateblue",
+            color: "darkslateblue",
           }}
         >
-          {formatPrice(data.priceInfo.price)}
-          {data.priceInfo.oldPrice && (
-            <small>{` (${new Intl.NumberFormat("pl-PL", {
-              maximumFractionDigits: 2,
-            }).format(getPercentage(data.priceInfo))}%)`}</small>
-          )}
+          {formatPrice(data.price.amount.units)}
+          <small> {data.price.amount.currencyCode}</small>
         </span>
       </strong>
-      {data.availabilityStatus && <span>{` ${data.availabilityStatus}`}</span>}
+      <small> ({data.priceEvaluation.indicator})</small>
+      {/* {data.availabilityStatus && <span>{` ${data.availabilityStatus}`}</span>}
       {data.freeShipping && <small>{` (FreeShipping)`}</small>}
       {data.ratingCount ? (
         <span>
           {` / ${data.rating}`}
           <small>{` (${data.ratingCount})`}</small>
         </span>
-      ) : null}
+      ) : null} */}
     </div>
   );
 }
@@ -183,7 +165,7 @@ function Filters({
 }) {
   return (
     <fieldset>
-      <label>
+      {/* <label>
         <span>Brand</span>
         <select
           value={filters.brand}
@@ -222,7 +204,7 @@ function Filters({
             </option>
           ))}
         </select>
-      </label>
+      </label> */}
       <label>
         <span>Search</span>
         <input
@@ -306,7 +288,7 @@ export function Price() {
     brand: "",
     group: "",
     search: "",
-    limit: LIMIT[2],
+    limit: LIMIT[0],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -336,13 +318,19 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch(`/api/xkom?limit=${filters.limit}`)
+    fetch(`/api/moto?limit=${filters.limit}`)
       .then((res) => res.json())
       .then((data) => {
         setData(
           z
             .object({
-              result: ItemSchema.array(),
+              result: ItemSchema.transform((item) =>
+                Object.assign(item, {
+                  id: Number(item.id),
+                  item: item.id,
+                  checked: null,
+                })
+              ).array(),
             })
             .parse(data)
         );
@@ -358,6 +346,7 @@ export function Price() {
             (list, item) =>
               Object.assign(list, {
                 [item.item]: (list[item.item] || []).concat(item),
+                // [item.id]: (list[item.id] || []).concat(item),
               }),
             {} as Record<string, Item[]>
           )
@@ -367,27 +356,19 @@ export function Price() {
             [
               item,
               list,
+
               list.reduce(
                 (meta, { data, created }) =>
-                  Object.assign(
-                    meta,
-                    data.price <= meta.minPrice && {
-                      minPrice: data.price,
-                      minPriceChanged: new Date(created).getTime(),
-                    },
-                    data.price > meta.maxPrice && {
-                      maxPrice: data.price,
-                    }
-                  ),
+                  Object.assign(meta, {
+                    created: new Date(created).getTime(),
+                  }),
                 {
-                  minPrice: Infinity,
-                  maxPrice: 0,
-                  minPriceChanged: 0,
+                  created: 0,
                 }
               ),
             ] as [string, Item[], Meta]
         )
-        .sort((a, b) => b[2].minPriceChanged - a[2].minPriceChanged),
+        .sort((a, b) => b[2].created - a[2].created),
     [data]
   );
 
@@ -395,12 +376,13 @@ export function Price() {
     () =>
       grouped.filter(
         ([id, [{ data }]]) =>
-          (queries.search === "" ||
-            queries.search === id ||
-            data.producer.name?.toLowerCase().includes(queries.search) ||
-            data.name?.toLowerCase().includes(queries.search)) &&
-          [data.producer.name, ""].includes(queries.brand) &&
-          [data.category.id, ""].includes(queries.group)
+          queries.search === "" ||
+          queries.search === id ||
+          data.title?.toLowerCase().includes(queries.search) ||
+          data.shortDescription?.toLowerCase().includes(queries.search)
+        //    &&
+        // [data.producer.name, ""].includes(queries.brand) &&
+        // [data.category.id, ""].includes(queries.group)
       ),
     [queries, grouped]
   );
@@ -411,12 +393,12 @@ export function Price() {
         (data ? data.result : []).reduce(
           (options, { data }) =>
             Object.assign(options, {
-              brand: Object.assign(options.brand || {}, {
-                [data.producer.name]: true,
-              }),
-              group: Object.assign(options.group || {}, {
-                [data.category.id]: true,
-              }),
+              // brand: Object.assign(options.brand || {}, {
+              //   [data.producer.name]: true,
+              // }),
+              // group: Object.assign(options.group || {}, {
+              //   [data.category.id]: true,
+              // }),
             }),
           {} as OptionsState
         )
