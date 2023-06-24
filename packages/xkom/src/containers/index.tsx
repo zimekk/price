@@ -1,8 +1,8 @@
 import {
-  ChangeEventHandler,
-  ComponentPropsWithoutRef,
-  Dispatch,
-  SetStateAction,
+  type ChangeEventHandler,
+  type ComponentPropsWithoutRef,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -26,7 +26,41 @@ interface OptionsState {
   group: string[];
 }
 
+type Data = z.infer<typeof DataSchema>;
+
+type Item = z.infer<typeof ItemSchema>;
+
+type Meta = {
+  minPrice: number;
+  maxPrice: number;
+  minPriceChanged: number;
+};
+
 const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
+
+export const formatPrice = (price: number) =>
+  `${new Intl.NumberFormat("pl-PL", {
+    minimumFractionDigits: 2,
+  }).format(price)} zł`;
+
+export const getPercentage = ({
+  price,
+  oldPrice = price,
+}: {
+  price: number;
+  oldPrice: number | null;
+}) => (oldPrice !== null ? (price / oldPrice - 1) * 100 : 0);
+
+function Gallery({ data }: { data: Data }) {
+  return (
+    <div style={{ width: 120, height: 120, marginRight: "1em" }}>
+      {[data.photo].map(
+        (item, key) =>
+          item.thumbnailUrl && <LazyImage key={key} src={item.thumbnailUrl} />
+      )}
+    </div>
+  );
+}
 
 function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
   const hash = href[0] === "#";
@@ -43,32 +77,6 @@ function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
 
 function Loading() {
   return <div>Loading...</div>;
-}
-
-type Data = z.infer<typeof DataSchema>;
-
-type Item = z.infer<typeof ItemSchema>;
-
-type Meta = {
-  minPrice: number;
-  maxPrice: number;
-  minPriceChanged: number;
-};
-
-const formatPrice = (price: number) =>
-  `${new Intl.NumberFormat("pl-PL", {
-    minimumFractionDigits: 2,
-  }).format(price)} zł`;
-
-function Gallery({ data }: { data: Data }) {
-  return (
-    <div style={{ width: 120, height: 120, marginRight: "1em" }}>
-      {[data.photo].map(
-        (item, key) =>
-          item.thumbnailUrl && <LazyImage key={key} src={item.thumbnailUrl} />
-      )}
-    </div>
-  );
 }
 
 function Summary({ data }: { data: Data }) {
@@ -145,6 +153,11 @@ function Details({
           }}
         >
           {formatPrice(data.priceInfo.price)}
+          {data.priceInfo.oldPrice && (
+            <small>{` (${new Intl.NumberFormat("pl-PL", {
+              maximumFractionDigits: 2,
+            }).format(getPercentage(data.priceInfo))}%)`}</small>
+          )}
         </span>
       </strong>
       {data.availabilityStatus && <span>{` ${data.availabilityStatus}`}</span>}

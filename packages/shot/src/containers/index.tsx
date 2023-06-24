@@ -1,7 +1,7 @@
 import {
-  ChangeEventHandler,
-  Dispatch,
-  SetStateAction,
+  type ChangeEventHandler,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -11,15 +11,24 @@ import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { LazyImage } from "@acme/components";
+import { formatPrice, getPercentage } from "@acme/xkom";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
+  brand: string;
+  limit: number;
   search: string;
+}
+
+interface OptionsState {
+  brand: string[];
 }
 
 type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
+
+const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 100);
 
 function Loading() {
   return <div>Loading...</div>;
@@ -82,7 +91,7 @@ function Details({
             <span
               style={{ color: "lightgray", textDecoration: "line-through" }}
             >
-              {data.priceInfo.oldPrice}
+              {formatPrice(data.priceInfo.oldPrice)}
             </span>{" "}
           </span>
         )}
@@ -91,7 +100,12 @@ function Details({
             color: data.priceInfo.oldPrice ? "orangered" : "darkslateblue",
           }}
         >
-          {data.priceInfo.price}
+          {formatPrice(data.priceInfo.price)}
+          {data.priceInfo.oldPrice && (
+            <small>{` (${new Intl.NumberFormat("pl-PL", {
+              maximumFractionDigits: 2,
+            }).format(getPercentage(data.priceInfo))}%)`}</small>
+          )}
         </span>
       </strong>
       {data.availabilityStatus && <span>{` ${data.availabilityStatus}`}</span>}
@@ -107,14 +121,36 @@ function Details({
 }
 
 function Filters({
+  options,
   filters,
   setFilters,
 }: {
+  options: OptionsState;
   filters: FiltersState;
   setFilters: Dispatch<SetStateAction<FiltersState>>;
 }) {
   return (
     <fieldset>
+      <label>
+        <span>Brand</span>
+        <select
+          value={filters.brand}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                brand: target.value,
+              })),
+            []
+          )}
+        >
+          {[""].concat(options.brand).map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </label>
       <label>
         <span>Search</span>
         <input
@@ -129,6 +165,26 @@ function Filters({
             []
           )}
         />
+      </label>
+      <label>
+        <span>Limit</span>
+        <select
+          value={String(filters.limit)}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                limit: Number(target.value),
+              })),
+            []
+          )}
+        >
+          {LIMIT.map((value) => (
+            <option key={value} value={String(value)}>
+              {value}
+            </option>
+          ))}
+        </select>
       </label>
     </fieldset>
   );
@@ -172,6 +228,8 @@ export function List({ list }: { list: Item[] }) {
 export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
+    brand: "",
+    limit: LIMIT[0],
     search: "",
   }));
 
@@ -202,7 +260,7 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch("/api/shot")
+    fetch(`/api/shot?limit=${filters.limit}`)
       .then((res) => res.json())
       .then((data) => {
         setData(
@@ -213,7 +271,7 @@ export function Price() {
             .parse(data)
         );
       });
-  }, []);
+  }, [filters.limit]);
 
   const grouped = useMemo(
     () =>
@@ -235,19 +293,47 @@ export function Price() {
     () =>
       grouped.filter(
         ([id, [{ data }]]) =>
-          queries.search === "" ||
-          queries.search === id ||
-          data.producer.name?.toLowerCase().includes(queries.search) ||
-          data.name?.toLowerCase().includes(queries.search)
+          (queries.search === "" ||
+            queries.search === id ||
+            data.producer.name?.toLowerCase().includes(queries.search) ||
+            data.name?.toLowerCase().includes(queries.search)) &&
+          [data.producer.name, ""].includes(queries.brand)
       ),
     [queries, grouped]
   );
 
+  const options = useMemo(
+    () =>
+      Object.entries(
+        (data ? data.result : []).reduce(
+          (options, { data }) =>
+            Object.assign(options, {
+              brand: Object.assign(options.brand || {}, {
+                [data.producer.name]: true,
+              }),
+            }),
+          {} as OptionsState
+        )
+      ).reduce(
+        (options, [key, value]) =>
+          Object.assign(options, {
+            [key]: Object.keys(value).sort(),
+          }),
+        {} as OptionsState
+      ),
+    [data]
+  );
+
   if (data === null) return <Loading />;
-  console.log({ filters, filtered });
+  console.log({ result: data.result, options, filters, filtered });
   return (
     <section>
-      <Filters filters={filters} setFilters={setFilters} />
+      <Filters options={options} filters={filters} setFilters={setFilters} />
+      <small>
+        {filtered.length === grouped.length
+          ? `Showing all of ${grouped.length}`
+          : `Found ${filtered.length} items out of a total of ${grouped.length}`}
+      </small>
       <ol>
         {filtered.map(([id, list]) => (
           <li key={id}>
