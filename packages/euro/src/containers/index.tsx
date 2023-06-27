@@ -78,9 +78,27 @@ function Summary({ data }: { data: Data }) {
           {data.identifiers.plu}
         </Link>
       </div>
+      <div>
+        <small>{data.productGroupName}</small>
+      </div>
       <strong>{data.brand}</strong>
       {data.name && <i>{` ${data.name}`}</i>}
-      <div>{data.productGroupName}</div>
+      <ul
+        style={{
+          fontSize: "small",
+        }}
+      >
+        {data.baseAttributes.map(({ attributes }) =>
+          attributes.map(({ definitionId, name, value }) => (
+            <li key={definitionId}>
+              {name}:
+              {value.map(({ name, definitionId, url }, key) => (
+                <span key={key}> {name}</span>
+              ))}
+            </li>
+          ))
+        )}
+      </ul>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
   );
