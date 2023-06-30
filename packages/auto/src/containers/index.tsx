@@ -10,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { Gallery, Link, Loading } from "@acme/components";
+import { Color, Gallery, Link, Loading } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
@@ -51,6 +51,24 @@ function Summary({ data }: { data: Data }) {
       <strong>{data.vehicleSpecification.modelAndOption.brand}</strong>
       <i>{` ${data.vehicleSpecification.modelAndOption.model.modelName}`}</i>
       <small>{` (${data.vehicleSpecification.modelAndOption.modelRange.name})`}</small>
+      <Color
+        color={data.vehicleSpecification.modelAndOption.color.hexColorCode}
+      >
+        {data.vehicleSpecification.modelAndOption.color.clusterFine}
+      </Color>
+      {data.vehicleSpecification.modelAndOption.upholsteryColor && (
+        <Color
+          color={
+            data.vehicleSpecification.modelAndOption.upholsteryColor
+              .hexColorCode
+          }
+        >
+          {
+            data.vehicleSpecification.modelAndOption.upholsteryColor
+              .upholsteryColorCluster
+          }
+        </Color>
+      )}
       <div
         style={{
           fontSize: "small",

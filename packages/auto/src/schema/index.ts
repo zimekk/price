@@ -144,21 +144,21 @@ export const DataSchema = z.object({
       brand: z.string(),
       // bodyType: z.string(),
       // bodyTypeDescription: z.object({ pl_PL: z.string() }).optional(),
-      // color: z.object({
-      //   hexColorCode: z.string(),
-      //   rgbColorCode: z.object({
-      //     r: z.number(),
-      //     g: z.number(),
-      //     b: z.number(),
-      //   }),
-      //   labColorCode: z.object({
-      //     l: z.number(),
-      //     a: z.number(),
-      //     b: z.number(),
-      //   }),
-      //   clusterFine: z.string(),
-      //   clusterRough: z.string(),
-      // }),
+      color: z.object({
+        hexColorCode: z.string(),
+        // rgbColorCode: z.object({
+        //   r: z.number(),
+        //   g: z.number(),
+        //   b: z.number(),
+        // }),
+        // labColorCode: z.object({
+        //   l: z.number(),
+        //   a: z.number(),
+        //   b: z.number(),
+        // }),
+        clusterFine: z.string(),
+        clusterRough: z.string(),
+      }),
       //     colors: z
       //       .object({
       //         hexColorCode: z.string(),
@@ -205,24 +205,26 @@ export const DataSchema = z.object({
       }),
       //     numberOfColors: z.number(),
       //     numberOfGears: z.number(),
-      //     paintType: z.string(),
+      paintType: z.string().optional(),
       //     series: z.object({ name: z.string() }),
       //     transmission: z.string(),
       //     retailSeries: z.object({ name: z.string() }),
-      //     upholsteryColor: z.object({
-      //       hexColorCode: z.string(),
-      //       rgbColorCode: z.object({
-      //         r: z.number(),
-      //         g: z.number(),
-      //         b: z.number(),
-      //       }),
-      //       labColorCode: z.object({
-      //         l: z.number(),
-      //         a: z.number(),
-      //         b: z.number(),
-      //       }),
-      //       upholsteryColorCluster: z.string(),
-      //     }),
+      upholsteryColor: z
+        .object({
+          hexColorCode: z.string(),
+          //       rgbColorCode: z.object({
+          //         r: z.number(),
+          //         g: z.number(),
+          //         b: z.number(),
+          //       }),
+          //       labColorCode: z.object({
+          //         l: z.number(),
+          //         a: z.number(),
+          //         b: z.number(),
+          //       }),
+          upholsteryColorCluster: z.string(),
+        })
+        .optional(),
       //     upholsteryType: z.string(),
       //     marketingModelRanges: z.object({}),
       //     marketingModelRange: z.string(),
