@@ -1,7 +1,7 @@
 import {
-  ChangeEventHandler,
-  Dispatch,
-  SetStateAction,
+  type ChangeEventHandler,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -10,40 +10,16 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { LazyImage } from "@acme/components";
+import { Gallery, Loading, Location } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
   search: string;
 }
 
-function Loading() {
-  return <div>Loading...</div>;
-}
-
 type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
-
-// https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
-export function getLocationLink(location: string, zoom = 0) {
-  const [latitude, longitude] = location.split(",");
-  return `//www.google.com/maps?t=k&q=loc:${latitude}+${longitude}&hl=pl${
-    zoom ? `&z=${zoom}` : ""
-  }`;
-}
-
-function Gallery({ data }: { data: Data }) {
-  return (
-    <div style={{ width: 120, height: 120, marginRight: "1em" }}>
-      {Object.values(data.photos)
-        .slice(0, 1)
-        .map((url, key) => (
-          <LazyImage key={key} src={url} />
-        ))}
-    </div>
-  );
-}
 
 function Summary({ data }: { data: Data }) {
   return (
@@ -51,15 +27,9 @@ function Summary({ data }: { data: Data }) {
       <a href={data.url} target="_blank" rel="noopener noreferrer">
         <strong>{data.title}</strong>
       </a>
-      <div>
-        <a
-          href={getLocationLink((({ lat, lon }) => `${lat},${lon}`)(data.map))}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i>{` ${data.location.pathName}`}</i>
-        </a>
-      </div>
+      <Location {...data.map}>
+        <i>{` ${data.location.pathName}`}</i>
+      </Location>
       <div
         style={{
           fontSize: "small",
@@ -136,7 +106,7 @@ export function Item({ data }: { data: Data }) {
 
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
-      <Gallery data={data} />
+      <Gallery images={Object.values(data.photos)} />
       <div style={{ flex: 1 }}>
         {[data].map((item, key) => (
           <div key={item.id}>

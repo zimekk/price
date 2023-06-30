@@ -1,22 +1,18 @@
 import {
-  ChangeEventHandler,
-  Dispatch,
-  SetStateAction,
+  type ChangeEventHandler,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
   useState,
 } from "react";
-import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
+import { Loading } from "@acme/components";
 
 interface FiltersState {
   search: string;
-}
-
-function Loading() {
-  return <div>Loading...</div>;
 }
 
 export const RateSchema = z.object({

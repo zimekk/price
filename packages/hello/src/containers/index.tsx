@@ -1,11 +1,7 @@
-import { useEffect, useState,  } from 'react'
+import { useEffect, useState } from "react";
+import { Loading } from "@acme/components";
 
-function Loading() {
-  return <div>Loading...</div>;
-}
-
-export function Hello(
-) {
+export function Hello() {
   const [data, setData] = useState<object | null>(null);
 
   useEffect(() => {
@@ -18,7 +14,5 @@ export function Hello(
 
   if (data === null) return <Loading />;
 
-  return (
-<pre>{JSON.stringify(data)}</pre>
-  )
+  return <pre>{JSON.stringify(data)}</pre>;
 }

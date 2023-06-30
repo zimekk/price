@@ -1,7 +1,7 @@
 import {
-  ChangeEventHandler,
-  Dispatch,
-  SetStateAction,
+  type ChangeEventHandler,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -10,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { LazyImage } from "@acme/components";
+import { Gallery, Loading } from "@acme/components";
 import { DataSchema, ItemSchema, ProductSchema } from "../schema";
 
 interface FiltersState {
@@ -22,18 +22,6 @@ type Data = z.infer<typeof ProductSchema>;
 type Item = z.infer<typeof ItemSchema>;
 
 // type Product = z.infer<typeof ProductSchema>;
-
-function Loading() {
-  return <div>Loading...</div>;
-}
-
-function Gallery({ data }: { data: Data }) {
-  return (
-    <div style={{ width: 120, height: 120, marginRight: "1em" }}>
-      {[data.photo].map((url, key) => url && <LazyImage key={key} src={url} />)}
-    </div>
-  );
-}
 
 function Summary({ item, data }: { item: Item; data: Data }) {
   return (
@@ -139,7 +127,7 @@ export function List({ item, data }: { item: Item; data: Data }) {
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
       {[data].map((item) => (
-        <Gallery key={item.id} data={item} />
+        <Gallery key={item.id} images={[item.photo]} />
       ))}
       <div style={{ flex: 1 }}>
         {[data].map((data, key) => (

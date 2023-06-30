@@ -10,8 +10,8 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { LazyImage } from "@acme/components";
-import { Link, Loading, formatPrice, getPercentage } from "@acme/xkom";
+import { Gallery, Link, Loading } from "@acme/components";
+import { formatPrice, getPercentage } from "@acme/xkom";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
@@ -43,19 +43,6 @@ const getPromotionalPrice = ({
   voucherDiscountedPrice,
 }: Data["prices"]) =>
   promotionalPrice ? promotionalPrice.price : voucherDiscountedPrice;
-
-function Gallery({ data }: { data: Data }) {
-  return (
-    <div style={{ width: 120, height: 120, marginRight: "1em" }}>
-      {data.images
-        .filter((item) => ["ICON_PHOTO"].includes(item.type))
-        .slice(0, 1)
-        .map((item, key) => (
-          <LazyImage key={key} src={item.url} />
-        ))}
-    </div>
-  );
-}
 
 function Summary({ data }: { data: Data }) {
   return (
@@ -268,7 +255,12 @@ export function List({ list, meta }: { list: Item[]; meta: Meta }) {
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
       {list.slice(0, 1).map((item) => (
-        <Gallery key={item.id} data={item.data} />
+        <Gallery
+          key={item.id}
+          images={item.data.images
+            .filter((item) => ["ICON_PHOTO"].includes(item.type))
+            .map((item) => item.url)}
+        />
       ))}
       <div style={{ flex: 1 }}>
         {/* [{meta.minPrice}]

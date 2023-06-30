@@ -1,6 +1,5 @@
 import {
   type ChangeEventHandler,
-  type ComponentPropsWithoutRef,
   type Dispatch,
   type SetStateAction,
   useCallback,
@@ -11,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { LazyImage } from "@acme/components";
+import { Gallery, Link, Loading } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
@@ -43,34 +42,6 @@ const formatPrice = (price: number) =>
   new Intl.NumberFormat("pl-PL", {
     minimumFractionDigits: 2,
   }).format(price);
-
-function Gallery({ data }: { data: Data }) {
-  return (
-    <div style={{ width: 120, height: 120, marginRight: "1em" }}>
-      {[data.thumbnail].map(
-        (thumbnail, key) =>
-          thumbnail && <LazyImage key={key} src={thumbnail.x1} />
-      )}
-    </div>
-  );
-}
-
-export function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
-  const hash = href[0] === "#";
-
-  return (
-    <a
-      href={href}
-      target={hash ? undefined : "_blank"}
-      rel={hash ? undefined : "noopener noreferrer"}
-      {...props}
-    />
-  );
-}
-
-export function Loading() {
-  return <div>Loading...</div>;
-}
 
 function Summary({ data }: { data: Data }) {
   return (
@@ -250,7 +221,12 @@ export function List({ list, meta }: { list: Item[]; meta: Meta }) {
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
       {list.slice(0, 1).map((item) => (
-        <Gallery key={item.id} data={item.data} />
+        <Gallery
+          key={item.id}
+          images={[item.data.thumbnail]
+            .filter(Boolean)
+            .map((thumbnail: any) => thumbnail.x1)}
+        />
       ))}
       <div style={{ flex: 1 }}>
         {/* [{meta.minPrice}]

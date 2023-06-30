@@ -1,8 +1,7 @@
 import {
-  ChangeEventHandler,
-  ComponentPropsWithoutRef,
-  Dispatch,
-  SetStateAction,
+  type ChangeEventHandler,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -11,16 +10,12 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { LazyImage } from "@acme/components";
+import { Gallery, Link, Loading } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
   availability: string;
   search: string;
-}
-
-function Loading() {
-  return <div>Loading...</div>;
 }
 
 type Data = z.infer<typeof DataSchema>;
@@ -31,31 +26,6 @@ const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
     minimumFractionDigits: 2,
   }).format(price)} zł`;
-
-function Gallery({ data }: { data: Data }) {
-  return (
-    <div style={{ width: 120, height: 120, marginRight: "1em" }}>
-      {Object.values(data.media.cosyImages)
-        .slice(0, 1)
-        .map((url, key) => (
-          <LazyImage key={key} src={url} />
-        ))}
-    </div>
-  );
-}
-
-export function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
-  const hash = href[0] === "#";
-
-  return (
-    <a
-      href={href}
-      target={hash ? undefined : "_blank"}
-      rel={hash ? undefined : "noopener noreferrer"}
-      {...props}
-    />
-  );
-}
 
 function Summary({ data }: { data: Data }) {
   return (
@@ -204,7 +174,10 @@ export function List({ list }: { list: Item[] }) {
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
       {list.slice(0, 1).map((item) => (
-        <Gallery key={item.id} data={item.data} />
+        <Gallery
+          key={item.id}
+          images={Object.values(item.data.media.cosyImages)}
+        />
       ))}
       <div style={{ flex: 1 }}>
         {(show ? list : list.slice(0, 1)).map((item, key) => (

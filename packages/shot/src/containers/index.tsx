@@ -10,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { LazyImage } from "@acme/components";
+import { Gallery, Loading } from "@acme/components";
 import { formatPrice, getPercentage } from "@acme/xkom";
 import { DataSchema, ItemSchema } from "../schema";
 
@@ -29,21 +29,6 @@ type Data = z.infer<typeof DataSchema>;
 type Item = z.infer<typeof ItemSchema>;
 
 const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 100);
-
-function Loading() {
-  return <div>Loading...</div>;
-}
-
-function Gallery({ data }: { data: Data }) {
-  return (
-    <div style={{ width: 120, height: 120, marginRight: "1em" }}>
-      {[data.photo].map(
-        (item, key) =>
-          item.thumbnailUrl && <LazyImage key={key} src={item.thumbnailUrl} />
-      )}
-    </div>
-  );
-}
 
 function Summary({ data }: { data: Data }) {
   return (
@@ -196,7 +181,10 @@ export function List({ list }: { list: Item[] }) {
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
       {list.slice(0, 1).map((item) => (
-        <Gallery key={item.id} data={item.data} />
+        <Gallery
+          key={item.id}
+          images={[item.data.photo].map((item) => item.thumbnailUrl)}
+        />
       ))}
       <div style={{ flex: 1 }}>
         {(show ? list : list.slice(0, 1)).map((item, key) => (

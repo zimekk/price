@@ -1,6 +1,5 @@
 import {
   type ChangeEventHandler,
-  type ComponentPropsWithoutRef,
   type Dispatch,
   type SetStateAction,
   useCallback,
@@ -11,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { LazyImage } from "@acme/components";
+import { Gallery, Link, Loading } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
@@ -28,23 +27,6 @@ interface OptionsState {
 
 const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
 
-function Link({ href = "#", ...props }: ComponentPropsWithoutRef<"a">) {
-  const hash = href[0] === "#";
-
-  return (
-    <a
-      href={href}
-      target={hash ? undefined : "_blank"}
-      rel={hash ? undefined : "noopener noreferrer"}
-      {...props}
-    />
-  );
-}
-
-function Loading() {
-  return <div>Loading...</div>;
-}
-
 type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
@@ -53,16 +35,6 @@ type Item = z.infer<typeof ItemSchema>;
 //   `${new Intl.NumberFormat("pl-PL", {
 //     minimumFractionDigits: 2,
 //   }).format(price)} zł`;
-
-function Gallery({ data }: { data: Data }) {
-  return (
-    <div style={{ width: 120, height: 120, marginRight: "1em" }}>
-      {Object.values(data.main_image)
-        .slice(0, 1)
-        .map((url, key) => url && <LazyImage key={key} src={url} />)}
-    </div>
-  );
-}
 
 function Summary({ data }: { data: Data }) {
   return (
@@ -230,7 +202,7 @@ export function List({ list }: { list: Item[] }) {
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
       {list.slice(0, 1).map((item) => (
-        <Gallery key={item.id} data={item.data} />
+        <Gallery key={item.id} images={Object.values(item.data.main_image)} />
       ))}
       <div style={{ flex: 1 }}>
         {(show ? list : list.slice(0, 1)).map((item, key) => (
