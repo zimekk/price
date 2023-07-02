@@ -14,17 +14,49 @@ import { Gallery, Link, Loading } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
+  brand: string;
+  group: string;
+  limit: number;
+  sortBy: string;
   search: string;
+}
+
+interface OptionsState {
+  brand: string[];
+  group: string[];
 }
 
 type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
 
+type Meta = {
+  minPrice: number;
+  maxPrice: number;
+  minPriceChanged: number;
+  price: number;
+  priceChanged: number;
+};
+
+const LIMIT = [...Array(6)].map((_value, index) => (index + 1) * 500);
+
+const SORT_BY = {
+  priceChanged: "Data zmiany ceny",
+  minPriceChanged: "Data najniższej ceny",
+} as const;
+
 const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
     minimumFractionDigits: 2,
   }).format(price)} zł`;
+
+const getPercentage = ({
+  price,
+  oldPrice = price,
+}: {
+  price: number;
+  oldPrice?: number | null;
+}) => (oldPrice !== null ? (price / oldPrice - 1) * 100 : 0);
 
 function Summary({ data }: { data: Data }) {
   return (
@@ -98,6 +130,11 @@ function Details({
           }}
         >
           {formatPrice(data.price)}
+          {data.oldPrice && (
+            <small>{` (${new Intl.NumberFormat("pl-PL", {
+              maximumFractionDigits: 2,
+            }).format(getPercentage(data))}%)`}</small>
+          )}
         </span>
       </strong>
       {data.pricePerUnit && <span>{` ${data.pricePerUnit}`}</span>}
@@ -111,34 +148,120 @@ function Details({
 }
 
 function Filters({
+  options,
   filters,
   setFilters,
 }: {
+  options: OptionsState;
   filters: FiltersState;
   setFilters: Dispatch<SetStateAction<FiltersState>>;
 }) {
   return (
     <fieldset>
-      <label>
-        <span>Search</span>
-        <input
-          type="search"
-          value={filters.search}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                search: target.value,
-              })),
-            []
-          )}
-        />
-      </label>
+      <div>
+        <label>
+          <span>Brand</span>
+          <select
+            value={filters.brand}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  brand: target.value,
+                })),
+              []
+            )}
+          >
+            {[""].concat(options.brand).map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Group</span>
+          <select
+            value={filters.group}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  group: target.value,
+                })),
+              []
+            )}
+          >
+            {[""].concat(options.group).map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Search</span>
+          <input
+            type="search"
+            value={filters.search}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  search: target.value,
+                })),
+              []
+            )}
+          />
+        </label>
+        <label>
+          <span>Sort</span>
+          <select
+            value={filters.sortBy}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  sortBy: target.value,
+                })),
+              []
+            )}
+          >
+            {Object.entries(SORT_BY).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Limit</span>
+          <select
+            value={String(filters.limit)}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  limit: Number(target.value),
+                })),
+              []
+            )}
+          >
+            {LIMIT.map((value) => (
+              <option key={value} value={String(value)}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
     </fieldset>
   );
 }
 
-export function List({ list }: { list: Item[] }) {
+export function List({ list, meta }: { list: Item[]; meta: Meta }) {
   const [show, setShow] = useState(false);
 
   return (
@@ -150,6 +273,9 @@ export function List({ list }: { list: Item[] }) {
         />
       ))}
       <div style={{ flex: 1 }}>
+        {/* [{meta.minPrice}] [{meta.maxPrice}] [
+        {dayjs(meta.minPriceChanged).format("MMM D, YYYY H:mm")}] [{meta.price}]
+        [{dayjs(meta.priceChanged).format("MMM D, YYYY H:mm")}] */}
         {(show ? list : list.slice(0, 1)).map((item, key) => (
           <div key={item.id}>
             {!key && <Summary data={item.data} />}
@@ -179,6 +305,10 @@ export function List({ list }: { list: Item[] }) {
 export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
+    brand: "",
+    group: "",
+    limit: LIMIT[1],
+    sortBy: Object.keys(SORT_BY)[0],
     search: "",
   }));
 
@@ -209,7 +339,7 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch("/api/ross")
+    fetch(`/api/ross?limit=${filters.limit}`)
       .then((res) => res.json())
       .then((data) => {
         setData(
@@ -220,7 +350,7 @@ export function Price() {
             .parse(data)
         );
       });
-  }, []);
+  }, [filters.limit]);
 
   const grouped = useMemo(
     () =>
@@ -234,38 +364,101 @@ export function Price() {
               }),
             {} as Record<string, Item[]>
           )
-      ).sort((a, b) => b[1][0].created.localeCompare(a[1][0].created)),
-    [data]
+      )
+        .map(
+          ([item, list]) =>
+            [
+              item,
+              list,
+              list.reduce(
+                (meta, { data, created }) =>
+                  Object.assign(
+                    meta,
+                    data.price <= meta.minPrice && {
+                      minPrice: data.price,
+                      minPriceChanged: new Date(created).getTime(),
+                    },
+                    data.price > meta.maxPrice && {
+                      maxPrice: data.price,
+                    },
+                    0 === meta.price && {
+                      price: data.price,
+                      priceChanged: new Date(created).getTime(),
+                    }
+                  ),
+                {
+                  minPrice: Infinity,
+                  maxPrice: 0,
+                  minPriceChanged: 0,
+                  price: 0,
+                  priceChanged: 0,
+                }
+              ),
+            ] as [string, Item[], Meta]
+        )
+        .sort(
+          (a, b) =>
+            b[2][filters.sortBy as keyof typeof SORT_BY] -
+            a[2][filters.sortBy as keyof typeof SORT_BY]
+        ),
+    [data, filters.sortBy]
   );
 
   const filtered = useMemo(
     () =>
       grouped.filter(
         ([id, [{ data }]]) =>
-          queries.search === "" ||
-          queries.search === id ||
-          data.brand?.toLowerCase().includes(queries.search) ||
-          data.name?.toLowerCase().includes(queries.search) ||
-          data.caption?.toLowerCase().includes(queries.search) ||
-          data.cmpDescription?.toLowerCase().includes(queries.search)
+          (queries.search === "" ||
+            queries.search === id ||
+            data.brand?.toLowerCase().includes(queries.search) ||
+            data.name?.toLowerCase().includes(queries.search) ||
+            data.caption?.toLowerCase().includes(queries.search) ||
+            data.cmpDescription?.toLowerCase().includes(queries.search)) &&
+          [data.brand, ""].includes(queries.brand) &&
+          [data.category, ""].includes(queries.group)
       ),
     [queries, grouped]
   );
 
+  const options = useMemo(
+    () =>
+      Object.entries(
+        (data ? data.result : []).reduce(
+          (options, { data }) =>
+            Object.assign(options, {
+              brand: Object.assign(options.brand || {}, {
+                [data.brand]: true,
+              }),
+              group: Object.assign(options.group || {}, {
+                [data.category]: true,
+              }),
+            }),
+          {} as OptionsState
+        )
+      ).reduce(
+        (options, [key, value]) =>
+          Object.assign(options, {
+            [key]: Object.keys(value).sort(),
+          }),
+        {} as OptionsState
+      ),
+    [data]
+  );
+
   if (data === null) return <Loading />;
-  console.log({ result: data.result, filters, filtered });
+  console.log({ result: data.result, options, filters, filtered });
   return (
     <section>
-      <Filters filters={filters} setFilters={setFilters} />
+      <Filters options={options} filters={filters} setFilters={setFilters} />
       <small>
         {filtered.length === grouped.length
           ? `Showing all of ${grouped.length}`
           : `Found ${filtered.length} items out of a total of ${grouped.length}`}
       </small>
       <ol>
-        {filtered.map(([id, list]) => (
+        {filtered.map(([id, list, meta]) => (
           <li key={id}>
-            <List list={list} />
+            <List list={list} meta={meta} />
           </li>
         ))}
       </ol>
