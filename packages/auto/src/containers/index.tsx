@@ -15,7 +15,15 @@ import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
   availability: string;
+  brand: string;
+  dealer: string;
   search: string;
+  limit: number;
+}
+
+interface OptionsState {
+  brand: string[];
+  dealer: string[];
 }
 
 type Data = z.infer<typeof DataSchema>;
@@ -23,6 +31,8 @@ type Data = z.infer<typeof DataSchema>;
 type Item = z.infer<typeof ItemSchema>;
 
 const URL = process.env.NEXT_PUBLIC_AUTO_BASE_URL || "";
+
+const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 100);
 
 const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
@@ -141,49 +151,115 @@ function Details({
 const TYPE = ["AVAILABLE", "RESERVED_MANUAL", "SOLD"] as const;
 
 function Filters({
+  options,
   filters,
   setFilters,
 }: {
+  options: OptionsState;
   filters: FiltersState;
   setFilters: Dispatch<SetStateAction<FiltersState>>;
 }) {
   return (
     <fieldset>
-      <label>
-        <span>Availability</span>
-        <select
-          value={filters.availability}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                availability: target.value,
-              })),
-            []
-          )}
-        >
-          {[""].concat(TYPE).map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        <span>Search</span>
-        <input
-          type="search"
-          value={filters.search}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                search: target.value,
-              })),
-            []
-          )}
-        />
-      </label>
+      <div>
+        <label>
+          <span>Availability</span>
+          <select
+            value={filters.availability}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  availability: target.value,
+                })),
+              []
+            )}
+          >
+            {[""].concat(TYPE).map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Brand</span>
+          <select
+            value={filters.brand}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  brand: target.value,
+                })),
+              []
+            )}
+          >
+            {[""].concat(options.brand).map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Dealer</span>
+          <select
+            value={filters.dealer}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  dealer: target.value,
+                })),
+              []
+            )}
+          >
+            {[""].concat(options.dealer).map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Search</span>
+          <input
+            type="search"
+            value={filters.search}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  search: target.value,
+                })),
+              []
+            )}
+          />
+        </label>
+        <label>
+          <span>Limit</span>
+          <select
+            value={String(filters.limit)}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  limit: Number(target.value),
+                })),
+              []
+            )}
+          >
+            {LIMIT.map((value) => (
+              <option key={value} value={String(value)}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
     </fieldset>
   );
 }
@@ -230,7 +306,10 @@ export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
     availability: TYPE[0],
+    brand: "",
+    dealer: "",
     search: "M40i",
+    limit: LIMIT[0],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -260,14 +339,14 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch("/api/auto")
+    fetch(`/api/auto?limit=${filters.limit}`)
       .then((res) => res.json())
       .then(({ result }: { result: Item[] }) => {
         setData({
           result,
         });
       });
-  }, []);
+  }, [filters.limit]);
 
   const grouped = useMemo(
     () =>
@@ -297,17 +376,50 @@ export function Price() {
             data.vehicleSpecification.modelAndOption.modelRange.name
               .toLowerCase()
               .includes(queries.search)) &&
-          (queries.availability === "" ||
-            queries.availability === data.salesProcess.type)
+          [data.salesProcess.type, ""].includes(queries.availability) &&
+          [data.vehicleSpecification.modelAndOption.brand, ""].includes(
+            queries.brand
+          ) &&
+          [data.ordering.distributionData.locationOutletNickname, ""].includes(
+            queries.dealer
+          )
       ),
     [queries, grouped]
   );
 
+  const options = useMemo(
+    () =>
+      Object.entries(
+        (data ? data.result : []).reduce(
+          (options, { data }) =>
+            Object.assign(options, {
+              brand: Object.assign(options.brand || {}, {
+                [data.vehicleSpecification.modelAndOption.brand]: true,
+              }),
+              dealer: Object.assign(
+                options.dealer || {},
+                data.ordering.distributionData.locationOutletNickname && {
+                  [data.ordering.distributionData.locationOutletNickname]: true,
+                }
+              ),
+            }),
+          {} as OptionsState
+        )
+      ).reduce(
+        (options, [key, value]) =>
+          Object.assign(options, {
+            [key]: Object.keys(value).sort(),
+          }),
+        {} as OptionsState
+      ),
+    [data]
+  );
+
   if (data === null) return <Loading />;
-  console.log({ result: data.result, filters, filtered, grouped });
+  console.log({ result: data.result, options, filters, filtered, grouped });
   return (
     <section>
-      <Filters filters={filters} setFilters={setFilters} />
+      <Filters options={options} filters={filters} setFilters={setFilters} />
       <small>
         {filtered.length === grouped.length
           ? `Showing all of ${grouped.length}`
