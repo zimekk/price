@@ -15,14 +15,17 @@ import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
   agency: string;
+  agencyType: string;
   estate: string;
   region: string;
   search: string;
+  sortBy: string;
   limit: number;
 }
 
 interface OptionsState {
   agency: string[];
+  agencyType: string[];
   estate: string[];
   region: string[];
 }
@@ -31,9 +34,27 @@ type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
 
+type Meta = {
+  dateCreated: number;
+  dateCreatedFirst: number;
+  totalPrice: number;
+  pricePerSquareMeter: number;
+  areaInSquareMeters: number;
+  terrainAreaInSquareMeters: number;
+};
+
 const URL = process.env.NEXT_PUBLIC_PROP_BASE_URL || "";
 
 const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
+
+const SORT_BY = {
+  dateCreated: "Data aktualizacji",
+  dateCreatedFirst: "Data utworzenia",
+  totalPrice: "Cena",
+  pricePerSquareMeter: "Cena za m2",
+  areaInSquareMeters: "Powierzchnia",
+  terrainAreaInSquareMeters: "Powierzchnia działki",
+} as const;
 
 const formatPrice = (price: number, currency: string) =>
   `${new Intl.NumberFormat("pl-PL", {
@@ -185,6 +206,26 @@ function Filters({
             ))}
           </select>
         </label>
+        <label>
+          <span>Type</span>
+          <select
+            value={filters.agencyType}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  agencyType: target.value,
+                })),
+              []
+            )}
+          >
+            {[""].concat(options.agencyType).map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
       <div>
         <label>
@@ -264,6 +305,26 @@ function Filters({
             ))}
           </select>
         </label>
+        <label>
+          <span>Sort</span>
+          <select
+            value={filters.sortBy}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  sortBy: target.value,
+                })),
+              []
+            )}
+          >
+            {Object.entries(SORT_BY).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
     </fieldset>
   );
@@ -311,9 +372,11 @@ export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
     agency: "",
+    agencyType: "",
     estate: "",
     region: "",
     search: "",
+    sortBy: Object.keys(SORT_BY)[0],
     limit: LIMIT[1],
   }));
 
@@ -369,8 +432,61 @@ export function Price() {
               }),
             {} as Record<string, Item[]>
           )
-      ).sort((a, b) => b[1][0].created.localeCompare(a[1][0].created)),
-    [data]
+      )
+        .map(
+          ([item, list]) =>
+            [
+              item,
+              list,
+              list.reduce(
+                (meta, { data, created }) =>
+                  Object.assign(
+                    meta,
+                    0 === meta.dateCreated && {
+                      dateCreated: new Date(data.dateCreated).getTime(),
+                    },
+                    0 === meta.dateCreatedFirst &&
+                      data.dateCreatedFirst && {
+                        dateCreatedFirst: new Date(
+                          data.dateCreatedFirst
+                        ).getTime(),
+                      },
+                    0 === meta.totalPrice &&
+                      data.totalPrice && {
+                        totalPrice: data.totalPrice.value,
+                      },
+                    0 === meta.pricePerSquareMeter &&
+                      data.pricePerSquareMeter && {
+                        pricePerSquareMeter: data.pricePerSquareMeter.value,
+                      },
+                    0 === meta.areaInSquareMeters &&
+                      data.areaInSquareMeters && {
+                        areaInSquareMeters: data.areaInSquareMeters,
+                      },
+                    0 === meta.terrainAreaInSquareMeters && {
+                      terrainAreaInSquareMeters: data.terrainAreaInSquareMeters,
+                    }
+                  ),
+                {
+                  dateCreated: 0,
+                  dateCreatedFirst: 0,
+                  totalPrice: 0,
+                  pricePerSquareMeter: 0,
+                  areaInSquareMeters: 0,
+                  terrainAreaInSquareMeters: 0,
+                }
+              ),
+            ] as [string, Item[], Meta]
+        )
+        .sort(
+          (a, b) =>
+            (["totalPrice", "pricePerSquareMeter"].includes(filters.sortBy)
+              ? -1
+              : 1) *
+            (b[2][filters.sortBy as keyof typeof SORT_BY] -
+              a[2][filters.sortBy as keyof typeof SORT_BY])
+        ),
+    [data, filters.sortBy]
   );
 
   const filtered = useMemo(
@@ -382,6 +498,7 @@ export function Price() {
             data.locationLabel.value?.toLowerCase().includes(queries.search) ||
             data.title?.toLowerCase().includes(queries.search)) &&
           [data.agency?.name, ""].includes(queries.agency) &&
+          [data.agency?.type, ""].includes(queries.agencyType) &&
           [data.estate, ""].includes(queries.estate) &&
           [data.location.address.city.name, ""].includes(queries.region)
       ),
@@ -398,6 +515,12 @@ export function Price() {
                 options.agency || {},
                 data.agency && {
                   [data.agency.name]: true,
+                }
+              ),
+              agencyType: Object.assign(
+                options.agencyType || {},
+                data.agency && {
+                  [data.agency.type]: true,
                 }
               ),
               estate: Object.assign(options.estate || {}, {
