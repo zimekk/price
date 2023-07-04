@@ -44,10 +44,13 @@ export const HotShotSchema = z
   })
   .transform(
     ({
+      Id,
       Price,
       OldPrice,
-      Product: { MainPhoto, Name, Producer, AvailabilityStatus },
+      Product: { WebUrl, MainPhoto, Name, Producer, AvailabilityStatus },
     }) => ({
+      id: Id,
+      url: WebUrl,
       name: Name,
       featureSummary: [],
       producer: {

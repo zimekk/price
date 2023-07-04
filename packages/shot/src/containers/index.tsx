@@ -10,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { Gallery, Loading } from "@acme/components";
+import { Gallery, Link, Loading } from "@acme/components";
 import { formatPrice, getPercentage } from "@acme/xkom";
 import { DataSchema, ItemSchema } from "../schema";
 
@@ -33,6 +33,24 @@ const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 100);
 function Summary({ data }: { data: Data }) {
   return (
     <div>
+      <div style={{ float: "right", fontSize: "small" }}>
+        #
+        <Link
+          href={`${data.url}`}
+          onClick={(e) => {
+            const range = document.createRange();
+            e.preventDefault();
+            range.selectNode(e.target as HTMLElement);
+            ((selection) =>
+              selection &&
+              (selection.removeAllRanges(), selection.addRange(range)))(
+              window.getSelection()
+            );
+          }}
+        >
+          {data.id}
+        </Link>
+      </div>
       <strong>{data.producer.name}</strong>
       {data.name && <i>{` ${data.name}`}</i>}
       <div

@@ -22,6 +22,8 @@ type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
 
+const URL = process.env.NEXT_PUBLIC_AUTO_BASE_URL || "";
+
 const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
     minimumFractionDigits: 2,
@@ -33,7 +35,7 @@ function Summary({ data }: { data: Data }) {
       <div style={{ float: "right", fontSize: "small" }}>
         #
         <Link
-          href={`#/details/${data.documentId}`}
+          href={`${URL}/pl/stocklocator.html#/details/${data.documentId}`}
           onClick={(e) => {
             const range = document.createRange();
             e.preventDefault();

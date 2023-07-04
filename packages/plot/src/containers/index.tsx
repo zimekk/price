@@ -10,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { Gallery, Loading, Location } from "@acme/components";
+import { Gallery, Link, Loading, Location } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
@@ -24,9 +24,25 @@ type Item = z.infer<typeof ItemSchema>;
 function Summary({ data }: { data: Data }) {
   return (
     <div>
-      <a href={data.url} target="_blank" rel="noopener noreferrer">
-        <strong>{data.title}</strong>
-      </a>
+      <div style={{ float: "right", fontSize: "small" }}>
+        #
+        <Link
+          href={`${data.url}`}
+          onClick={(e) => {
+            const range = document.createRange();
+            e.preventDefault();
+            range.selectNode(e.target as HTMLElement);
+            ((selection) =>
+              selection &&
+              (selection.removeAllRanges(), selection.addRange(range)))(
+              window.getSelection()
+            );
+          }}
+        >
+          {data.id}
+        </Link>
+      </div>
+      <strong>{data.title}</strong>
       <Location {...data.map}>
         <i>{` ${data.location.pathName}`}</i>
       </Location>

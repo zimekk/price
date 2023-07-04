@@ -9,13 +9,14 @@ export const DataSchema = z.object({
   category: z.string(),
   cmpDescription: z.string().optional(),
   availability: z.string(),
+  navigateUrl: z.string(),
+  lastLowestPrice: z.number().optional(),
+  oldPrice: z.number().optional(),
+  price: z.number(),
   pricePerUnit: z.string(),
   promotion: z.unknown(),
   promotionTo: z.string().optional(),
   promotionFrom: z.string().optional(),
-  price: z.number(),
-  oldPrice: z.number().optional(),
-  lastLowestPrice: z.number().optional(),
   pictures: z
     .object({
       small: z.string(),

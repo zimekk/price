@@ -49,7 +49,7 @@ function Summary({ data }: { data: Data }) {
       <div style={{ float: "right", fontSize: "small" }}>
         #
         <Link
-          href={`#${data.id}`}
+          href={`${data.url}`}
           onClick={(e) => {
             const range = document.createRange();
             e.preventDefault();

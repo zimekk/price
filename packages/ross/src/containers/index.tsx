@@ -38,6 +38,8 @@ type Meta = {
   priceChanged: number;
 };
 
+const URL = process.env.NEXT_PUBLIC_ROSS_BASE_URL || "";
+
 const LIMIT = [...Array(6)].map((_value, index) => (index + 1) * 500);
 
 const SORT_BY = {
@@ -64,7 +66,7 @@ function Summary({ data }: { data: Data }) {
       <div style={{ float: "right", fontSize: "small" }}>
         #
         <Link
-          href={`#${data.id}`}
+          href={`${URL}${data.navigateUrl}`}
           onClick={(e) => {
             const range = document.createRange();
             e.preventDefault();

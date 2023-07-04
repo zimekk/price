@@ -36,6 +36,8 @@ type Meta = {
   minPriceChanged: number;
 };
 
+const URL = process.env.NEXT_PUBLIC_EURO_BASE_URL || "";
+
 const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
 
 const getPromotionalPrice = ({
@@ -50,7 +52,7 @@ function Summary({ data }: { data: Data }) {
       <div style={{ float: "right", fontSize: "small" }}>
         #
         <Link
-          href={`#${data.identifiers.plu}`}
+          href={`${URL}/${data.identifiers.productGroupLinkName}/${data.identifiers.productLinkName}.bhtml`}
           onClick={(e) => {
             const range = document.createRange();
             e.preventDefault();
@@ -170,81 +172,85 @@ function Filters({
 }) {
   return (
     <fieldset>
-      <label>
-        <span>Brand</span>
-        <select
-          value={filters.brand}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                brand: target.value,
-              })),
-            []
-          )}
-        >
-          {[""].concat(options.brand).map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        <span>Group</span>
-        <select
-          value={filters.group}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                group: target.value,
-              })),
-            []
-          )}
-        >
-          {[""].concat(options.group).map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        <span>Search</span>
-        <input
-          type="search"
-          value={filters.search}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                search: target.value,
-              })),
-            []
-          )}
-        />
-      </label>
-      <label>
-        <span>Limit</span>
-        <select
-          value={String(filters.limit)}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                limit: Number(target.value),
-              })),
-            []
-          )}
-        >
-          {LIMIT.map((value) => (
-            <option key={value} value={String(value)}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label>
+      <div>
+        <label>
+          <span>Brand</span>
+          <select
+            value={filters.brand}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  brand: target.value,
+                })),
+              []
+            )}
+          >
+            {[""].concat(options.brand).map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Group</span>
+          <select
+            value={filters.group}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  group: target.value,
+                })),
+              []
+            )}
+          >
+            {[""].concat(options.group).map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Search</span>
+          <input
+            type="search"
+            value={filters.search}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  search: target.value,
+                })),
+              []
+            )}
+          />
+        </label>
+        <label>
+          <span>Limit</span>
+          <select
+            value={String(filters.limit)}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  limit: Number(target.value),
+                })),
+              []
+            )}
+          >
+            {LIMIT.map((value) => (
+              <option key={value} value={String(value)}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
     </fieldset>
   );
 }

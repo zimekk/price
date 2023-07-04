@@ -35,6 +35,8 @@ type Meta = {
   minPriceChanged: number;
 };
 
+const URL = process.env.NEXT_PUBLIC_XKOM_BASE_URL || "";
+
 const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
 
 export const formatPrice = (price: number) =>
@@ -56,7 +58,7 @@ function Summary({ data }: { data: Data }) {
       <div style={{ float: "right", fontSize: "small" }}>
         #
         <Link
-          href={`#${data.id}`}
+          href={`${URL}/p/${data.id}`}
           onClick={(e) => {
             const range = document.createRange();
             e.preventDefault();

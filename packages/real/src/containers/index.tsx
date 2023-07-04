@@ -31,6 +31,8 @@ type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
 
+const URL = process.env.NEXT_PUBLIC_REAL_BASE_URL || "";
+
 // const formatPrice = (price: number) =>
 //   `${new Intl.NumberFormat("pl-PL", {
 //     minimumFractionDigits: 2,
@@ -42,7 +44,7 @@ function Summary({ data }: { data: Data }) {
       <div style={{ float: "right", fontSize: "small" }}>
         #
         <Link
-          href={`#${data.id}`}
+          href={`${URL}/oferty/${data.vendor.slug}/${data.slug}-${data.id}/`}
           onClick={(e) => {
             const range = document.createRange();
             e.preventDefault();
