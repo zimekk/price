@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { Gallery, Link, Loading } from "@acme/components";
+import { Location } from "../components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
@@ -94,7 +95,9 @@ function Summary({ data }: { data: Data }) {
             fontSize: "small",
           }}
         >
-          <i>{data.locationLabel.value}</i>
+          <Location {...data.locationLabel}>
+            <i>{data.locationLabel.value}</i>
+          </Location>
         </div>
       )}
       {data.agency && (
