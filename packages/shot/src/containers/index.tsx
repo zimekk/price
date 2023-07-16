@@ -58,6 +58,7 @@ function Summary({ data }: { data: Data }) {
           fontSize: "small",
         }}
       >
+        {data.promotionGainText && <span>{data.promotionGainText}</span>}
         {data.featureSummary && (
           <ul>
             {data.featureSummary?.map((text, key) => (
@@ -83,10 +84,11 @@ function Details({
   return (
     <div style={{ borderTop: "1px solid lightgray", marginTop: ".25em" }}>
       <div style={{ float: "right" }}>
-        <small>{dayjs(created).format("MMM D, YYYY H:mm")}</small>
-        {checked && (
+        <small>{dayjs(data.promotionEnd).format("MMM D, YYYY H:mm")}</small>
+        {/* <small>{dayjs(created).format("MMM D, YYYY H:mm")}</small> */}
+        {/* {checked && (
           <small> / {dayjs(checked).format("MMM D, YYYY H:mm")}</small>
-        )}
+        )} */}
       </div>
       <strong>
         {data.priceInfo.oldPrice && (
@@ -112,6 +114,9 @@ function Details({
         </span>
       </strong>
       {data.availabilityStatus && <span>{` ${data.availabilityStatus}`}</span>}
+      {data.promotionTotalCount && (
+        <small>{` (${data.promotionTotalCount})`}</small>
+      )}
       {data.freeShipping && <small>{` (FreeShipping)`}</small>}
       {data.ratingCount ? (
         <span>
@@ -291,7 +296,9 @@ export function Price() {
               }),
             {} as Record<string, Item[]>
           )
-      ).sort((a, b) => b[1][0].created.localeCompare(a[1][0].created)),
+      ).sort((a, b) =>
+        b[1][0].data.promotionEnd.localeCompare(a[1][0].data.promotionEnd)
+      ),
     [data]
   );
 
