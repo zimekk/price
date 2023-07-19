@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { Layout, Page, Text } from "@vercel/examples-ui";
 import { Hello } from "@acme/hello";
-import { Button } from "@acme/ui";
+import { Button, Layout, Page, Text } from "@acme/ui";
 import { matchingTextColor, randomColor } from "@acme/utils";
 
 export default function Index() {
@@ -35,12 +33,6 @@ export default function Index() {
           </Button>
         </>
       )}
-      |<Link href="/auto">auto</Link>|<Link href="/euro">euro</Link>|
-      <Link href="/moto">moto</Link>|<Link href="/plot">plot</Link>|
-      <Link href="/prod">prod</Link>|<Link href="/prop">prop</Link>|
-      <Link href="/rate">rate</Link>|<Link href="/real">real</Link>|
-      <Link href="/ross">ross</Link>|<Link href="/sale">sale</Link>|
-      <Link href="/shot">shot</Link>|<Link href="/xkom">xkom</Link>
       <Hello />
     </Page>
   );

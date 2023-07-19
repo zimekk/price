@@ -1,4 +1,4 @@
-import { Layout, Page } from "@vercel/examples-ui";
+import { Layout, Page } from "@acme/ui";
 import { Price } from "@acme/rate";
 
 export default function Index() {
