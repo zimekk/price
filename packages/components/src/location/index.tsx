@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { type ComponentProps, type ReactNode } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   // faCrosshairs,
@@ -27,6 +27,23 @@ function getLocationHref({
   return getLocationLink(`${lat},${lon}`, zoom);
 }
 
+export function LocationLink({
+  children,
+  href,
+  ...props
+}: ComponentProps<"div"> & {
+  children: ReactNode;
+  href: string;
+}) {
+  return (
+    <div className={styles.Location} {...props}>
+      <Link href={href}>
+        <FontAwesomeIcon icon={faMapMarkerAlt} /> {children}
+      </Link>
+    </div>
+  );
+}
+
 export function Location({
   children,
   lat,
@@ -41,16 +58,10 @@ export function Location({
   show_detailed: boolean;
 }) {
   return (
-    <div
-      className={styles.Location}
+    <LocationLink
       style={show_detailed ? { fontWeight: "bold" } : {}}
-    >
-      {/* <Link href={getDirectionsHref(item.map)}>
-          <FontAwesomeIcon icon={faCrosshairs} />
-        </Link>{" "} */}
-      <Link href={getLocationHref({ lat, lon, zoom })}>
-        <FontAwesomeIcon icon={faMapMarkerAlt} /> {children}
-      </Link>
-    </div>
+      children={children}
+      href={getLocationHref({ lat, lon, zoom })}
+    />
   );
 }

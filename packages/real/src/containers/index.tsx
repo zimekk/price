@@ -10,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { Gallery, Link, Loading } from "@acme/components";
+import { Gallery, Link, Loading, LocationLink } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
@@ -38,6 +38,12 @@ const URL = process.env.NEXT_PUBLIC_REAL_BASE_URL || "";
 //     minimumFractionDigits: 2,
 //   }).format(price)} zł`;
 
+function getLocationLink(location: string, zoom = 0) {
+  return `//www.google.com/maps?t=k&q=${encodeURIComponent(location)}&hl=pl${
+    zoom ? `&z=${zoom}` : ""
+  }`;
+}
+
 function Summary({ data }: { data: Data }) {
   return (
     <div>
@@ -60,7 +66,11 @@ function Summary({ data }: { data: Data }) {
         </Link>
       </div>
       <strong>{data.name}</strong>
-      {data.address && <i>{` ${data.address}`}</i>}
+      {data.address && (
+        <LocationLink href={getLocationLink(data.address)}>
+          <i>{` ${data.address}`}</i>
+        </LocationLink>
+      )}
       <div
         style={{
           fontSize: "small",
