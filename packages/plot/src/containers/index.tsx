@@ -15,11 +15,14 @@ import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
   search: string;
+  limit: number;
 }
 
 type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
+
+const LIMIT = [...Array(5)].map((_value, index) => (index + 1) * 500);
 
 function Summary({ data }: { data: Data }) {
   return (
@@ -113,6 +116,26 @@ function Filters({
           )}
         />
       </label>
+      <label>
+        <span>Limit</span>
+        <select
+          value={String(filters.limit)}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                limit: Number(target.value),
+              })),
+            []
+          )}
+        >
+          {LIMIT.map((value) => (
+            <option key={value} value={String(value)}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </label>
     </fieldset>
   );
 }
@@ -139,6 +162,7 @@ export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
     search: "",
+    limit: LIMIT[0],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -168,7 +192,7 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch("/api/plot")
+    fetch(`/api/plot?limit=${filters.limit}`)
       .then((res) => res.json())
       .then((data) => {
         setData(
@@ -179,7 +203,7 @@ export function Price() {
             .parse(data)
         );
       });
-  }, []);
+  }, [filters.limit]);
 
   const grouped = useMemo(
     () =>
@@ -202,7 +226,7 @@ export function Price() {
   );
 
   if (data === null) return <Loading />;
-  console.log({ filters, filtered });
+  console.log({ result: data.result, filters, filtered });
   return (
     <section>
       <Filters filters={filters} setFilters={setFilters} />
