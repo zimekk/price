@@ -36,10 +36,11 @@ type Meta = {
   minPriceChanged: number;
 };
 
+const ALTO_BASE_URL = process.env.NEXT_PUBLIC_ALTO_BASE_URL || "";
 const EURO_BASE_URL = process.env.NEXT_PUBLIC_EURO_BASE_URL || "";
 const XKOM_BASE_URL = process.env.NEXT_PUBLIC_XKOM_BASE_URL || "";
 
-const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
+const LIMIT = [...Array(19)].map((_value, index) => (index + 1) * 500);
 
 export const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
@@ -60,9 +61,11 @@ function Summary({ data, type }: { data: Data; type: string }) {
       <div style={{ float: "right", fontSize: "small" }}>
         #
         <Link
-          href={`${{ euro: EURO_BASE_URL, xkom: XKOM_BASE_URL }[type]}/p/${
-            data.id
-          }`}
+          href={`${
+            { alto: ALTO_BASE_URL, euro: EURO_BASE_URL, xkom: XKOM_BASE_URL }[
+              type
+            ]
+          }/p/${data.id}`}
           onClick={(e) => {
             const range = document.createRange();
             e.preventDefault();
@@ -283,7 +286,7 @@ export function Price() {
     brand: "",
     group: "",
     search: "",
-    limit: LIMIT[2],
+    limit: LIMIT[13],
   }));
 
   const [queries, setQueries] = useState(() => filters);
