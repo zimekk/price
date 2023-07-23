@@ -70,14 +70,22 @@ function Summary({ data }: { data: Data }) {
   );
 }
 
-function Details({ data }: { data: Data }) {
+function Details({
+  data,
+  created,
+  checked,
+}: {
+  data: Data;
+  created: string;
+  checked: string | null;
+}) {
   return (
     <div style={{ borderTop: "1px solid lightgray", marginTop: ".25em" }}>
       <div style={{ float: "right" }}>
-        <small>
-          {dayjs(data.createdTime).format("MMM D, YYYY H:mm")} -{" "}
-          {dayjs(data.validToTime).format("MMM D, YYYY H:mm")}
-        </small>
+        <small>{dayjs(created).format("MMM D, YYYY H:mm")}</small>
+        {checked && (
+          <small> / {dayjs(checked).format("MMM D, YYYY H:mm")}</small>
+        )}
       </div>
       <strong>
         <span
@@ -88,6 +96,11 @@ function Details({ data }: { data: Data }) {
           {data.price.displayValue}
         </span>
       </strong>
+      <small>
+        {` (${dayjs(data.createdTime).format("MMM D, YYYY H:mm")} - ${dayjs(
+          data.validToTime
+        ).format("MMM D, YYYY H:mm")})`}
+      </small>
     </div>
   );
 }
@@ -140,17 +153,34 @@ function Filters({
   );
 }
 
-export function Item({ data }: { data: Data }) {
-  // const [show, setShow] = useState(false);
+export function List({ list }: { list: Item[] }) {
+  const [show, setShow] = useState(false);
 
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
-      <Gallery images={Object.values(data.photos)} />
+      {list.slice(0, 1).map((item) => (
+        <Gallery key={item.id} images={Object.values(item.data.photos)} />
+      ))}
       <div style={{ flex: 1 }}>
-        {[data].map((item, key) => (
+        {(show ? list : list.slice(0, 1)).map((item, key) => (
           <div key={item.id}>
-            {!key && <Summary data={data} />}
-            <Details data={data} />
+            {!key && <Summary data={item.data} />}
+            <Details
+              data={item.data}
+              created={item.created}
+              checked={item.checked}
+            />
+            {!show && list.length > 1 && (
+              <div>
+                <a
+                  href="#"
+                  onClick={(e) => (e.preventDefault(), setShow(true))}
+                >
+                  <pre>[...]</pre>
+                </a>
+              </div>
+            )}
+            {/* <pre>{JSON.stringify(item, null, 2)}</pre> */}
           </div>
         ))}
       </div>
@@ -207,16 +237,24 @@ export function Price() {
 
   const grouped = useMemo(
     () =>
-      (data ? data.result : [])
-        .sort((a, b) => b.created.localeCompare(a.created))
-        .map(({ id, data }) => ({ id: String(id), data })),
+      Object.entries(
+        (data ? data.result : [])
+          .sort((a, b) => b.created.localeCompare(a.created))
+          .reduce(
+            (list, item) =>
+              Object.assign(list, {
+                [item.item]: (list[item.item] || []).concat(item),
+              }),
+            {} as Record<string, Item[]>
+          )
+      ).sort((a, b) => b[1][0].created.localeCompare(a[1][0].created)),
     [data]
   );
 
   const filtered = useMemo(
     () =>
       grouped.filter(
-        ({ id, data }) =>
+        ([id, [{ data }]]) =>
           queries.search === "" ||
           queries.search === id ||
           data.title.toLowerCase().includes(queries.search) ||
@@ -231,9 +269,9 @@ export function Price() {
     <section>
       <Filters filters={filters} setFilters={setFilters} />
       <ol>
-        {filtered.map(({ id, data }) => (
+        {filtered.map(([id, list]) => (
           <li key={id}>
-            <Item data={data} />
+            <List list={list} />
           </li>
         ))}
       </ol>
