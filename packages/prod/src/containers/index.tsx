@@ -286,7 +286,7 @@ export function Price() {
     brand: "",
     group: "",
     search: "",
-    limit: LIMIT[13],
+    limit: LIMIT[9],
   }));
 
   const [queries, setQueries] = useState(() => filters);
