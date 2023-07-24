@@ -10,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { Gallery, Link, Loading } from "@acme/components";
+import { Gallery, Link, Loading, LocationLink } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
@@ -43,6 +43,12 @@ const formatPrice = (price: number) =>
     minimumFractionDigits: 2,
   }).format(price);
 
+function getLocationLink(location: string, zoom = 0) {
+  return `//www.google.com/maps?t=k&q=${encodeURIComponent(location)}&hl=pl${
+    zoom ? `&z=${zoom}` : ""
+  }`;
+}
+
 function Summary({ data }: { data: Data }) {
   return (
     <div>
@@ -65,6 +71,17 @@ function Summary({ data }: { data: Data }) {
         </Link>
       </div>
       <strong>{data.title}</strong>
+      {((location) => (
+        <div
+          style={{
+            fontSize: "small",
+          }}
+        >
+          <LocationLink href={getLocationLink(location)}>
+            <i>{location}</i>
+          </LocationLink>
+        </div>
+      ))((({ city, region }) => `${city.name}, ${region.name}`)(data.location))}
       {/* {data.name && <i>{` ${data.name}`}</i>} */}
       <div
         style={{
