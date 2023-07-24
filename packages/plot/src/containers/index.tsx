@@ -22,6 +22,11 @@ type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
 
+interface Values {
+  m: string;
+  price_per_m: string;
+}
+
 const LIMIT = [...Array(5)].map((_value, index) => (index + 1) * 500);
 
 function Summary({ data }: { data: Data }) {
@@ -46,9 +51,15 @@ function Summary({ data }: { data: Data }) {
         </Link>
       </div>
       <strong>{data.title}</strong>
-      <Location {...data.map}>
-        <i>{` ${data.location.pathName}`}</i>
-      </Location>
+      <div
+        style={{
+          fontSize: "small",
+        }}
+      >
+        <Location {...data.map}>
+          <i>{` ${data.location.pathName}`}</i>
+        </Location>
+      </div>
       <div
         style={{
           fontSize: "small",
@@ -75,7 +86,7 @@ function Details({
   created,
   checked,
 }: {
-  data: Data;
+  data: Data & { values: Values };
   created: string;
   checked: string | null;
 }) {
@@ -87,19 +98,23 @@ function Details({
           <small> / {dayjs(checked).format("MMM D, YYYY H:mm")}</small>
         )}
       </div>
-      <strong>
-        <span
-          style={{
-            color: "darkslateblue",
-          }}
-        >
-          {data.price.displayValue}
-        </span>
-      </strong>
+      <span
+        style={{
+          color: "darkslateblue",
+        }}
+      >
+        <strong>{data.price.displayValue}</strong>
+        {" / "}
+        <strong>{data.values.m}</strong>
+        <small>
+          {" "}
+          (<strong>{data.values.price_per_m}</strong>)
+        </small>
+      </span>
       <small>
-        {` (${dayjs(data.createdTime).format("MMM D, YYYY H:mm")} - ${dayjs(
+        {` ${dayjs(data.createdTime).format("MMM D, YYYY H:mm")} - ${dayjs(
           data.validToTime
-        ).format("MMM D, YYYY H:mm")})`}
+        ).format("MMM D, YYYY H:mm")}`}
       </small>
     </div>
   );
@@ -166,7 +181,7 @@ export function List({ list }: { list: Item[] }) {
           <div key={item.id}>
             {!key && <Summary data={item.data} />}
             <Details
-              data={item.data}
+              data={item.data as Data & { values: Values }}
               created={item.created}
               checked={item.checked}
             />
@@ -240,6 +255,21 @@ export function Price() {
       Object.entries(
         (data ? data.result : [])
           .sort((a, b) => b.created.localeCompare(a.created))
+          .map(({ data, ...item }) => ({
+            data: Object.assign(
+              {
+                values: data.params.reduce(
+                  (params, { key, value }) =>
+                    Object.assign(params, {
+                      [key]: value,
+                    }),
+                  {}
+                ),
+              },
+              data
+            ),
+            ...item,
+          }))
           .reduce(
             (list, item) =>
               Object.assign(list, {

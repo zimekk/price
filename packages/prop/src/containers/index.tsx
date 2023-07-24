@@ -58,7 +58,7 @@ const SORT_BY = {
 
 const formatPrice = (price: number, currency: string) =>
   `${new Intl.NumberFormat("pl-PL", {
-    minimumFractionDigits: 2,
+    minimumFractionDigits: 0,
   }).format(price)} ${currency}`;
 
 const formatArea = (area: number) =>
@@ -119,7 +119,7 @@ function Summary({ data }: { data: Data }) {
           fontSize: "small",
         }}
       >
-        {data.estate} / {data.dateCreated} / {data.dateCreatedFirst}
+        {data.estate} / {data.dateCreatedFirst} / {data.dateCreated}
       </div>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
@@ -143,41 +143,39 @@ function Details({
           <small> / {dayjs(checked).format("MMM D, YYYY H:mm")}</small>
         )}
       </div>
-      <strong>
-        <span
-          style={{
-            color: "darkslateblue",
-          }}
-        >
-          {data.totalPrice &&
-            formatPrice(data.totalPrice.value, data.totalPrice.currency)}
-          {data.pricePerSquareMeter && (
-            <small>
-              {" "}
-              (
-              <span>
-                {formatArea(data.areaInSquareMeters)} m<sup>2</sup>
-              </span>
-              {data.terrainAreaInSquareMeters && (
-                <span>
-                  {" "}
-                  / {formatArea(data.terrainAreaInSquareMeters)} m<sup>2</sup>
-                </span>
+      <span
+        style={{
+          color: "darkslateblue",
+        }}
+      >
+        {data.totalPrice && (
+          <strong>
+            {formatPrice(data.totalPrice.value, data.totalPrice.currency)}
+          </strong>
+        )}
+        {" / "}
+        <strong>{formatArea(data.areaInSquareMeters)} m&sup2;</strong>
+        {data.terrainAreaInSquareMeters && (
+          <span>
+            {" "}
+            / {formatArea(data.terrainAreaInSquareMeters)} m<sup>2</sup>
+          </span>
+        )}
+        {data.pricePerSquareMeter && (
+          <small>
+            {" "}
+            (
+            <strong>
+              {formatPrice(
+                data.pricePerSquareMeter.value,
+                data.pricePerSquareMeter.currency
               )}
-              <span>
-                {" "}
-                -{" "}
-                {formatPrice(
-                  data.pricePerSquareMeter.value,
-                  data.pricePerSquareMeter.currency
-                )}
-                /m<sup>2</sup>
-              </span>
-              )
-            </small>
-          )}
-        </span>
-      </strong>
+              /m&sup2;
+            </strong>
+            )
+          </small>
+        )}
+      </span>
     </div>
   );
 }
