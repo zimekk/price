@@ -10,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { Gallery, Link, Loading, Location } from "@acme/components";
+import { Gallery, Link, Loading, Location, Text } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
@@ -28,6 +28,10 @@ interface Values {
 }
 
 const LIMIT = [...Array(5)].map((_value, index) => (index + 1) * 500);
+
+function Description({ children }: { children: string }) {
+  return <Text>{children}</Text>;
+}
 
 function Summary({ data }: { data: Data }) {
   return (
@@ -65,7 +69,7 @@ function Summary({ data }: { data: Data }) {
           fontSize: "small",
         }}
       >
-        <div>{data.description}</div>
+        <Description>{data.description}</Description>
         {data.params ? (
           <ul>
             {data.params.map(({ name, value }, key) => (

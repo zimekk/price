@@ -5,3 +5,4 @@ export * from "./link";
 export * from "./loading";
 export * from "./location";
 export * from "./spinner";
+export * from "./text";
