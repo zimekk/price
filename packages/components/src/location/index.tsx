@@ -36,11 +36,11 @@ export function LocationLink({
   href: string;
 }) {
   return (
-    <div className={styles.Location} {...props}>
+    <span className={styles.Location} {...props}>
       <Link href={href}>
         <FontAwesomeIcon icon={faMapMarkerAlt} /> {children}
       </Link>
-    </div>
+    </span>
   );
 }
 

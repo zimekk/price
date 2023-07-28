@@ -14,6 +14,7 @@ import { Gallery, Link, Loading, LocationLink } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
+  private: boolean;
   agency: string;
   agencyType: string;
   estate: string;
@@ -94,6 +95,21 @@ function Summary({ data }: { data: Data }) {
         </Link>
       </div>
       <strong>{data.title}</strong>
+      {data.isPromoted && (
+        <span
+          style={{
+            fontSize: "xx-small",
+            color: "goldenrod",
+            border: "1px solid currentColor",
+            padding: "0 .25em",
+            margin: ".5em",
+            position: "relative",
+            top: -2,
+          }}
+        >
+          PROMOTED
+        </span>
+      )}
       {data.locationLabel && (
         <div
           style={{
@@ -103,15 +119,51 @@ function Summary({ data }: { data: Data }) {
           <LocationLink href={getLocationLink(data.locationLabel.value)}>
             <i>{data.locationLabel.value}</i>
           </LocationLink>
-        </div>
-      )}
-      {data.agency && (
-        <div
-          style={{
-            fontSize: "small",
-          }}
-        >
-          {data.agency.name}
+          {data.agency && (
+            <span
+              style={{
+                fontSize: "xx-small",
+                color: "grey",
+                border: "1px solid currentColor",
+                padding: "0 .25em",
+                margin: ".5em",
+                position: "relative",
+                top: -1,
+              }}
+            >
+              {data.agency.name}
+            </span>
+          )}
+          {data.isPrivateOwner && (
+            <span
+              style={{
+                fontSize: "xx-small",
+                color: "lightcoral",
+                border: "1px solid currentColor",
+                padding: "0 .25em",
+                margin: ".5em",
+                position: "relative",
+                top: -1,
+              }}
+            >
+              PRIVATE
+            </span>
+          )}
+          {data.isExclusiveOffer && (
+            <span
+              style={{
+                fontSize: "xx-small",
+                color: "cornflowerblue",
+                border: "1px solid currentColor",
+                padding: "0 .25em",
+                margin: ".5em",
+                position: "relative",
+                top: -1,
+              }}
+            >
+              EXCLUSIVE
+            </span>
+          )}
         </div>
       )}
       <div
@@ -212,26 +264,6 @@ function Filters({
             ))}
           </select>
         </label>
-        <label>
-          <span>Type</span>
-          <select
-            value={filters.agencyType}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  agencyType: target.value,
-                })),
-              []
-            )}
-          >
-            {[""].concat(options.agencyType).map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
       </div>
       <div>
         <label>
@@ -273,6 +305,41 @@ function Filters({
               </option>
             ))}
           </select>
+        </label>
+        <label>
+          <span>Type</span>
+          <select
+            value={filters.agencyType}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  agencyType: target.value,
+                })),
+              []
+            )}
+          >
+            {[""].concat(options.agencyType).map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Private owner</span>{" "}
+          <input
+            type="checkbox"
+            checked={filters.private}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  private: target.checked,
+                })),
+              []
+            )}
+          />
         </label>
       </div>
       <div>
@@ -377,6 +444,7 @@ export function List({ list }: { list: Item[] }) {
 export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
+    private: false,
     agency: "",
     agencyType: "",
     estate: "",
@@ -506,7 +574,8 @@ export function Price() {
           [data.agency?.name, ""].includes(queries.agency) &&
           [data.agency?.type, ""].includes(queries.agencyType) &&
           [data.estate, ""].includes(queries.estate) &&
-          [data.location.address.city.name, ""].includes(queries.region)
+          [data.location.address.city.name, ""].includes(queries.region) &&
+          (data.isPrivateOwner || !queries.private)
       ),
     [queries, grouped]
   );
