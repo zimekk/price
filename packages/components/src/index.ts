@@ -4,5 +4,6 @@ export * from "./image";
 export * from "./link";
 export * from "./loading";
 export * from "./location";
+export * from "./map";
 export * from "./spinner";
 export * from "./text";

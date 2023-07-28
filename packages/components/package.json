@@ -36,9 +36,13 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "clsx": "^2.0.0",
+    "leaflet": "^1.9.4",
+    "next": "canary",
+    "react-leaflet": "^4.2.1",
     "use-asset": "^1.0.4"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.3",
     "@types/react": "latest",
     "eslint": "^8.11.0",
     "typescript": "5.1.6"

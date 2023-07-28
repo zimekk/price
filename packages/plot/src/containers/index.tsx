@@ -10,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { Gallery, Link, Loading, Location, Text } from "@acme/components";
+import { Gallery, Link, Loading, Location, Map, Text } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
@@ -301,6 +301,7 @@ export function Price() {
   console.log({ result: data.result, filters, filtered });
   return (
     <section>
+      <Map />
       <Filters filters={filters} setFilters={setFilters} />
       <ol>
         {filtered.map(([id, list]) => (
