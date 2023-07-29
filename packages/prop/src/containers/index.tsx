@@ -1,9 +1,11 @@
 import {
   type ChangeEventHandler,
   type Dispatch,
+  type ReactNode,
   type SetStateAction,
   useCallback,
   useEffect,
+  useId,
   useMemo,
   useState,
 } from "react";
@@ -22,6 +24,8 @@ interface FiltersState {
   search: string;
   sortBy: string;
   limit: number;
+  priceFrom: number;
+  priceTo: number;
 }
 
 interface OptionsState {
@@ -48,6 +52,11 @@ const URL = process.env.NEXT_PUBLIC_PROP_BASE_URL || "";
 
 const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
 
+const PRICE_LIST = [
+  0, 200000, 400000, 600000, 800000, 1000000, 1500000, 2000000, 2500000,
+  3000000, 4000000, 5000000,
+] as const;
+
 const SORT_BY = {
   dateCreated: "Data aktualizacji",
   dateCreatedFirst: "Data utworzenia",
@@ -71,6 +80,107 @@ function getLocationLink(location: string, zoom = 0) {
   return `//www.google.com/maps?t=k&q=${encodeURIComponent(location)}&hl=pl${
     zoom ? `&z=${zoom}` : ""
   }`;
+}
+
+function Picker({
+  label,
+  options = [],
+  entries = [],
+  value,
+  onChange,
+}: {
+  label: ReactNode;
+  options?: string[];
+  entries?: [string, string][];
+  value: string;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
+}) {
+  return (
+    <label>
+      <span>{label}</span>
+      <select value={value} onChange={onChange}>
+        {options.map((value) => (
+          <option key={value} value={value}>
+            {value}
+          </option>
+        ))}
+        {entries.map(([value, label]) => (
+          <option key={value} value={value}>
+            {label}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+function Range({
+  labelFrom,
+  labelTo,
+  options,
+  filters,
+  setFilters,
+}: {
+  labelFrom: ReactNode;
+  labelTo: ReactNode;
+  options: readonly number[];
+  filters: FiltersState;
+  setFilters: Dispatch<SetStateAction<FiltersState>>;
+}) {
+  const id = useId();
+  return (
+    <>
+      <label>
+        <span>{labelFrom}</span>
+        <input
+          type="range"
+          list={id}
+          min={options[0]}
+          max={options[options.length - 1]}
+          value={filters.priceFrom}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ priceTo, ...criteria }) => {
+                const priceFrom = Number(target.value);
+                return {
+                  ...criteria,
+                  priceFrom,
+                  priceTo: priceTo < priceFrom ? priceFrom : priceTo,
+                };
+              }),
+            []
+          )}
+        />
+        <datalist id={id}>
+          {options.map((value) => (
+            <option key={value} value={value}></option>
+          ))}
+        </datalist>
+      </label>
+      <label>
+        <span>{labelTo}</span>
+        <input
+          type="range"
+          list={id}
+          min={options[0]}
+          max={options[options.length - 1]}
+          value={filters.priceTo}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ priceFrom, ...criteria }) => {
+                const priceTo = Number(target.value);
+                return {
+                  ...criteria,
+                  priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
+                  priceTo,
+                };
+              }),
+            []
+          )}
+        />
+      </label>
+    </>
+  );
 }
 
 function Summary({ data }: { data: Data }) {
@@ -244,88 +354,60 @@ function Filters({
   return (
     <fieldset>
       <div>
-        <label>
-          <span>Agency</span>
-          <select
-            value={filters.agency}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  agency: target.value,
-                })),
-              []
-            )}
-          >
-            {[""].concat(options.agency).map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
+        <Picker
+          label="Agency"
+          options={[""].concat(options.agency)}
+          value={filters.agency}
+          onChange={useCallback(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                agency: target.value,
+              })),
+            []
+          )}
+        />
       </div>
       <div>
-        <label>
-          <span>Estate</span>
-          <select
-            value={filters.estate}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  estate: target.value,
-                })),
-              []
-            )}
-          >
-            {[""].concat(options.estate).map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>Region</span>
-          <select
-            value={filters.region}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  region: target.value,
-                })),
-              []
-            )}
-          >
-            {[""].concat(options.region).map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>Type</span>
-          <select
-            value={filters.agencyType}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  agencyType: target.value,
-                })),
-              []
-            )}
-          >
-            {[""].concat(options.agencyType).map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
+        <Picker
+          label="Estate"
+          options={[""].concat(options.estate)}
+          value={filters.estate}
+          onChange={useCallback(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                estate: target.value,
+              })),
+            []
+          )}
+        />
+        <Picker
+          label="Region"
+          options={[""].concat(options.region)}
+          value={filters.region}
+          onChange={useCallback(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                region: target.value,
+              })),
+            []
+          )}
+        />
+        <Picker
+          label="Type"
+          options={[""].concat(options.agencyType)}
+          value={filters.agencyType}
+          onChange={useCallback(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                agencyType: target.value,
+              })),
+            []
+          )}
+        />
         <label>
           <span>Private owner</span>{" "}
           <input
@@ -343,6 +425,18 @@ function Filters({
         </label>
       </div>
       <div>
+        <Range
+          labelFrom="Price From"
+          labelTo="Price To"
+          options={PRICE_LIST}
+          filters={filters}
+          setFilters={setFilters}
+        />
+        <span>{`${new Intl.NumberFormat().format(
+          filters.priceFrom
+        )} - ${new Intl.NumberFormat().format(filters.priceTo)} PLN`}</span>
+      </div>
+      <div>
         <label>
           <span>Search</span>
           <input
@@ -358,46 +452,32 @@ function Filters({
             )}
           />
         </label>
-        <label>
-          <span>Limit</span>
-          <select
-            value={String(filters.limit)}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  limit: Number(target.value),
-                })),
-              []
-            )}
-          >
-            {LIMIT.map((value) => (
-              <option key={value} value={String(value)}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>Sort</span>
-          <select
-            value={filters.sortBy}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  sortBy: target.value,
-                })),
-              []
-            )}
-          >
-            {Object.entries(SORT_BY).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </label>
+        <Picker
+          label="Limit"
+          options={LIMIT.map(String)}
+          value={String(filters.limit)}
+          onChange={useCallback(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                limit: Number(target.value),
+              })),
+            []
+          )}
+        />
+        <Picker
+          label="Sort"
+          entries={Object.entries(SORT_BY)}
+          value={filters.sortBy}
+          onChange={useCallback(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                sortBy: target.value,
+              })),
+            []
+          )}
+        />
       </div>
     </fieldset>
   );
@@ -452,6 +532,8 @@ export function Price() {
     search: "",
     sortBy: Object.keys(SORT_BY)[0],
     limit: LIMIT[1],
+    priceFrom: PRICE_LIST[1],
+    priceTo: PRICE_LIST[4],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -575,7 +657,12 @@ export function Price() {
           [data.agency?.type, ""].includes(queries.agencyType) &&
           [data.estate, ""].includes(queries.estate) &&
           [data.location.address.city.name, ""].includes(queries.region) &&
-          (data.isPrivateOwner || !queries.private)
+          (data.isPrivateOwner || !queries.private) &&
+          (queries.priceTo === PRICE_LIST[0] ||
+            (data.totalPrice
+              ? queries.priceFrom <= data.totalPrice.value &&
+                data.totalPrice.value <= queries.priceTo
+              : true))
       ),
     [queries, grouped]
   );
