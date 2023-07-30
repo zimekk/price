@@ -1,9 +1,11 @@
 import {
   type ChangeEventHandler,
   type Dispatch,
+  type ReactNode,
   type SetStateAction,
   useCallback,
   useEffect,
+  useId,
   useMemo,
   useState,
 } from "react";
@@ -15,12 +17,23 @@ import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
   search: string;
+  sortBy: string;
   limit: number;
+  priceFrom: number;
+  priceTo: number;
 }
 
 type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
+
+interface Meta {
+  dateCreated: number;
+  dateCreatedFirst: number;
+  totalPrice: number;
+  // pricePerSquareMeter: number;
+  // terrainAreaInSquareMeters: number;
+}
 
 interface Values {
   m: string;
@@ -28,6 +41,121 @@ interface Values {
 }
 
 const LIMIT = [...Array(5)].map((_value, index) => (index + 1) * 500);
+
+const PRICE_LIST = [
+  0, 200000, 400000, 600000, 800000, 1000000, 1500000, 2000000, 2500000,
+  3000000, 4000000, 5000000,
+] as const;
+
+const SORT_BY = {
+  dateCreated: "Data aktualizacji",
+  dateCreatedFirst: "Data utworzenia",
+  totalPrice: "Cena",
+  // pricePerSquareMeter: "Cena za m2",
+  // areaInSquareMeters: "Powierzchnia",
+  // terrainAreaInSquareMeters: "Powierzchnia działki",
+} as const;
+
+function Picker({
+  label,
+  options = [],
+  entries = [],
+  value,
+  onChange,
+}: {
+  label: ReactNode;
+  options?: string[];
+  entries?: [string, string][];
+  value: string;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
+}) {
+  return (
+    <label>
+      <span>{label}</span>
+      <select value={value} onChange={onChange}>
+        {options.map((value) => (
+          <option key={value} value={value}>
+            {value}
+          </option>
+        ))}
+        {entries.map(([value, label]) => (
+          <option key={value} value={value}>
+            {label}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+function Range({
+  labelFrom,
+  labelTo,
+  options,
+  filters,
+  setFilters,
+}: {
+  labelFrom: ReactNode;
+  labelTo: ReactNode;
+  options: readonly number[];
+  filters: FiltersState;
+  setFilters: Dispatch<SetStateAction<FiltersState>>;
+}) {
+  const id = useId();
+  return (
+    <>
+      <label>
+        <span>{labelFrom}</span>
+        <input
+          type="range"
+          list={id}
+          min={options[0]}
+          max={options[options.length - 1]}
+          value={filters.priceFrom}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ priceTo, ...criteria }) => {
+                const priceFrom = Number(target.value);
+                return {
+                  ...criteria,
+                  priceFrom,
+                  priceTo: priceTo < priceFrom ? priceFrom : priceTo,
+                };
+              }),
+            []
+          )}
+        />
+        <datalist id={id}>
+          {options.map((value) => (
+            <option key={value} value={value}></option>
+          ))}
+        </datalist>
+      </label>
+      <label>
+        <span>{labelTo}</span>
+        <input
+          type="range"
+          list={id}
+          min={options[0]}
+          max={options[options.length - 1]}
+          value={filters.priceTo}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ priceFrom, ...criteria }) => {
+                const priceTo = Number(target.value);
+                return {
+                  ...criteria,
+                  priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
+                  priceTo,
+                };
+              }),
+            []
+          )}
+        />
+      </label>
+    </>
+  );
+}
 
 function Description({ children }: { children: string }) {
   return <Text>{children}</Text>;
@@ -55,6 +183,21 @@ function Summary({ data }: { data: Data }) {
         </Link>
       </div>
       <strong>{data.title}</strong>
+      {data.isPromoted && (
+        <span
+          style={{
+            fontSize: "xx-small",
+            color: "goldenrod",
+            border: "1px solid currentColor",
+            padding: "0 .25em",
+            margin: ".5em",
+            position: "relative",
+            top: -2,
+          }}
+        >
+          PROMOTED
+        </span>
+      )}
       <div
         style={{
           fontSize: "small",
@@ -63,6 +206,21 @@ function Summary({ data }: { data: Data }) {
         <Location {...data.map}>
           <i>{` ${data.location.pathName}`}</i>
         </Location>
+        {!data.isBusiness && (
+          <span
+            style={{
+              fontSize: "xx-small",
+              color: "lightcoral",
+              border: "1px solid currentColor",
+              padding: "0 .25em",
+              margin: ".5em",
+              position: "relative",
+              top: -1,
+            }}
+          >
+            PRIVATE
+          </span>
+        )}
       </div>
       <div
         style={{
@@ -116,7 +274,7 @@ function Details({
         </small>
       </span>
       <small>
-        {` ${dayjs(data.createdTime).format("MMM D, YYYY H:mm")} - ${dayjs(
+        {` ${dayjs(data.createdTime).format("MMM D, YYYY H:mm")} \u2192 ${dayjs(
           data.validToTime
         ).format("MMM D, YYYY H:mm")}`}
       </small>
@@ -133,26 +291,39 @@ function Filters({
 }) {
   return (
     <fieldset>
-      <label>
-        <span>Search</span>
-        <input
-          type="search"
-          value={filters.search}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                search: target.value,
-              })),
-            []
-          )}
+      <div>
+        <Range
+          labelFrom="Price From"
+          labelTo="Price To"
+          options={PRICE_LIST}
+          filters={filters}
+          setFilters={setFilters}
         />
-      </label>
-      <label>
-        <span>Limit</span>
-        <select
+        <span>{`${new Intl.NumberFormat().format(
+          filters.priceFrom
+        )} - ${new Intl.NumberFormat().format(filters.priceTo)} PLN`}</span>
+      </div>
+      <div>
+        <label>
+          <span>Search</span>
+          <input
+            type="search"
+            value={filters.search}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  search: target.value,
+                })),
+              []
+            )}
+          />
+        </label>
+        <Picker
+          label="Limit"
+          options={LIMIT.map(String)}
           value={String(filters.limit)}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+          onChange={useCallback(
             ({ target }) =>
               setFilters((filters) => ({
                 ...filters,
@@ -160,14 +331,21 @@ function Filters({
               })),
             []
           )}
-        >
-          {LIMIT.map((value) => (
-            <option key={value} value={String(value)}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label>
+        />
+        <Picker
+          label="Sort"
+          entries={Object.entries(SORT_BY)}
+          value={filters.sortBy}
+          onChange={useCallback(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                sortBy: target.value,
+              })),
+            []
+          )}
+        />
+      </div>
     </fieldset>
   );
 }
@@ -211,7 +389,10 @@ export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
     search: "",
+    sortBy: Object.keys(SORT_BY)[0],
     limit: LIMIT[0],
+    priceFrom: PRICE_LIST[1],
+    priceTo: PRICE_LIST[4],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -281,18 +462,62 @@ export function Price() {
               }),
             {} as Record<string, Item[]>
           )
-      ).sort((a, b) => b[1][0].created.localeCompare(a[1][0].created)),
-    [data]
+      )
+        .map(
+          ([item, list]) =>
+            [
+              item,
+              list,
+              list.reduce(
+                (meta, { data, created }) =>
+                  Object.assign(
+                    meta,
+                    0 === meta.dateCreated && {
+                      dateCreated: new Date(data.lastRefreshTime).getTime(),
+                    },
+                    0 === meta.dateCreatedFirst && {
+                      dateCreatedFirst: new Date(data.createdTime).getTime(),
+                    },
+                    0 === meta.totalPrice &&
+                      data.price.regularPrice.value && {
+                        totalPrice: data.price.regularPrice.value,
+                      }
+                  ),
+                {
+                  dateCreated: 0,
+                  dateCreatedFirst: 0,
+                  totalPrice: 0,
+                  pricePerSquareMeter: 0,
+                  areaInSquareMeters: 0,
+                  terrainAreaInSquareMeters: 0,
+                }
+              ),
+            ] as [string, Item[], Meta]
+        )
+        .sort(
+          (a, b) =>
+            (["totalPrice", "pricePerSquareMeter"].includes(filters.sortBy)
+              ? -1
+              : 1) *
+            (b[2][filters.sortBy as keyof typeof SORT_BY] -
+              a[2][filters.sortBy as keyof typeof SORT_BY])
+        ),
+    [data, filters.sortBy]
   );
 
   const filtered = useMemo(
     () =>
       grouped.filter(
         ([id, [{ data }]]) =>
-          queries.search === "" ||
-          queries.search === id ||
-          data.title.toLowerCase().includes(queries.search) ||
-          data.location.pathName.toLowerCase().includes(queries.search)
+          (queries.search === "" ||
+            queries.search === id ||
+            data.title.toLowerCase().includes(queries.search) ||
+            data.location.pathName.toLowerCase().includes(queries.search)) &&
+          (queries.priceTo === PRICE_LIST[0] ||
+            (data.price.regularPrice
+              ? queries.priceFrom <= data.price.regularPrice.value &&
+                data.price.regularPrice.value <= queries.priceTo
+              : true))
       ),
     [queries, grouped]
   );
@@ -303,6 +528,11 @@ export function Price() {
     <section>
       <Map />
       <Filters filters={filters} setFilters={setFilters} />
+      <small>
+        {filtered.length === grouped.length
+          ? `Showing all of ${grouped.length}`
+          : `Found ${filtered.length} items out of a total of ${grouped.length}`}
+      </small>
       <ol>
         {filtered.map(([id, list]) => (
           <li key={id}>
