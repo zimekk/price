@@ -102,10 +102,12 @@ function Summary({ data, type }: { data: Data; type: string }) {
 
 function Details({
   data,
+  meta,
   created,
   checked,
 }: {
   data: Data;
+  meta: Meta;
   created: string;
   checked: string | null;
 }) {
@@ -118,6 +120,17 @@ function Details({
         )}
       </div>
       <strong>
+        {meta.minPriceChanged === dayjs(created).valueOf() && (
+          <i
+            style={{
+              position: "absolute",
+              marginLeft: "-1em",
+              color: "green",
+            }}
+          >
+            &#8594;
+          </i>
+        )}
         {data.oldPrice && (
           <span>
             <span
@@ -258,6 +271,7 @@ export function List({ list, meta }: { list: Item[]; meta: Meta }) {
           <div key={item.id}>
             {!key && <Summary data={item.data} type={meta.type} />}
             <Details
+              meta={meta}
               data={item.data}
               created={item.created}
               checked={item.updated}
