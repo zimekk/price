@@ -55,7 +55,7 @@ export const getPercentage = ({
 function Summary({ data }: { data: Data }) {
   return (
     <div>
-      <div style={{ float: "right", fontSize: "small" }}>
+      <div style={{ float: "right", fontSize: "small", textAlign: "right" }}>
         #
         <Link
           href={`${URL}/p/${data.id}`}
@@ -72,6 +72,9 @@ function Summary({ data }: { data: Data }) {
         >
           {data.id}
         </Link>
+        {data.producerCode && (
+          <div style={{ fontSize: "x-small" }}>{data.producerCode}</div>
+        )}
       </div>
       <strong>{data.producer.name}</strong>
       {data.name && <i>{` ${data.name}`}</i>}
