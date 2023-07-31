@@ -1,13 +1,15 @@
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { type LayoutProps, getLayout } from "@acme/ui";
 import "@vercel/examples-ui/globals.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const Layout = getLayout<LayoutProps>(Component);
+  const title = "Price";
 
   return (
     <Layout
-      title="Price"
+      title={title}
       links={[
         "auto",
         "euro",
@@ -24,6 +26,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       ]}
       path="solutions/monorepo"
     >
+      <Head>
+        <title>{title}</title>
+      </Head>{" "}
       <Component {...pageProps} />
     </Layout>
   );
