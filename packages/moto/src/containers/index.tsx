@@ -1,9 +1,11 @@
 import {
   type ChangeEventHandler,
   type Dispatch,
+  type ReactNode,
   type SetStateAction,
   useCallback,
   useEffect,
+  useId,
   useMemo,
   useState,
 } from "react";
@@ -18,6 +20,8 @@ interface FiltersState {
   group: string;
   search: string;
   limit: number;
+  priceFrom: number;
+  priceTo: number;
 }
 
 interface OptionsState {
@@ -38,6 +42,11 @@ type Meta = {
 
 const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
 
+const PRICE_LIST = [
+  0, 30_000, 40_000, 50_000, 100_000, 200_000, 300_000, 400_000, 500_000,
+  600_000,
+] as const;
+
 const formatPrice = (price: number) =>
   new Intl.NumberFormat("pl-PL", {
     minimumFractionDigits: 2,
@@ -47,6 +56,107 @@ function getLocationLink(location: string, zoom = 0) {
   return `//www.google.com/maps?t=k&q=${encodeURIComponent(location)}&hl=pl${
     zoom ? `&z=${zoom}` : ""
   }`;
+}
+
+function Picker({
+  label,
+  options = [],
+  entries = [],
+  value,
+  onChange,
+}: {
+  label: ReactNode;
+  options?: string[];
+  entries?: [string, string][];
+  value: string;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
+}) {
+  return (
+    <label>
+      <span>{label}</span>
+      <select value={value} onChange={onChange}>
+        {options.map((value) => (
+          <option key={value} value={value}>
+            {value}
+          </option>
+        ))}
+        {entries.map(([value, label]) => (
+          <option key={value} value={value}>
+            {label}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+function Range({
+  labelFrom,
+  labelTo,
+  options,
+  filters,
+  setFilters,
+}: {
+  labelFrom: ReactNode;
+  labelTo: ReactNode;
+  options: readonly number[];
+  filters: FiltersState;
+  setFilters: Dispatch<SetStateAction<FiltersState>>;
+}) {
+  const id = useId();
+  return (
+    <>
+      <label>
+        <span>{labelFrom}</span>
+        <input
+          type="range"
+          list={id}
+          min={options[0]}
+          max={options[options.length - 1]}
+          value={filters.priceFrom}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ priceTo, ...criteria }) => {
+                const priceFrom = Number(target.value);
+                return {
+                  ...criteria,
+                  priceFrom,
+                  priceTo: priceTo < priceFrom ? priceFrom : priceTo,
+                };
+              }),
+            []
+          )}
+        />
+        <datalist id={id}>
+          {options.map((value) => (
+            <option key={value} value={value}></option>
+          ))}
+        </datalist>
+      </label>
+      <label>
+        <span>{labelTo}</span>
+        <input
+          type="range"
+          list={id}
+          min={options[0]}
+          max={options[options.length - 1]}
+          value={filters.priceTo}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ priceFrom, ...criteria }) => {
+                const priceTo = Number(target.value);
+                return {
+                  ...criteria,
+                  priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
+                  priceTo,
+                };
+              }),
+            []
+          )}
+        />
+      </label>
+    </>
+  );
 }
 
 function Summary({ data }: { data: Data }) {
@@ -153,7 +263,20 @@ function Filters({
 }) {
   return (
     <fieldset>
-      {/* <label>
+      <div>
+        <Range
+          labelFrom="Price From"
+          labelTo="Price To"
+          options={PRICE_LIST}
+          filters={filters}
+          setFilters={setFilters}
+        />
+        <span>{`${new Intl.NumberFormat().format(
+          filters.priceFrom
+        )} - ${new Intl.NumberFormat().format(filters.priceTo)} PLN`}</span>
+      </div>
+      <div>
+        {/* <label>
         <span>Brand</span>
         <select
           value={filters.brand}
@@ -193,26 +316,26 @@ function Filters({
           ))}
         </select>
       </label> */}
-      <label>
-        <span>Search</span>
-        <input
-          type="search"
-          value={filters.search}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                search: target.value,
-              })),
-            []
-          )}
-        />
-      </label>
-      <label>
-        <span>Limit</span>
-        <select
+        <label>
+          <span>Search</span>
+          <input
+            type="search"
+            value={filters.search}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  search: target.value,
+                })),
+              []
+            )}
+          />
+        </label>
+        <Picker
+          label="Limit"
+          options={LIMIT.map(String)}
           value={String(filters.limit)}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+          onChange={useCallback(
             ({ target }) =>
               setFilters((filters) => ({
                 ...filters,
@@ -220,14 +343,8 @@ function Filters({
               })),
             []
           )}
-        >
-          {LIMIT.map((value) => (
-            <option key={value} value={String(value)}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label>
+        />
+      </div>
     </fieldset>
   );
 }
@@ -282,6 +399,8 @@ export function Price() {
     group: "",
     search: "",
     limit: LIMIT[0],
+    priceFrom: PRICE_LIST[5],
+    priceTo: PRICE_LIST[7],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -369,10 +488,15 @@ export function Price() {
     () =>
       grouped.filter(
         ([id, [{ data }]]) =>
-          queries.search === "" ||
-          queries.search === id ||
-          data.title?.toLowerCase().includes(queries.search) ||
-          data.shortDescription?.toLowerCase().includes(queries.search)
+          (queries.search === "" ||
+            queries.search === id ||
+            data.title?.toLowerCase().includes(queries.search) ||
+            data.shortDescription?.toLowerCase().includes(queries.search)) &&
+          (queries.priceTo === PRICE_LIST[0] ||
+            (data.price.amount
+              ? queries.priceFrom <= data.price.amount.units &&
+                data.price.amount.units <= queries.priceTo
+              : true))
         //    &&
         // [data.producer.name, ""].includes(queries.brand) &&
         // [data.category.id, ""].includes(queries.group)
