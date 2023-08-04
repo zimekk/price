@@ -76,6 +76,7 @@ const Ad = z.object({
   roomsNumber: z.string().nullable(),
   transaction: z.string(),
   specialOffer: z.null(),
+  developmentId: z.number().optional(),
   locationLabel: z
     .object({
       value: z.string(),
