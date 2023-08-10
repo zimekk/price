@@ -85,9 +85,11 @@ const Ad = z.object({
     })
     .strict(),
   peoplePerRoom: z.null(),
+  developmentUrl: z.string().optional(),
   isPrivateOwner: z.boolean(),
   investmentState: z.null(),
   dateCreatedFirst: z.string(),
+  developmentTitle: z.string().optional(),
   isExclusiveOffer: z.boolean(),
   areaInSquareMeters: z.number(),
   pricePerSquareMeter: MoneyType.nullable(),
