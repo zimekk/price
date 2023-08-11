@@ -130,7 +130,19 @@ export function Price() {
   console.log({ filters, filtered });
   return (
     <section>
-      <Chart />
+      <Chart
+        data={filtered.flatMap(({ date, rates }) =>
+          Object.entries(rates).map(([time, rates]) =>
+            rates.reduce(
+              (result, { code, buy }) =>
+                Object.assign(result, { [code]: Number(buy) }),
+              {
+                x: new Date(date).getTime(),
+              }
+            )
+          )
+        )}
+      />
       <Filters filters={filters} setFilters={setFilters} />
       <table>
         <tbody>

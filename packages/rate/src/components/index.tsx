@@ -1,45 +1,8 @@
 import { useEffect, useMemo, useRef } from "react";
 import * as d3 from "d3";
+import { useDimensions } from "../hooks";
 
 // https://www.react-graph-gallery.com/stacked-area-plot
-export const data = [
-  {
-    x: 1,
-    groupA: 38,
-    groupB: 19,
-    groupC: 9,
-    groupD: 4,
-  },
-  {
-    x: 2,
-    groupA: 16,
-    groupB: 14,
-    groupC: 96,
-    groupD: 40,
-  },
-  {
-    x: 3,
-    groupA: 64,
-    groupB: 96,
-    groupC: 64,
-    groupD: 40,
-  },
-  {
-    x: 4,
-    groupA: 32,
-    groupB: 48,
-    groupC: 64,
-    groupD: 40,
-  },
-  {
-    x: 5,
-    groupA: 12,
-    groupB: 18,
-    groupC: 14,
-    groupD: 10,
-  },
-];
-
 const MARGIN = { top: 30, right: 30, bottom: 50, left: 50 };
 
 type StackedAreaChartProps = {
@@ -72,7 +35,19 @@ export const StackedAreaChart = ({
   const series = stackSeries(data);
 
   // Y axis
-  const max = 300; // todo
+  const max = useMemo(
+    () =>
+      Math.max(
+        ...data.map((item) =>
+          Object.entries(item).reduce(
+            (result, [key, value]) =>
+              (result += ["x"].includes(key) ? 0 : value),
+            0
+          )
+        )
+      ),
+    [data]
+  );
   const yScale = useMemo(() => {
     return d3
       .scaleLinear()
@@ -84,7 +59,7 @@ export const StackedAreaChart = ({
   const [xMin, xMax] = d3.extent(data, (d) => d.x);
   const xScale = useMemo(() => {
     return d3
-      .scaleLinear()
+      .scaleTime()
       .domain([xMin || 0, xMax || 0])
       .range([0, boundsWidth]);
   }, [data, width]);
@@ -96,7 +71,7 @@ export const StackedAreaChart = ({
     const xAxisGenerator = d3.axisBottom(xScale);
     svgElement
       .append("g")
-      .attr("transform", "translate(0," + boundsHeight + ")")
+      .attr("transform", `translate(0,${boundsHeight})`)
       .call(xAxisGenerator);
 
     const yAxisGenerator = d3.axisLeft(yScale);
@@ -127,26 +102,31 @@ export const StackedAreaChart = ({
   });
 
   return (
-    <div>
-      <svg width={width} height={height}>
-        <g
-          width={boundsWidth}
-          height={boundsHeight}
-          transform={`translate(${[MARGIN.left, MARGIN.top].join(",")})`}
-        >
-          {allPath}
-        </g>
-        <g
-          width={boundsWidth}
-          height={boundsHeight}
-          ref={axesRef}
-          transform={`translate(${[MARGIN.left, MARGIN.top].join(",")})`}
-        />
-      </svg>
-    </div>
+    <svg width={width} height={height}>
+      <g
+        width={boundsWidth}
+        height={boundsHeight}
+        transform={`translate(${MARGIN.left},${MARGIN.top})`}
+      >
+        {allPath}
+      </g>
+      <g
+        width={boundsWidth}
+        height={boundsHeight}
+        ref={axesRef}
+        transform={`translate(${MARGIN.left},${MARGIN.top})`}
+      />
+    </svg>
   );
 };
 
-export function Chart() {
-  return <StackedAreaChart data={data} width={400} height={400} />;
+export function Chart({ data }: { data: Record<string, number>[] }) {
+  const divRef = useRef(null);
+  const dimensions = useDimensions(divRef);
+
+  return (
+    <div ref={divRef} style={{ height: "20em" }}>
+      {data.length > 0 && <StackedAreaChart data={data} {...dimensions} />}
+    </div>
+  );
 }
