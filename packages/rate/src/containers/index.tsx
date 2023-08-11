@@ -10,6 +10,7 @@ import {
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { Loading } from "@acme/components";
+import { Chart } from "../components";
 
 interface FiltersState {
   search: string;
@@ -129,6 +130,7 @@ export function Price() {
   console.log({ filters, filtered });
   return (
     <section>
+      <Chart />
       <Filters filters={filters} setFilters={setFilters} />
       <table>
         <tbody>
