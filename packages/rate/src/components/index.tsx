@@ -101,6 +101,30 @@ export const StackedAreaChart = ({
     );
   });
 
+  const labels = groups.map((group, i) => {
+    const SIZE = 10;
+    return (
+      <g
+        key={i}
+        transform={`translate(${20},${20 * (groups.length - i)})`}
+        fontSize={14}
+      >
+        <rect
+          x={0}
+          y={0}
+          width={SIZE}
+          height={SIZE}
+          stroke="black"
+          fill="#9a6fb0"
+          fillOpacity={i / 10 + 0.1}
+        />
+        <text x={15} dy={10}>
+          {group}
+        </text>
+      </g>
+    );
+  });
+
   return (
     <svg width={width} height={height}>
       <g
@@ -109,6 +133,13 @@ export const StackedAreaChart = ({
         transform={`translate(${MARGIN.left},${MARGIN.top})`}
       >
         {allPath}
+      </g>
+      <g
+        width={boundsWidth}
+        height={boundsHeight}
+        transform={`translate(${MARGIN.left},${MARGIN.top})`}
+      >
+        {labels}
       </g>
       <g
         width={boundsWidth}
