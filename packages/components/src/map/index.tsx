@@ -1,13 +1,19 @@
 import dynamic from "next/dynamic";
 import { type ComponentProps, useMemo, useCallback, useState } from "react";
+import { type Point } from "./Map";
 
-export function DisplayMap() {
+export function DisplayMap({ points }: { points: Point[] }) {
   const Map = useMemo(() => dynamic(() => import("./Map"), { ssr: false }), []);
 
-  return <Map />;
+  return <Map points={points} />;
 }
 
-export function Map({ ...props }: ComponentProps<"div">) {
+export function Map({
+  points,
+  ...props
+}: ComponentProps<"div"> & {
+  points: Point[];
+}) {
   const [open, setOpen] = useState(false);
 
   const handleToggle = useCallback(() => setOpen((open) => !open), []);
@@ -15,7 +21,7 @@ export function Map({ ...props }: ComponentProps<"div">) {
   return (
     <div {...props}>
       <button onClick={handleToggle}>{open ? "Hide map" : "Show map"}</button>
-      {open && <DisplayMap />}
+      {open && <DisplayMap points={points} />}
     </div>
   );
 }

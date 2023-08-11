@@ -16,11 +16,17 @@ import styles from "./styles.module.scss";
 
 const { NEARBY_LAT = "52.1530829", NEARBY_LNG = "21.1104411" } = {};
 
-export function useBounds(list: { position: L.LatLng }[]) {
+export interface Point {
+  id: string;
+  position: [number, number];
+  tooltip: string;
+}
+
+export function useBounds(points: { position: [number, number] }[]) {
   return useMemo(
     () =>
       L.featureGroup(
-        list.map(({ position: { lat, lng } }) => L.marker([lat, lng]))
+        points.map(({ position }) => L.marker(position))
       ).getBounds(),
     []
   );
@@ -61,10 +67,12 @@ export function DraggableMarker({
 }
 
 export function DisplayMap({
+  points,
   bounds,
   center,
   setCenter,
 }: {
+  points: Point[];
   bounds: L.LatLngBounds;
   center: L.LatLng;
   setCenter: Dispatch<SetStateAction<L.LatLng>>;
@@ -93,6 +101,19 @@ export function DisplayMap({
         <DraggableMarker position={center} setPosition={setCenter}>
           {`${center.lat}, ${center.lng}`}
         </DraggableMarker>
+        {points.map(({ id, position, tooltip }, i) => (
+          <Marker
+            key={i}
+            position={new L.LatLng(...position)}
+            eventHandlers={{
+              click: () => {
+                window.location.hash = `${id}`;
+              },
+            }}
+          >
+            <Tooltip>{tooltip}</Tooltip>
+          </Marker>
+        ))}
       </MapContainer>
     ),
     [center]
@@ -101,17 +122,24 @@ export function DisplayMap({
   return <div>{displayMap}</div>;
 }
 
-export default function Map() {
-  const bounds = useBounds([
-    {
-      position: new L.LatLng(Number(NEARBY_LAT), Number(NEARBY_LNG)),
-    },
-  ]);
+export default function Map({ points }: { points: Point[] }) {
+  const bounds = useBounds(
+    [
+      {
+        position: [Number(NEARBY_LAT), Number(NEARBY_LNG)] as [number, number],
+      },
+    ].concat(points)
+  );
   const [center, setCenter] = useState(() => bounds.getCenter());
 
   return (
     <div>
-      <DisplayMap bounds={bounds} center={center} setCenter={setCenter} />
+      <DisplayMap
+        points={points}
+        bounds={bounds}
+        center={center}
+        setCenter={setCenter}
+      />
     </div>
   );
 }

@@ -354,7 +354,10 @@ export function List({ list }: { list: Item[] }) {
   const [show, setShow] = useState(false);
 
   return (
-    <div style={{ display: "flex", margin: "1em 0" }}>
+    <section
+      style={{ display: "flex", margin: "1em 0" }}
+      id={`${list[0].data.id}`}
+    >
       {list.slice(0, 1).map((item) => (
         <Gallery key={item.id} images={Object.values(item.data.photos)} />
       ))}
@@ -381,7 +384,7 @@ export function List({ list }: { list: Item[] }) {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -526,7 +529,13 @@ export function Price() {
   console.log({ result: data.result, filters, filtered });
   return (
     <section>
-      <Map />
+      <Map
+        points={filtered.map(([id, [{ data }]]) => ({
+          id,
+          tooltip: data.title,
+          position: [data.map.lat, data.map.lon],
+        }))}
+      />
       <Filters filters={filters} setFilters={setFilters} />
       <small>
         {filtered.length === grouped.length
