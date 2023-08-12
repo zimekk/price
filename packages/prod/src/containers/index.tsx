@@ -17,6 +17,7 @@ interface FiltersState {
   brand: string;
   group: string;
   search: string;
+  sortBy: string;
   limit: number;
 }
 
@@ -34,6 +35,8 @@ type Meta = {
   minPrice: number;
   maxPrice: number;
   minPriceChanged: number;
+  price: number;
+  priceChanged: number;
 };
 
 const ALTO_BASE_URL = process.env.NEXT_PUBLIC_ALTO_BASE_URL || "";
@@ -41,6 +44,13 @@ const EURO_BASE_URL = process.env.NEXT_PUBLIC_EURO_BASE_URL || "";
 const XKOM_BASE_URL = process.env.NEXT_PUBLIC_XKOM_BASE_URL || "";
 
 const LIMIT = [...Array(19)].map((_value, index) => (index + 1) * 500);
+
+const SORT_BY = {
+  price: "Cena",
+  priceChanged: "Data zmiany ceny",
+  minPrice: "Najniższa cena",
+  minPriceChanged: "Data najniższej ceny",
+} as const;
 
 export const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
@@ -232,6 +242,26 @@ function Filters({
         />
       </label>
       <label>
+        <span>Sort</span>
+        <select
+          value={filters.sortBy}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                sortBy: target.value,
+              })),
+            []
+          )}
+        >
+          {Object.entries(SORT_BY).map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label>
         <span>Limit</span>
         <select
           value={String(filters.limit)}
@@ -300,6 +330,7 @@ export function Price() {
     brand: "",
     group: "",
     search: "",
+    sortBy: Object.keys(SORT_BY)[3],
     limit: LIMIT[9],
   }));
 
@@ -372,18 +403,29 @@ export function Price() {
                     },
                     data.price > meta.maxPrice && {
                       maxPrice: data.price,
+                    },
+                    0 === meta.price && {
+                      price: data.price,
+                      priceChanged: new Date(created).getTime(),
                     }
                   ),
                 {
                   minPrice: Infinity,
                   maxPrice: 0,
                   minPriceChanged: 0,
+                  price: 0,
+                  priceChanged: 0,
                 }
               ),
             ] as [string, Item[], Meta]
         )
-        .sort((a, b) => b[2].minPriceChanged - a[2].minPriceChanged),
-    [data]
+        .sort(
+          (a, b) =>
+            (["minPrice", "price"].includes(filters.sortBy) ? -1 : 1) *
+            (b[2][filters.sortBy as keyof typeof SORT_BY] -
+              a[2][filters.sortBy as keyof typeof SORT_BY])
+        ),
+    [data, , filters.sortBy]
   );
 
   const filtered = useMemo(
