@@ -7,7 +7,14 @@ import {
   useState,
 } from "react";
 import L from "leaflet";
-import { Marker, MapContainer, TileLayer, Tooltip } from "react-leaflet";
+import {
+  LayersControl,
+  Marker,
+  MapContainer,
+  TileLayer,
+  Tooltip,
+  WMSTileLayer,
+} from "react-leaflet";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
@@ -94,10 +101,62 @@ export function DisplayMap({
         // zoom={13}
         className={styles.Map}
       >
-        <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <LayersControl>
+          <LayersControl.BaseLayer name="OpenStreetMap" checked>
+            <TileLayer
+              attribution='&amp;copy <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="Esri WorldImagery">
+            <TileLayer
+              attribution='&copy; <a href="https://communitymaps.arcgis.com/" target="_blank" rel="noopener noreferrer">Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community</a> contributors'
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png"
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="NASA Gibs Blue Marble">
+            <TileLayer
+              url="https://gibs-{s}.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default//EPSG3857_500m/{z}/{y}/{x}.jpeg"
+              attribution="&copy; NASA Blue Marble, image service by OpenGeo"
+              maxNativeZoom={8}
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.Overlay name="Plans">
+            <WMSTileLayer
+              url="https://mapy.geoportal.gov.pl/wss/ext/KrajowaIntegracjaMiejscowychPlanowZagospodarowaniaPrzestrzennego"
+              // layers="plany,raster,wektor-str,wektor-lzb,wektor-pow,wektor-lin,wektor-pkt,granice"
+              layers="plany,granice"
+              format="image/png"
+              transparent
+            />
+          </LayersControl.Overlay>
+          <LayersControl.Overlay name="Study">
+            <WMSTileLayer
+              url="https://mapy.geoportal.gov.pl/wss/ext/KrajowaIntegracjaStudiumKierunkowZagospodarowaniaPrzestrzennego"
+              layers="gminy,studium"
+              format="image/png"
+              transparent
+            />
+          </LayersControl.Overlay>
+          <LayersControl.Overlay name="Plots">
+            <WMSTileLayer
+              url="https://integracja.gugik.gov.pl/cgi-bin/KrajowaIntegracjaEwidencjiGruntow"
+              layers="dzialki,numery_dzialek,budynki"
+              format="image/png"
+              maxZoom={22}
+              transparent
+            />
+          </LayersControl.Overlay>
+          <LayersControl.Overlay name="Utils">
+            <WMSTileLayer
+              url="https://integracja.gugik.gov.pl/cgi-bin/KrajowaIntegracjaUzbrojeniaTerenu"
+              layers="przewod_wodociagowy,przewod_kanalizacyjny,przewod_gazowy,przewod_elektroenergetyczny"
+              format="image/png"
+              maxZoom={22}
+              transparent
+            />
+          </LayersControl.Overlay>
+        </LayersControl>
         <DraggableMarker position={center} setPosition={setCenter}>
           {`${center.lat}, ${center.lng}`}
         </DraggableMarker>
