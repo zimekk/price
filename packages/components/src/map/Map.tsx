@@ -8,6 +8,7 @@ import {
 } from "react";
 import L from "leaflet";
 import {
+  GeoJSON,
   LayersControl,
   Marker,
   MapContainer,
@@ -15,6 +16,8 @@ import {
   Tooltip,
   WMSTileLayer,
 } from "react-leaflet";
+import * as Format from "ol/format";
+// import wkx from 'wkx';
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
@@ -93,6 +96,17 @@ export function DisplayMap({
     });
   }, []);
 
+  const json = useMemo(() => {
+    const wkt = new Format.WKT();
+    const geo = new Format.GeoJSON();
+    // https://uldk.gugik.gov.pl/?request=GetParcelById&id=141201_1.0001.1867/2&result=geom_wkt&srid=4326
+    return geo.writeFeatureObject(
+      wkt.readFeature(
+        `POLYGON((21.5601774716005 52.1813863079739,21.5601462004348 52.1813295631524,21.5598530456068 52.181399352338,21.5597665101861 52.1812613495445,21.5593037893152 52.1813692414408,21.5592677100234 52.1813020932293,21.5592607092073 52.1813034745934,21.559218892055 52.1812334774476,21.559124871012 52.1812562129833,21.5590395975936 52.1811137097346,21.558749187608 52.1811808766958,21.5589984738911 52.181647065729,21.5595646456736 52.1815218771139,21.5601774716005 52.1813863079739))`
+      )
+    );
+  }, []);
+
   const displayMap = useMemo(
     () => (
       <MapContainer
@@ -121,6 +135,9 @@ export function DisplayMap({
               maxNativeZoom={8}
             />
           </LayersControl.BaseLayer>
+          <LayersControl.Overlay name="Json" checked>
+            <GeoJSON data={json} />
+          </LayersControl.Overlay>
           <LayersControl.Overlay name="Plans">
             <WMSTileLayer
               url="https://mapy.geoportal.gov.pl/wss/ext/KrajowaIntegracjaMiejscowychPlanowZagospodarowaniaPrzestrzennego"
