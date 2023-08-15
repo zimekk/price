@@ -128,6 +128,30 @@ export function DisplayMap({
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png"
             />
           </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="Google-Map">
+            <TileLayer
+              attribution='&copy; <a href="https://www.google.com/intl/pl_pl/help/terms_maps/" target="_blank" rel="noopener noreferrer">Google</a>'
+              url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
+              minZoom={2}
+              maxZoom={19}
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="Google-Satellite">
+            <TileLayer
+              attribution='&copy; <a href="https://www.google.com/intl/pl_pl/help/terms_maps/" target="_blank" rel="noopener noreferrer">Google</a>'
+              url="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+              minZoom={2}
+              maxZoom={19}
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="Google-Hybrid">
+            <TileLayer
+              attribution='&copy; <a href="https://www.google.com/intl/pl_pl/help/terms_maps/" target="_blank" rel="noopener noreferrer">Google</a>'
+              url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+              minZoom={2}
+              maxZoom={19}
+            />
+          </LayersControl.BaseLayer>
           <LayersControl.BaseLayer name="NASA Gibs Blue Marble">
             <TileLayer
               url="https://gibs-{s}.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default//EPSG3857_500m/{z}/{y}/{x}.jpeg"
