@@ -19,6 +19,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         "prop",
         "rate",
         "real",
+        "road",
         "ross",
         "sale",
         "shot",

@@ -21,6 +21,7 @@
     "@acme/prop": "workspace:*",
     "@acme/rate": "workspace:*",
     "@acme/real": "workspace:*",
+    "@acme/road": "workspace:*",
     "@acme/ross": "workspace:*",
     "@acme/sale": "workspace:*",
     "@acme/shot": "workspace:*",

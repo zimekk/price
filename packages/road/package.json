@@ -1,0 +1,50 @@
+{
+  "name": "@acme/road",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "TIMING=1 eslint \"**/*.{ts,tsx,js,jsx}\" --fix",
+    "clean": "rm -rf .turbo"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": [
+      "./src/*.ts",
+      "./src/*.tsx",
+      "./src/*/index.ts"
+    ]
+  },
+  "files": [
+    "src"
+  ],
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*",
+        "src/*/index"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "next": "*",
+    "react": "^17.0.0 || ^18.0.0-0",
+    "react-dom": "^17.0.0 || ^18.0.0-0"
+  },
+  "dependencies": {
+    "@acme/components": "workspace:*",
+    "@swc/helpers": "^0.5.0",
+    "clsx": "^2.0.0",
+    "dayjs": "^1.11.7",
+    "rxjs": "^7.8.1",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/react": "latest",
+    "eslint": "^8.11.0",
+    "typescript": "5.1.6"
+  }
+}
