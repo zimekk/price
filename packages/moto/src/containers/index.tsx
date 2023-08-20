@@ -8,6 +8,7 @@ import {
   type OptionsState,
   Filters,
   LIMIT,
+  MILEAGE_LIST,
   PRICE_LIST,
 } from "./Filters";
 import { DataSchema, ItemSchema } from "../schema";
@@ -173,15 +174,22 @@ export function List({ list, meta }: { list: Item[]; meta: Meta }) {
 
 export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
-  const [filters, setFilters] = useState<FiltersState>(() => ({
-    country: "",
-    fuel: "",
-    make: "",
-    search: "",
-    limit: LIMIT[0],
-    priceFrom: PRICE_LIST[5],
-    priceTo: PRICE_LIST[7],
-  }));
+  const [filters, setFilters] = useState<FiltersState>(() =>
+    ((yearTo) => ({
+      country: "",
+      fuel: "",
+      gearbox: "",
+      make: "",
+      search: "",
+      limit: LIMIT[0],
+      mileageFrom: MILEAGE_LIST[0],
+      mileageTo: MILEAGE_LIST[3],
+      priceFrom: PRICE_LIST[5],
+      priceTo: PRICE_LIST[7],
+      yearFrom: yearTo - 3,
+      yearTo,
+    }))(new Date().getFullYear())
+  );
 
   const [queries, setQueries] = useState(() => filters);
   const search$ = useMemo(() => new Subject<any>(), []);
@@ -277,13 +285,27 @@ export function Price() {
             queries.search === id ||
             data.title?.toLowerCase().includes(queries.search) ||
             data.shortDescription?.toLowerCase().includes(queries.search)) &&
+          (queries.mileageTo === MILEAGE_LIST[0] ||
+            (values.mileage
+              ? ((mileage) =>
+                  queries.mileageFrom <= mileage &&
+                  mileage <= queries.mileageTo)(Number(values.mileage))
+              : true)) &&
           (queries.priceTo === PRICE_LIST[0] ||
             (data.price.amount
-              ? queries.priceFrom <= data.price.amount.units &&
-                data.price.amount.units <= queries.priceTo
+              ? ((price) =>
+                  queries.priceFrom <= price && price <= queries.priceTo)(
+                  data.price.amount.units
+                )
               : true)) &&
+          (values.year
+            ? ((year) => queries.yearFrom <= year && year <= queries.yearTo)(
+                Number(values.year)
+              )
+            : true) &&
           [values.country_origin, ""].includes(queries.country) &&
           [values.fuel_type, ""].includes(queries.fuel) &&
+          [values.gearbox, ""].includes(queries.gearbox) &&
           [values.make, ""].includes(queries.make)
       ),
     [queries, grouped]
@@ -307,10 +329,22 @@ export function Price() {
                   [values.fuel_type]: true,
                 }
               ),
+              gearbox: Object.assign(
+                options.gearbox || {},
+                values.gearbox && {
+                  [values.gearbox]: true,
+                }
+              ),
               make: Object.assign(
                 options.make || {},
                 values.make && {
                   [values.make]: true,
+                }
+              ),
+              year: Object.assign(
+                options.year || {},
+                values.year && {
+                  [values.year]: true,
                 }
               ),
             }),

@@ -5,25 +5,37 @@ import {
   type SetStateAction,
   useCallback,
   useId,
+  useMemo,
 } from "react";
 
 export interface FiltersState {
   country: string;
   fuel: string;
+  gearbox: string;
   make: string;
   search: string;
   limit: number;
+  mileageFrom: number;
+  mileageTo: number;
   priceFrom: number;
   priceTo: number;
+  yearFrom: number;
+  yearTo: number;
 }
 
 export interface OptionsState {
   country: string[];
   fuel: string[];
+  gearbox: string[];
   make: string[];
+  year: string[];
 }
 
 export const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
+
+export const MILEAGE_LIST = [
+  0, 10_000, 20_000, 30_000, 50_000, 100_000, 200_000, 300_000,
+] as const;
 
 export const PRICE_LIST = [
   0, 30_000, 40_000, 50_000, 100_000, 200_000, 300_000, 400_000, 500_000,
@@ -63,17 +75,21 @@ function Picker({
 }
 
 function Range({
+  options,
   labelFrom,
   labelTo,
-  options,
-  filters,
-  setFilters,
+  valueFrom,
+  valueTo,
+  onChangeFrom,
+  onChangeTo,
 }: {
+  options: readonly number[];
   labelFrom: ReactNode;
   labelTo: ReactNode;
-  options: readonly number[];
-  filters: FiltersState;
-  setFilters: Dispatch<SetStateAction<FiltersState>>;
+  valueFrom: string | number;
+  valueTo: string | number;
+  onChangeFrom: ChangeEventHandler<HTMLInputElement>;
+  onChangeTo: ChangeEventHandler<HTMLInputElement>;
 }) {
   const id = useId();
   return (
@@ -85,19 +101,8 @@ function Range({
           list={id}
           min={options[0]}
           max={options[options.length - 1]}
-          value={filters.priceFrom}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters(({ priceTo, ...criteria }) => {
-                const priceFrom = Number(target.value);
-                return {
-                  ...criteria,
-                  priceFrom,
-                  priceTo: priceTo < priceFrom ? priceFrom : priceTo,
-                };
-              }),
-            []
-          )}
+          value={valueFrom}
+          onChange={onChangeFrom}
         />
         <datalist id={id}>
           {options.map((value) => (
@@ -112,19 +117,8 @@ function Range({
           list={id}
           min={options[0]}
           max={options[options.length - 1]}
-          value={filters.priceTo}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters(({ priceFrom, ...criteria }) => {
-                const priceTo = Number(target.value);
-                return {
-                  ...criteria,
-                  priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
-                  priceTo,
-                };
-              }),
-            []
-          )}
+          value={valueTo}
+          onChange={onChangeTo}
         />
       </label>
     </>
@@ -140,6 +134,11 @@ export function Filters({
   filters: FiltersState;
   setFilters: Dispatch<SetStateAction<FiltersState>>;
 }) {
+  const YEAR_LIST = useMemo(
+    () => options.year.map(Number).sort(),
+    [options.year]
+  );
+
   return (
     <fieldset>
       <div>
@@ -170,6 +169,19 @@ export function Filters({
           )}
         />
         <Picker
+          label="Gearbox"
+          options={[""].concat(options.gearbox)}
+          value={filters.gearbox}
+          onChange={useCallback(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                gearbox: target.value,
+              })),
+            []
+          )}
+        />
+        <Picker
           label="Country Origin"
           options={[""].concat(options.country)}
           value={filters.country}
@@ -185,57 +197,108 @@ export function Filters({
       </div>
       <div>
         <Range
+          options={YEAR_LIST}
+          labelFrom="Year From"
+          labelTo="Year To"
+          valueFrom={filters.yearFrom}
+          valueTo={filters.yearTo}
+          onChangeFrom={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ yearTo, ...criteria }) =>
+                ((yearFrom) => ({
+                  ...criteria,
+                  yearFrom,
+                  yearTo: yearTo < yearFrom ? yearFrom : yearTo,
+                }))(Number(target.value))
+              ),
+            []
+          )}
+          onChangeTo={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ yearFrom, ...criteria }) =>
+                ((yearTo) => ({
+                  ...criteria,
+                  yearFrom: yearTo > yearFrom ? yearFrom : yearTo,
+                  yearTo,
+                }))(Number(target.value))
+              ),
+            []
+          )}
+        />
+        <span>{`${new Intl.NumberFormat().format(
+          filters.yearFrom
+        )} - ${new Intl.NumberFormat().format(filters.yearTo)}`}</span>
+      </div>
+      <div>
+        <Range
+          options={MILEAGE_LIST}
+          labelFrom="Mileage From"
+          labelTo="Mileage To"
+          valueFrom={filters.mileageFrom}
+          valueTo={filters.mileageTo}
+          onChangeFrom={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ mileageTo, ...criteria }) =>
+                ((mileageFrom) => ({
+                  ...criteria,
+                  mileageFrom,
+                  mileageTo: mileageTo < mileageFrom ? mileageFrom : mileageTo,
+                }))(Number(target.value))
+              ),
+            []
+          )}
+          onChangeTo={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ mileageFrom, ...criteria }) =>
+                ((mileageTo) => ({
+                  ...criteria,
+                  mileageFrom:
+                    mileageTo > mileageFrom ? mileageFrom : mileageTo,
+                  mileageTo,
+                }))(Number(target.value))
+              ),
+            []
+          )}
+        />
+        <span>{`${new Intl.NumberFormat().format(
+          filters.mileageFrom
+        )} - ${new Intl.NumberFormat().format(filters.mileageTo)} km`}</span>
+      </div>
+      <div>
+        <Range
+          options={PRICE_LIST}
           labelFrom="Price From"
           labelTo="Price To"
-          options={PRICE_LIST}
-          filters={filters}
-          setFilters={setFilters}
+          valueFrom={filters.priceFrom}
+          valueTo={filters.priceTo}
+          onChangeFrom={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ priceTo, ...criteria }) =>
+                ((priceFrom) => ({
+                  ...criteria,
+                  priceFrom,
+                  priceTo: priceTo < priceFrom ? priceFrom : priceTo,
+                }))(Number(target.value))
+              ),
+            []
+          )}
+          onChangeTo={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ priceFrom, ...criteria }) =>
+                ((priceTo) => ({
+                  ...criteria,
+                  priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
+                  priceTo,
+                }))(Number(target.value))
+              ),
+            []
+          )}
         />
         <span>{`${new Intl.NumberFormat().format(
           filters.priceFrom
         )} - ${new Intl.NumberFormat().format(filters.priceTo)} PLN`}</span>
       </div>
       <div>
-        {/* <label>
-        <span>Brand</span>
-        <select
-          value={filters.brand}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                brand: target.value,
-              })),
-            []
-          )}
-        >
-          {[""].concat(options.brand).map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        <span>Group</span>
-        <select
-          value={filters.group}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                group: target.value,
-              })),
-            []
-          )}
-        >
-          {[""].concat(options.group).map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label> */}
         <label>
           <span>Search</span>
           <input
