@@ -204,22 +204,43 @@ function Summary({ data }: { data: Data }) {
           {data.id}
         </Link>
       </div>
-      <strong>{data.title}</strong>
-      {data.isPromoted && (
-        <span
-          style={{
-            fontSize: "xx-small",
-            color: "goldenrod",
-            border: "1px solid currentColor",
-            padding: "0 .25em",
-            margin: ".5em",
-            position: "relative",
-            top: -2,
-          }}
-        >
-          PROMOTED
-        </span>
-      )}
+      <div>
+        <strong>{data.title}</strong>
+        {data.isPromoted && (
+          <>
+            &nbsp;
+            <span
+              style={{
+                fontSize: "xx-small",
+                color: "goldenrod",
+                border: "1px solid currentColor",
+                padding: "0 .25em",
+                position: "relative",
+                top: -2,
+              }}
+            >
+              PROMOTED
+            </span>
+          </>
+        )}
+        {data.isExclusiveOffer && (
+          <>
+            &nbsp;
+            <span
+              style={{
+                fontSize: "xx-small",
+                color: "cornflowerblue",
+                border: "1px solid currentColor",
+                padding: "0 .25em",
+                position: "relative",
+                top: -2,
+              }}
+            >
+              EXCLUSIVE
+            </span>
+          </>
+        )}
+      </div>
       {data.locationLabel && (
         <div
           style={{
@@ -229,51 +250,6 @@ function Summary({ data }: { data: Data }) {
           <LocationLink href={getLocationLink(data.locationLabel.value)}>
             <i>{data.locationLabel.value}</i>
           </LocationLink>
-          {data.agency && (
-            <span
-              style={{
-                fontSize: "xx-small",
-                color: "grey",
-                border: "1px solid currentColor",
-                padding: "0 .25em",
-                margin: ".5em",
-                position: "relative",
-                top: -1,
-              }}
-            >
-              {data.agency.name}
-            </span>
-          )}
-          {data.isPrivateOwner && (
-            <span
-              style={{
-                fontSize: "xx-small",
-                color: "lightcoral",
-                border: "1px solid currentColor",
-                padding: "0 .25em",
-                margin: ".5em",
-                position: "relative",
-                top: -1,
-              }}
-            >
-              PRIVATE
-            </span>
-          )}
-          {data.isExclusiveOffer && (
-            <span
-              style={{
-                fontSize: "xx-small",
-                color: "cornflowerblue",
-                border: "1px solid currentColor",
-                padding: "0 .25em",
-                margin: ".5em",
-                position: "relative",
-                top: -1,
-              }}
-            >
-              EXCLUSIVE
-            </span>
-          )}
         </div>
       )}
       <div
@@ -282,6 +258,40 @@ function Summary({ data }: { data: Data }) {
         }}
       >
         {data.estate} / {data.dateCreatedFirst} / {data.dateCreated}
+        {data.agency && (
+          <>
+            &nbsp;
+            <span
+              style={{
+                fontSize: "xx-small",
+                color: "grey",
+                border: "1px solid currentColor",
+                padding: "0 .25em",
+                position: "relative",
+                top: -1,
+              }}
+            >
+              {data.agency.name}
+            </span>
+          </>
+        )}
+        {data.isPrivateOwner && (
+          <>
+            &nbsp;
+            <span
+              style={{
+                fontSize: "xx-small",
+                color: "lightcoral",
+                border: "1px solid currentColor",
+                padding: "0 .25em",
+                position: "relative",
+                top: -1,
+              }}
+            >
+              PRIVATE
+            </span>
+          </>
+        )}
       </div>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
@@ -305,7 +315,7 @@ function Details({
           <small> / {dayjs(checked).format("MMM D, YYYY H:mm")}</small>
         )}
       </div>
-      <span
+      <div
         style={{
           color: "darkslateblue",
         }}
@@ -337,7 +347,7 @@ function Details({
             )
           </small>
         )}
-      </span>
+      </div>
     </div>
   );
 }

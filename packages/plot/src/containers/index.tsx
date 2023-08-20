@@ -182,45 +182,51 @@ function Summary({ data }: { data: Data }) {
           {data.id}
         </Link>
       </div>
-      <strong>{data.title}</strong>
-      {data.isPromoted && (
-        <span
-          style={{
-            fontSize: "xx-small",
-            color: "goldenrod",
-            border: "1px solid currentColor",
-            padding: "0 .25em",
-            margin: ".5em",
-            position: "relative",
-            top: -2,
-          }}
-        >
-          PROMOTED
-        </span>
-      )}
+      <div>
+        <strong>{data.title}</strong>
+        {!data.isBusiness && (
+          <>
+            &nbsp;
+            <span
+              style={{
+                fontSize: "xx-small",
+                color: "lightcoral",
+                border: "1px solid currentColor",
+                padding: "0 .25em",
+                position: "relative",
+                top: -2,
+              }}
+            >
+              PRIVATE
+            </span>
+          </>
+        )}
+        {data.isPromoted && (
+          <>
+            &nbsp;
+            <span
+              style={{
+                fontSize: "xx-small",
+                color: "goldenrod",
+                border: "1px solid currentColor",
+                padding: "0 .25em",
+                position: "relative",
+                top: -2,
+              }}
+            >
+              PROMOTED
+            </span>
+          </>
+        )}
+      </div>
       <div
         style={{
           fontSize: "small",
         }}
       >
         <Location {...data.map}>
-          <i>{` ${data.location.pathName}`}</i>
+          <i>{data.location.pathName}</i>
         </Location>
-        {!data.isBusiness && (
-          <span
-            style={{
-              fontSize: "xx-small",
-              color: "lightcoral",
-              border: "1px solid currentColor",
-              padding: "0 .25em",
-              margin: ".5em",
-              position: "relative",
-              top: -1,
-            }}
-          >
-            PRIVATE
-          </span>
-        )}
       </div>
       <div
         style={{
@@ -260,24 +266,26 @@ function Details({
           <small> / {dayjs(checked).format("MMM D, YYYY H:mm")}</small>
         )}
       </div>
-      <span
-        style={{
-          color: "darkslateblue",
-        }}
-      >
-        <strong>{data.price.displayValue}</strong>
-        {" / "}
-        <strong>{data.values.m}</strong>
+      <div>
+        <span
+          style={{
+            color: "darkslateblue",
+          }}
+        >
+          <strong>{data.price.displayValue}</strong>
+          {" / "}
+          <strong>{data.values.m}</strong>
+          <small>
+            {" "}
+            (<strong>{data.values.price_per_m}</strong>)
+          </small>
+        </span>
         <small>
-          {" "}
-          (<strong>{data.values.price_per_m}</strong>)
+          {` ${dayjs(data.createdTime).format(
+            "MMM D, YYYY H:mm"
+          )} \u2192 ${dayjs(data.validToTime).format("MMM D, YYYY H:mm")}`}
         </small>
-      </span>
-      <small>
-        {` ${dayjs(data.createdTime).format("MMM D, YYYY H:mm")} \u2192 ${dayjs(
-          data.validToTime
-        ).format("MMM D, YYYY H:mm")}`}
-      </small>
+      </div>
     </div>
   );
 }
