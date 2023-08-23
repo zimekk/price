@@ -218,6 +218,23 @@ function Summary({ data }: { data: Data }) {
             </span>
           </>
         )}
+        {data.contact.negotiation && (
+          <>
+            &nbsp;
+            <span
+              style={{
+                fontSize: "xx-small",
+                color: "mediumseagreen",
+                border: "1px solid currentColor",
+                padding: "0 .25em",
+                position: "relative",
+                top: -2,
+              }}
+            >
+              NEGOTIATION
+            </span>
+          </>
+        )}
       </div>
       <div
         style={{
