@@ -1,30 +1,17 @@
-import {
-  type ChangeEventHandler,
-  type Dispatch,
-  type SetStateAction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { Gallery, Link, Loading } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
-
-interface FiltersState {
-  brand: string;
-  group: string;
-  search: string;
-  sortBy: string;
-  limit: number;
-}
-
-interface OptionsState {
-  brand: string[];
-  group: string[];
-}
+import {
+  Filters,
+  FiltersState,
+  LIMIT,
+  OptionsState,
+  PRICE_LIST,
+  SORT_BY,
+} from "./Filters";
 
 type Data = z.infer<typeof DataSchema>;
 
@@ -42,15 +29,6 @@ type Meta = {
 const ALTO_BASE_URL = process.env.NEXT_PUBLIC_ALTO_BASE_URL || "";
 const EURO_BASE_URL = process.env.NEXT_PUBLIC_EURO_BASE_URL || "";
 const XKOM_BASE_URL = process.env.NEXT_PUBLIC_XKOM_BASE_URL || "";
-
-const LIMIT = [...Array(19)].map((_value, index) => (index + 1) * 500);
-
-const SORT_BY = {
-  price: "Cena",
-  priceChanged: "Data zmiany ceny",
-  minPrice: "Najniższa cena",
-  minPriceChanged: "Data najniższej ceny",
-} as const;
 
 export const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
@@ -175,116 +153,6 @@ function Details({
   );
 }
 
-function Filters({
-  options,
-  filters,
-  setFilters,
-}: {
-  options: OptionsState;
-  filters: FiltersState;
-  setFilters: Dispatch<SetStateAction<FiltersState>>;
-}) {
-  return (
-    <fieldset>
-      <label>
-        <span>Brand</span>
-        <select
-          value={filters.brand}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                brand: target.value,
-              })),
-            []
-          )}
-        >
-          {[""].concat(options.brand).map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label>
-      {/* <label>
-        <span>Group</span>
-        <select
-          value={filters.group}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                group: target.value,
-              })),
-            []
-          )}
-        >
-          {[""].concat(options.group).map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label> */}
-      <label>
-        <span>Search</span>
-        <input
-          type="search"
-          value={filters.search}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                search: target.value,
-              })),
-            []
-          )}
-        />
-      </label>
-      <label>
-        <span>Sort</span>
-        <select
-          value={filters.sortBy}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                sortBy: target.value,
-              })),
-            []
-          )}
-        >
-          {Object.entries(SORT_BY).map(([value, label]) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        <span>Limit</span>
-        <select
-          value={String(filters.limit)}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                limit: Number(target.value),
-              })),
-            []
-          )}
-        >
-          {LIMIT.map((value) => (
-            <option key={value} value={String(value)}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </label>
-    </fieldset>
-  );
-}
-
 export function List({ list, meta }: { list: Item[]; meta: Meta }) {
   const [show, setShow] = useState(false);
 
@@ -332,6 +200,8 @@ export function Price() {
     search: "",
     sortBy: Object.keys(SORT_BY)[3],
     limit: LIMIT[9],
+    priceFrom: PRICE_LIST[0],
+    priceTo: PRICE_LIST[PRICE_LIST.length - 2],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -436,7 +306,14 @@ export function Price() {
             queries.search === id ||
             data.brand?.toLowerCase().includes(queries.search) ||
             data.name?.toLowerCase().includes(queries.search)) &&
-          [data.brand, ""].includes(queries.brand)
+          [data.brand, ""].includes(queries.brand) &&
+          (queries.priceTo === PRICE_LIST[0] ||
+            (data.price
+              ? ((price) =>
+                  queries.priceFrom <= price && price <= queries.priceTo)(
+                  data.price
+                )
+              : true))
         // [data.category.id, ""].includes(queries.group)
       ),
     [queries, grouped]
