@@ -303,7 +303,7 @@ export function Price() {
       grouped.filter(
         ([id, [{ data }]]) =>
           (queries.search === "" ||
-            queries.search === id ||
+            queries.search === data.id ||
             data.brand?.toLowerCase().includes(queries.search) ||
             data.name?.toLowerCase().includes(queries.search)) &&
           [data.brand, ""].includes(queries.brand) &&
