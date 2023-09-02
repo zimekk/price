@@ -1,4 +1,5 @@
 export * from "./color";
+export * from "./form";
 export * from "./gallery";
 export * from "./image";
 export * from "./link";

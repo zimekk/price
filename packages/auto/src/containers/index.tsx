@@ -1,38 +1,23 @@
-import {
-  type ChangeEventHandler,
-  type Dispatch,
-  type SetStateAction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { Color, Gallery, Link, Loading } from "@acme/components";
 import { DataSchema, ItemSchema } from "../schema";
-
-interface FiltersState {
-  availability: string;
-  brand: string;
-  dealer: string;
-  search: string;
-  limit: number;
-}
-
-interface OptionsState {
-  brand: string[];
-  dealer: string[];
-}
+import {
+  type FiltersState,
+  type OptionsState,
+  Filters,
+  LIMIT,
+  PRICE_LIST,
+  TYPE,
+} from "./Filters";
 
 type Data = z.infer<typeof DataSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
 
 const URL = process.env.NEXT_PUBLIC_AUTO_BASE_URL || "";
-
-const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 100);
 
 const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
@@ -148,122 +133,6 @@ function Details({
   );
 }
 
-const TYPE = ["AVAILABLE", "RESERVED_MANUAL", "SOLD"] as const;
-
-function Filters({
-  options,
-  filters,
-  setFilters,
-}: {
-  options: OptionsState;
-  filters: FiltersState;
-  setFilters: Dispatch<SetStateAction<FiltersState>>;
-}) {
-  return (
-    <fieldset>
-      <div>
-        <label>
-          <span>Availability</span>
-          <select
-            value={filters.availability}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  availability: target.value,
-                })),
-              []
-            )}
-          >
-            {[""].concat(TYPE).map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>Brand</span>
-          <select
-            value={filters.brand}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  brand: target.value,
-                })),
-              []
-            )}
-          >
-            {[""].concat(options.brand).map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>Dealer</span>
-          <select
-            value={filters.dealer}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  dealer: target.value,
-                })),
-              []
-            )}
-          >
-            {[""].concat(options.dealer).map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-      <div>
-        <label>
-          <span>Search</span>
-          <input
-            type="search"
-            value={filters.search}
-            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  search: target.value,
-                })),
-              []
-            )}
-          />
-        </label>
-        <label>
-          <span>Limit</span>
-          <select
-            value={String(filters.limit)}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  limit: Number(target.value),
-                })),
-              []
-            )}
-          >
-            {LIMIT.map((value) => (
-              <option key={value} value={String(value)}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-    </fieldset>
-  );
-}
-
 export function List({ list }: { list: Item[] }) {
   const [show, setShow] = useState(false);
 
@@ -307,9 +176,12 @@ export function Price() {
   const [filters, setFilters] = useState<FiltersState>(() => ({
     availability: TYPE[0],
     brand: "",
+    model: "",
     dealer: "",
     search: "M40i",
     limit: LIMIT[0],
+    priceFrom: PRICE_LIST[0],
+    priceTo: PRICE_LIST[PRICE_LIST.length - 2],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -380,9 +252,20 @@ export function Price() {
           [data.vehicleSpecification.modelAndOption.brand, ""].includes(
             queries.brand
           ) &&
+          [
+            data.vehicleSpecification.modelAndOption.model.modelName,
+            "",
+          ].includes(queries.model) &&
           [data.ordering.distributionData.locationOutletNickname, ""].includes(
             queries.dealer
-          )
+          ) &&
+          (queries.priceTo === PRICE_LIST[0] ||
+            (data.price
+              ? ((price) =>
+                  queries.priceFrom <= price && price <= queries.priceTo)(
+                  data.price.grossSalesPrice
+                )
+              : true))
       ),
     [queries, grouped]
   );
@@ -395,6 +278,10 @@ export function Price() {
             Object.assign(options, {
               brand: Object.assign(options.brand || {}, {
                 [data.vehicleSpecification.modelAndOption.brand]: true,
+              }),
+              model: Object.assign(options.model || {}, {
+                [data.vehicleSpecification.modelAndOption.model.modelName]:
+                  true,
               }),
               dealer: Object.assign(
                 options.dealer || {},
