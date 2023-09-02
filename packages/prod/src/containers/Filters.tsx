@@ -1,5 +1,6 @@
 import {
   type ChangeEventHandler,
+  type ComponentProps,
   type Dispatch,
   type ReactNode,
   type SetStateAction,
@@ -34,6 +35,20 @@ export const SORT_BY = {
   minPrice: "Najniższa cena",
   minPriceChanged: "Data najniższej ceny",
 } as const;
+
+function Input({
+  label,
+  ...props
+}: ComponentProps<"input"> & {
+  label: ReactNode;
+}) {
+  return (
+    <label>
+      <span>{label}</span>
+      <input {...props} />
+    </label>
+  );
+}
 
 function Picker({
   label,
@@ -174,33 +189,31 @@ export function Filters({
         />
         <span>{`${new Intl.NumberFormat().format(
           filters.priceFrom
-        )} - ${new Intl.NumberFormat().format(filters.priceTo)} PLN`}</span>
+        )} - ${new Intl.NumberFormat().format(filters.priceTo)} zł`}</span>
       </div>
       <div>
-        <label>
-          <span>Search</span>
-          <input
-            type="search"
-            value={filters.search}
-            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  search: target.value,
-                })),
-              []
-            )}
-          />
-        </label>
+        <Input
+          label="Search"
+          type="search"
+          value={filters.search}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                search: target.value,
+              })),
+            []
+          )}
+        />
         <Picker
           label="Sort"
-          options={LIMIT.map(String)}
-          value={String(filters.limit)}
+          entries={Object.entries(SORT_BY)}
+          value={filters.sortBy}
           onChange={useCallback(
             ({ target }) =>
               setFilters((filters) => ({
                 ...filters,
-                limit: Number(target.value),
+                sortBy: target.value,
               })),
             []
           )}
