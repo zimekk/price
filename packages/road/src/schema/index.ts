@@ -10,3 +10,7 @@ export const ItemSchema = z.object({
   szer_geo: z.string(),
   zespol: z.string(),
 });
+
+export const DataSchema = z.object({
+  result: ItemSchema.array(),
+});

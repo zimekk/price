@@ -11,7 +11,7 @@ import {
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { Loading, Map } from "@acme/components";
-import { ItemSchema } from "../schema";
+import { DataSchema, ItemSchema } from "../schema";
 
 interface FiltersState {
   search: string;
@@ -155,15 +155,7 @@ export function Price() {
   useEffect(() => {
     fetch(`/api/road?limit=${filters.limit}`)
       .then((res) => res.json())
-      .then((data) => {
-        setData(
-          z
-            .object({
-              result: ItemSchema.array(),
-            })
-            .parse(data)
-        );
-      });
+      .then((data) => setData(DataSchema.parse(data)));
   }, [filters.limit]);
 
   const grouped = useMemo(

@@ -10,5 +10,5 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  return api(req.query).then((result) => res.status(200).json({ result }));
+  return api(req.query).then((result) => res.status(200).json(result));
 }
