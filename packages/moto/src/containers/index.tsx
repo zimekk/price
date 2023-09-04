@@ -116,7 +116,31 @@ function Details({
           <small> {data.price.amount.currencyCode}</small>
         </span>
       </strong>
-      <small> ({data.priceEvaluation.indicator})</small>
+      {data.priceEvaluation && (
+        <>
+          &nbsp;
+          <span
+            style={{
+              fontSize: "xx-small",
+              color: {
+                // ABOVE: "darksalmon",
+                ABOVE: "chocolate",
+                BELOW: "limegreen",
+                // IN: "dodgerblue",
+                IN: "cornflowerblue",
+                NONE: "grey",
+              }[data.priceEvaluation.indicator],
+              border: "1px solid currentColor",
+              padding: "0 .25em",
+              position: "relative",
+              top: -1,
+            }}
+          >
+            {data.priceEvaluation.indicator}
+          </span>
+        </>
+        // <small> ({data.priceEvaluation.indicator})</small>
+      )}
       {/* {data.availabilityStatus && <span>{` ${data.availabilityStatus}`}</span>}
       {data.freeShipping && <small>{` (FreeShipping)`}</small>}
       {data.ratingCount ? (

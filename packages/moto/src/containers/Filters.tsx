@@ -1,12 +1,11 @@
 import {
   type ChangeEventHandler,
   type Dispatch,
-  type ReactNode,
   type SetStateAction,
   useCallback,
-  useId,
   useMemo,
 } from "react";
+import { Input, Picker, Range } from "@acme/components";
 
 export interface FiltersState {
   country: string;
@@ -41,89 +40,6 @@ export const PRICE_LIST = [
   0, 30_000, 40_000, 50_000, 100_000, 200_000, 300_000, 400_000, 500_000,
   600_000,
 ] as const;
-
-function Picker({
-  label,
-  options = [],
-  entries = [],
-  value,
-  onChange,
-}: {
-  label: ReactNode;
-  options?: string[];
-  entries?: [string, string][];
-  value: string;
-  onChange: ChangeEventHandler<HTMLSelectElement>;
-}) {
-  return (
-    <label>
-      <span>{label}</span>
-      <select value={value} onChange={onChange}>
-        {options.map((value) => (
-          <option key={value} value={value}>
-            {value}
-          </option>
-        ))}
-        {entries.map(([value, label]) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
-function Range({
-  options,
-  labelFrom,
-  labelTo,
-  valueFrom,
-  valueTo,
-  onChangeFrom,
-  onChangeTo,
-}: {
-  options: readonly number[];
-  labelFrom: ReactNode;
-  labelTo: ReactNode;
-  valueFrom: string | number;
-  valueTo: string | number;
-  onChangeFrom: ChangeEventHandler<HTMLInputElement>;
-  onChangeTo: ChangeEventHandler<HTMLInputElement>;
-}) {
-  const id = useId();
-  return (
-    <>
-      <label>
-        <span>{labelFrom}</span>
-        <input
-          type="range"
-          list={id}
-          min={options[0]}
-          max={options[options.length - 1]}
-          value={valueFrom}
-          onChange={onChangeFrom}
-        />
-        <datalist id={id}>
-          {options.map((value) => (
-            <option key={value} value={value}></option>
-          ))}
-        </datalist>
-      </label>
-      <label>
-        <span>{labelTo}</span>
-        <input
-          type="range"
-          list={id}
-          min={options[0]}
-          max={options[options.length - 1]}
-          value={valueTo}
-          onChange={onChangeTo}
-        />
-      </label>
-    </>
-  );
-}
 
 export function Filters({
   options,
@@ -299,21 +215,19 @@ export function Filters({
         )} - ${new Intl.NumberFormat().format(filters.priceTo)} PLN`}</span>
       </div>
       <div>
-        <label>
-          <span>Search</span>
-          <input
-            type="search"
-            value={filters.search}
-            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  search: target.value,
-                })),
-              []
-            )}
-          />
-        </label>
+        <Input
+          label="Search"
+          type="search"
+          value={filters.search}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                search: target.value,
+              })),
+            []
+          )}
+        />
         <Picker
           label="Limit"
           options={LIMIT.map(String)}
