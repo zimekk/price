@@ -2,6 +2,7 @@ export * from "./color";
 export * from "./form";
 export * from "./gallery";
 export * from "./image";
+export * from "./input-number";
 export * from "./link";
 export * from "./loading";
 export * from "./location";

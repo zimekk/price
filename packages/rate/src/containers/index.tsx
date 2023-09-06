@@ -11,6 +11,7 @@ import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { Loading } from "@acme/components";
 import { Chart } from "../components";
+import { Calculator } from "./Calculator";
 
 interface FiltersState {
   search: string;
@@ -126,10 +127,21 @@ export function Price() {
 
   const filtered = useMemo(() => grouped, [grouped]);
 
+  const [value, setValue] = useState(() => 0);
+  const rate = useMemo(
+    () =>
+      value ||
+      (filtered.length > 0
+        ? Number(Object.values(grouped[0].rates)[0][0].sell)
+        : 0),
+    [value, grouped]
+  );
+
   if (data === null) return <Loading />;
   console.log({ filters, filtered });
   return (
     <section>
+      <Calculator rate={rate} />
       <Chart
         data={filtered.flatMap(({ date, rates }) =>
           Object.entries(rates).map(([time, rates]) =>
@@ -154,7 +166,15 @@ export function Price() {
                 </td>
                 {values.map((item, key) => (
                   <td key={key}>
-                    {item.code} {item.sell}
+                    {item.code}{" "}
+                    <a
+                      href="#"
+                      onClick={(e) => (
+                        e.preventDefault(), setValue(Number(item.sell))
+                      )}
+                    >
+                      {item.sell}
+                    </a>
                   </td>
                 ))}
               </tr>
