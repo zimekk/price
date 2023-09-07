@@ -13,6 +13,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       links={[
         "auto",
         "euro",
+        "fuel",
         "moto",
         "plot",
         "prod",
