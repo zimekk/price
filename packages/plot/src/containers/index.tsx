@@ -1,38 +1,23 @@
-import {
-  type ChangeEventHandler,
-  type Dispatch,
-  type ReactNode,
-  type SetStateAction,
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useState,
-} from "react";
+import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
-import { z } from "zod";
 import { Gallery, Link, Loading, Location, Map, Text } from "@acme/components";
-import { DataSchema, ItemSchema } from "../schema";
-
-interface FiltersState {
-  search: string;
-  sortBy: string;
-  limit: number;
-  priceFrom: number;
-  priceTo: number;
-}
-
-type Data = z.infer<typeof DataSchema>;
-
-type Item = z.infer<typeof ItemSchema>;
+import type { Data, Item } from "../schema";
+import {
+  type FiltersState,
+  AREA_LIST,
+  Filters,
+  LIMIT,
+  PRICE_LIST,
+  SORT_BY,
+} from "./Filters";
 
 interface Meta {
   dateCreated: number;
   dateCreatedFirst: number;
   totalPrice: number;
   // pricePerSquareMeter: number;
-  // terrainAreaInSquareMeters: number;
+  terrainAreaInSquareMeters: number;
 }
 
 interface Values {
@@ -40,122 +25,16 @@ interface Values {
   price_per_m: string;
 }
 
-const LIMIT = [...Array(5)].map((_value, index) => (index + 1) * 500);
-
-const PRICE_LIST = [
-  0, 200000, 400000, 600000, 800000, 1000000, 1500000, 2000000, 2500000,
-  3000000, 4000000, 5000000,
-] as const;
-
-const SORT_BY = {
-  dateCreated: "Data aktualizacji",
-  dateCreatedFirst: "Data utworzenia",
-  totalPrice: "Cena",
-  // pricePerSquareMeter: "Cena za m2",
-  // areaInSquareMeters: "Powierzchnia",
-  // terrainAreaInSquareMeters: "Powierzchnia działki",
-} as const;
-
-function Picker({
-  label,
-  options = [],
-  entries = [],
-  value,
-  onChange,
-}: {
-  label: ReactNode;
-  options?: string[];
-  entries?: [string, string][];
-  value: string;
-  onChange: ChangeEventHandler<HTMLSelectElement>;
-}) {
-  return (
-    <label>
-      <span>{label}</span>
-      <select value={value} onChange={onChange}>
-        {options.map((value) => (
-          <option key={value} value={value}>
-            {value}
-          </option>
-        ))}
-        {entries.map(([value, label]) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
-function Range({
-  labelFrom,
-  labelTo,
-  options,
-  filters,
-  setFilters,
-}: {
-  labelFrom: ReactNode;
-  labelTo: ReactNode;
-  options: readonly number[];
-  filters: FiltersState;
-  setFilters: Dispatch<SetStateAction<FiltersState>>;
-}) {
-  const id = useId();
-  return (
-    <>
-      <label>
-        <span>{labelFrom}</span>
-        <input
-          type="range"
-          list={id}
-          min={options[0]}
-          max={options[options.length - 1]}
-          value={filters.priceFrom}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters(({ priceTo, ...criteria }) => {
-                const priceFrom = Number(target.value);
-                return {
-                  ...criteria,
-                  priceFrom,
-                  priceTo: priceTo < priceFrom ? priceFrom : priceTo,
-                };
-              }),
-            []
-          )}
-        />
-        <datalist id={id}>
-          {options.map((value) => (
-            <option key={value} value={value}></option>
-          ))}
-        </datalist>
-      </label>
-      <label>
-        <span>{labelTo}</span>
-        <input
-          type="range"
-          list={id}
-          min={options[0]}
-          max={options[options.length - 1]}
-          value={filters.priceTo}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters(({ priceFrom, ...criteria }) => {
-                const priceTo = Number(target.value);
-                return {
-                  ...criteria,
-                  priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
-                  priceTo,
-                };
-              }),
-            []
-          )}
-        />
-      </label>
-    </>
-  );
-}
+type ExtendedItem = Item & {
+  data: Data & {
+    values: {
+      m: string;
+    };
+    normalizedValues: {
+      m: string;
+    };
+  };
+};
 
 function Description({ children }: { children: string }) {
   return <Text>{children}</Text>;
@@ -307,74 +186,6 @@ function Details({
   );
 }
 
-function Filters({
-  filters,
-  setFilters,
-}: {
-  filters: FiltersState;
-  setFilters: Dispatch<SetStateAction<FiltersState>>;
-}) {
-  return (
-    <fieldset>
-      <div>
-        <Range
-          labelFrom="Price From"
-          labelTo="Price To"
-          options={PRICE_LIST}
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <span>{`${new Intl.NumberFormat().format(
-          filters.priceFrom
-        )} - ${new Intl.NumberFormat().format(filters.priceTo)} PLN`}</span>
-      </div>
-      <div>
-        <label>
-          <span>Search</span>
-          <input
-            type="search"
-            value={filters.search}
-            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  search: target.value,
-                })),
-              []
-            )}
-          />
-        </label>
-        <Picker
-          label="Limit"
-          options={LIMIT.map(String)}
-          value={String(filters.limit)}
-          onChange={useCallback(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                limit: Number(target.value),
-              })),
-            []
-          )}
-        />
-        <Picker
-          label="Sort"
-          entries={Object.entries(SORT_BY)}
-          value={filters.sortBy}
-          onChange={useCallback(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                sortBy: target.value,
-              })),
-            []
-          )}
-        />
-      </div>
-    </fieldset>
-  );
-}
-
 export function List({ list }: { list: Item[] }) {
   const [show, setShow] = useState(false);
 
@@ -421,6 +232,8 @@ export function Price() {
     limit: LIMIT[0],
     priceFrom: PRICE_LIST[1],
     priceTo: PRICE_LIST[4],
+    areaFrom: AREA_LIST[1],
+    areaTo: AREA_LIST[9],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -452,15 +265,7 @@ export function Price() {
   useEffect(() => {
     fetch(`/api/plot?limit=${filters.limit}`)
       .then((res) => res.json())
-      .then((data) => {
-        setData(
-          z
-            .object({
-              result: ItemSchema.array(),
-            })
-            .parse(data)
-        );
-      });
+      .then((data) => setData(data));
   }, [filters.limit]);
 
   const grouped = useMemo(
@@ -475,6 +280,13 @@ export function Price() {
                   (params, { key, value }) =>
                     Object.assign(params, {
                       [key]: value,
+                    }),
+                  {}
+                ),
+                normalizedValues: data.params.reduce(
+                  (params, { key, normalizedValue }) =>
+                    Object.assign(params, {
+                      [key]: normalizedValue,
                     }),
                   {}
                 ),
@@ -496,8 +308,8 @@ export function Price() {
             [
               item,
               list,
-              list.reduce(
-                (meta, { data, created }) =>
+              (list as ExtendedItem[]).reduce(
+                (meta, { data }) =>
                   Object.assign(
                     meta,
                     0 === meta.dateCreated && {
@@ -509,7 +321,12 @@ export function Price() {
                     0 === meta.totalPrice &&
                       data.price.regularPrice.value && {
                         totalPrice: data.price.regularPrice.value,
-                      }
+                      },
+                    data.normalizedValues.m && {
+                      terrainAreaInSquareMeters: Number(
+                        data.normalizedValues.m
+                      ),
+                    }
                   ),
                 {
                   dateCreated: 0,
@@ -536,11 +353,16 @@ export function Price() {
   const filtered = useMemo(
     () =>
       grouped.filter(
-        ([id, [{ data }]]) =>
+        ([id, [{ data }], meta]) =>
           (queries.search === "" ||
             queries.search === id ||
             data.title.toLowerCase().includes(queries.search) ||
             data.location.pathName.toLowerCase().includes(queries.search)) &&
+          (queries.areaTo === PRICE_LIST[0] ||
+            (meta.terrainAreaInSquareMeters
+              ? queries.areaFrom <= meta.terrainAreaInSquareMeters &&
+                meta.terrainAreaInSquareMeters <= queries.areaTo
+              : true)) &&
           (queries.priceTo === PRICE_LIST[0] ||
             (data.price.regularPrice
               ? queries.priceFrom <= data.price.regularPrice.value &&
