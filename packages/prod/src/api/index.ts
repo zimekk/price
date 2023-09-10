@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DataSchema, ItemSchema } from "../schema";
+import { ItemSchema } from "../schema";
 
 const API_URL = process.env.PRICE_API_URL || "/";
 
@@ -17,12 +17,5 @@ export default (query: unknown) =>
       )
     )
     .then((res) => res.json())
-    .then((data) =>
-      ItemSchema.extend({
-        data: DataSchema,
-      })
-        .array()
-        .parse(data.result)
-        .splice(0, 10000)
-    );
+    .then((data) => ItemSchema.array().parse(data.result).splice(0, 10000));
 // .catch(console.error);

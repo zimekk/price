@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
-import { z } from "zod";
 import { Gallery, Link, Loading } from "@acme/components";
-import { DataSchema, ItemSchema } from "../schema";
+import type { Data, Item } from "../schema";
 import {
   Filters,
   FiltersState,
@@ -13,10 +12,6 @@ import {
   SORT_BY,
 } from "./Filters";
 
-type Data = z.infer<typeof DataSchema>;
-
-type Item = z.infer<typeof ItemSchema>;
-
 type Meta = {
   type: string;
   minPrice: number;
@@ -25,10 +20,6 @@ type Meta = {
   price: number;
   priceChanged: number;
 };
-
-const ALTO_BASE_URL = process.env.NEXT_PUBLIC_ALTO_BASE_URL || "";
-const EURO_BASE_URL = process.env.NEXT_PUBLIC_EURO_BASE_URL || "";
-const XKOM_BASE_URL = process.env.NEXT_PUBLIC_XKOM_BASE_URL || "";
 
 export const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
@@ -43,17 +34,13 @@ export const getPercentage = ({
   oldPrice?: number | null;
 }) => (oldPrice !== null ? (price / oldPrice - 1) * 100 : 0);
 
-function Summary({ data, type }: { data: Data; type: string }) {
+function Summary({ data }: { data: Data; type: string }) {
   return (
     <div>
       <div style={{ float: "right", fontSize: "small" }}>
         #
         <Link
-          href={`${
-            { alto: ALTO_BASE_URL, euro: EURO_BASE_URL, xkom: XKOM_BASE_URL }[
-              type
-            ]
-          }/p/${data.id}`}
+          href={data.url}
           onClick={(e) => {
             const range = document.createRange();
             e.preventDefault();
@@ -233,15 +220,7 @@ export function Price() {
   useEffect(() => {
     fetch(`/api/prod?limit=${filters.limit}`)
       .then((res) => res.json())
-      .then((data) => {
-        setData(
-          z
-            .object({
-              result: ItemSchema.array(),
-            })
-            .parse(data)
-        );
-      });
+      .then((data: { result: Item[] }) => setData(data));
   }, [filters.limit]);
 
   const grouped = useMemo(
@@ -325,9 +304,14 @@ export function Price() {
         (data ? data.result : []).reduce(
           (options, { data }) =>
             Object.assign(options, {
-              brand: Object.assign(options.brand || {}, {
-                [data.brand]: true,
-              }),
+              brand: Object.assign(
+                options.brand || {},
+                data.brand
+                  ? {
+                      [data.brand]: true,
+                    }
+                  : {}
+              ),
               // group: Object.assign(options.group || {}, {
               //   [data.category.id]: true,
               // }),
