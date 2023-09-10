@@ -111,3 +111,7 @@ export const ItemSchema = z.object({
   created: z.string(),
   checked: z.string().nullable(),
 });
+
+export type Data = z.infer<typeof DataSchema>;
+
+export type Item = z.infer<typeof ItemSchema>;

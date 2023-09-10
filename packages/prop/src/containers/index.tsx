@@ -1,43 +1,17 @@
-import {
-  type ChangeEventHandler,
-  type Dispatch,
-  type ReactNode,
-  type SetStateAction,
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useState,
-} from "react";
+import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
-import { z } from "zod";
 import { Gallery, Link, Loading, LocationLink } from "@acme/components";
-import { DataSchema, ItemSchema } from "../schema";
-
-interface FiltersState {
-  private: boolean;
-  agency: string;
-  agencyType: string;
-  estate: string;
-  region: string;
-  search: string;
-  sortBy: string;
-  limit: number;
-  priceFrom: number;
-  priceTo: number;
-}
-
-interface OptionsState {
-  agency: string[];
-  agencyType: string[];
-  estate: string[];
-  region: string[];
-}
-
-type Data = z.infer<typeof DataSchema>;
-
-type Item = z.infer<typeof ItemSchema>;
+import type { Data, Item } from "../schema";
+import {
+  type FiltersState,
+  type OptionsState,
+  AREA_LIST,
+  Filters,
+  LIMIT,
+  PRICE_LIST,
+  SORT_BY,
+} from "./Filters";
 
 type Meta = {
   dateCreated: number;
@@ -49,22 +23,6 @@ type Meta = {
 };
 
 const URL = process.env.NEXT_PUBLIC_PROP_BASE_URL || "";
-
-const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
-
-const PRICE_LIST = [
-  0, 200000, 400000, 600000, 800000, 1000000, 1500000, 2000000, 2500000,
-  3000000, 4000000, 5000000,
-] as const;
-
-const SORT_BY = {
-  dateCreated: "Data aktualizacji",
-  dateCreatedFirst: "Data utworzenia",
-  totalPrice: "Cena",
-  pricePerSquareMeter: "Cena za m2",
-  areaInSquareMeters: "Powierzchnia",
-  terrainAreaInSquareMeters: "Powierzchnia działki",
-} as const;
 
 const formatPrice = (price: number, currency: string) =>
   `${new Intl.NumberFormat("pl-PL", {
@@ -80,107 +38,6 @@ function getLocationLink(location: string, zoom = 0) {
   return `//www.google.com/maps?t=k&q=${encodeURIComponent(location)}&hl=pl${
     zoom ? `&z=${zoom}` : ""
   }`;
-}
-
-function Picker({
-  label,
-  options = [],
-  entries = [],
-  value,
-  onChange,
-}: {
-  label: ReactNode;
-  options?: string[];
-  entries?: [string, string][];
-  value: string;
-  onChange: ChangeEventHandler<HTMLSelectElement>;
-}) {
-  return (
-    <label>
-      <span>{label}</span>
-      <select value={value} onChange={onChange}>
-        {options.map((value) => (
-          <option key={value} value={value}>
-            {value}
-          </option>
-        ))}
-        {entries.map(([value, label]) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
-function Range({
-  labelFrom,
-  labelTo,
-  options,
-  filters,
-  setFilters,
-}: {
-  labelFrom: ReactNode;
-  labelTo: ReactNode;
-  options: readonly number[];
-  filters: FiltersState;
-  setFilters: Dispatch<SetStateAction<FiltersState>>;
-}) {
-  const id = useId();
-  return (
-    <>
-      <label>
-        <span>{labelFrom}</span>
-        <input
-          type="range"
-          list={id}
-          min={options[0]}
-          max={options[options.length - 1]}
-          value={filters.priceFrom}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters(({ priceTo, ...criteria }) => {
-                const priceFrom = Number(target.value);
-                return {
-                  ...criteria,
-                  priceFrom,
-                  priceTo: priceTo < priceFrom ? priceFrom : priceTo,
-                };
-              }),
-            []
-          )}
-        />
-        <datalist id={id}>
-          {options.map((value) => (
-            <option key={value} value={value}></option>
-          ))}
-        </datalist>
-      </label>
-      <label>
-        <span>{labelTo}</span>
-        <input
-          type="range"
-          list={id}
-          min={options[0]}
-          max={options[options.length - 1]}
-          value={filters.priceTo}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters(({ priceFrom, ...criteria }) => {
-                const priceTo = Number(target.value);
-                return {
-                  ...criteria,
-                  priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
-                  priceTo,
-                };
-              }),
-            []
-          )}
-        />
-      </label>
-    </>
-  );
 }
 
 function Summary({ data }: { data: Data }) {
@@ -352,147 +209,6 @@ function Details({
   );
 }
 
-function Filters({
-  options,
-  filters,
-  setFilters,
-}: {
-  options: OptionsState;
-  filters: FiltersState;
-  setFilters: Dispatch<SetStateAction<FiltersState>>;
-}) {
-  return (
-    <fieldset>
-      <div>
-        <Picker
-          label="Agency"
-          options={[""].concat(options.agency)}
-          value={filters.agency}
-          onChange={useCallback(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                agency: target.value,
-              })),
-            []
-          )}
-        />
-      </div>
-      <div>
-        <Picker
-          label="Estate"
-          options={[""].concat(options.estate)}
-          value={filters.estate}
-          onChange={useCallback(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                estate: target.value,
-              })),
-            []
-          )}
-        />
-        <Picker
-          label="Region"
-          options={[""].concat(options.region)}
-          value={filters.region}
-          onChange={useCallback(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                region: target.value,
-              })),
-            []
-          )}
-        />
-        <Picker
-          label="Type"
-          options={[""].concat(options.agencyType)}
-          value={filters.agencyType}
-          onChange={useCallback(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                agencyType: target.value,
-              })),
-            []
-          )}
-        />
-        <label>
-          <span>Private owner</span>{" "}
-          <input
-            type="checkbox"
-            checked={filters.private}
-            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  private: target.checked,
-                })),
-              []
-            )}
-          />
-        </label>
-      </div>
-      <div>
-        <Range
-          labelFrom="Price From"
-          labelTo="Price To"
-          options={PRICE_LIST}
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <span>{`${new Intl.NumberFormat().format(
-          filters.priceFrom
-        )} - ${new Intl.NumberFormat().format(filters.priceTo)} PLN`}</span>
-      </div>
-      <div>
-        <label>
-          <span>Search</span>
-          <input
-            type="search"
-            value={filters.search}
-            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  search: target.value,
-                })),
-              []
-            )}
-          />
-        </label>
-        <Picker
-          label="Limit"
-          options={LIMIT.map(String)}
-          value={String(filters.limit)}
-          onChange={useCallback(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                limit: Number(target.value),
-              })),
-            []
-          )}
-        />
-        <Picker
-          label="Sort"
-          entries={Object.entries(SORT_BY)}
-          value={filters.sortBy}
-          onChange={useCallback(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                sortBy: target.value,
-              })),
-            []
-          )}
-        />
-      </div>
-    </fieldset>
-  );
-}
-
 export function List({ list }: { list: Item[] }) {
   const [show, setShow] = useState(false);
 
@@ -537,13 +253,15 @@ export function Price() {
     private: false,
     agency: "",
     agencyType: "",
-    estate: "",
+    estate: "TERRAIN",
     region: "",
     search: "",
     sortBy: Object.keys(SORT_BY)[0],
     limit: LIMIT[1],
     priceFrom: PRICE_LIST[1],
     priceTo: PRICE_LIST[4],
+    areaFrom: AREA_LIST[1],
+    areaTo: AREA_LIST[9],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -575,15 +293,7 @@ export function Price() {
   useEffect(() => {
     fetch(`/api/prop?limit=${filters.limit}`)
       .then((res) => res.json())
-      .then((data) => {
-        setData(
-          z
-            .object({
-              result: ItemSchema.array(),
-            })
-            .parse(data)
-        );
-      });
+      .then((data) => setData(data));
   }, [filters.limit]);
 
   const grouped = useMemo(
@@ -630,7 +340,9 @@ export function Price() {
                         areaInSquareMeters: data.areaInSquareMeters,
                       },
                     0 === meta.terrainAreaInSquareMeters && {
-                      terrainAreaInSquareMeters: data.terrainAreaInSquareMeters,
+                      terrainAreaInSquareMeters:
+                        data.terrainAreaInSquareMeters ||
+                        data.areaInSquareMeters,
                     }
                   ),
                 {
@@ -658,7 +370,7 @@ export function Price() {
   const filtered = useMemo(
     () =>
       grouped.filter(
-        ([id, [{ data }]]) =>
+        ([id, [{ data }], meta]) =>
           (queries.search === "" ||
             queries.search === id ||
             data.locationLabel.value?.toLowerCase().includes(queries.search) ||
@@ -668,6 +380,11 @@ export function Price() {
           [data.estate, ""].includes(queries.estate) &&
           [data.location.address.city.name, ""].includes(queries.region) &&
           (data.isPrivateOwner || !queries.private) &&
+          (queries.areaTo === PRICE_LIST[0] ||
+            (meta.terrainAreaInSquareMeters
+              ? queries.areaFrom <= meta.terrainAreaInSquareMeters &&
+                meta.terrainAreaInSquareMeters <= queries.areaTo
+              : true)) &&
           (queries.priceTo === PRICE_LIST[0] ||
             (data.totalPrice
               ? queries.priceFrom <= data.totalPrice.value &&
