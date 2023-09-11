@@ -83,7 +83,7 @@ const Ad = z.object({
       locale: z.string(),
       __typename: z.string(),
     })
-    .strict(),
+    .optional(),
   peoplePerRoom: z.null(),
   developmentUrl: z.string().optional(),
   isPrivateOwner: z.boolean(),

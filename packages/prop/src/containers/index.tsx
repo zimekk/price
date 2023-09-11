@@ -373,7 +373,7 @@ export function Price() {
         ([id, [{ data }], meta]) =>
           (queries.search === "" ||
             queries.search === id ||
-            data.locationLabel.value?.toLowerCase().includes(queries.search) ||
+            data.locationLabel?.value?.toLowerCase().includes(queries.search) ||
             data.title?.toLowerCase().includes(queries.search)) &&
           [data.agency?.name, ""].includes(queries.agency) &&
           [data.agency?.type, ""].includes(queries.agencyType) &&
