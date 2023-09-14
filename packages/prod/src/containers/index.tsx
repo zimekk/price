@@ -57,6 +57,29 @@ function Summary({ data }: { data: Data; type: string }) {
       </div>
       <strong>{data.brand}</strong>
       {data.name && <i>{` ${data.name}`}</i>}
+      {data.mark && (
+        <>
+          &nbsp;
+          <span
+            style={{
+              fontSize: "xx-small",
+              color: {
+                LastItems: "mediumvioletred",
+                New: "darkorange",
+                Presale: "limegreen",
+                Promotion: "orangered",
+                RecommendedProduct: "cornflowerblue",
+              }[data.mark],
+              border: "1px solid currentColor",
+              padding: "0 .25em",
+              position: "relative",
+              top: -2,
+            }}
+          >
+            {data.mark}
+          </span>
+        </>
+      )}
       {/* <div
         style={{
           fontSize: "small",
