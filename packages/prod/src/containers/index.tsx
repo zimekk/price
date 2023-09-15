@@ -1,15 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
-import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { Gallery, Link, Loading } from "@acme/components";
 import type { Data, Item } from "../schema";
 import {
   Filters,
-  FiltersState,
-  LIMIT,
   OptionsState,
   PRICE_LIST,
   SORT_BY,
+  initialQueries,
 } from "./Filters";
 
 type Meta = {
@@ -204,47 +202,13 @@ export function List({ list, meta }: { list: Item[]; meta: Meta }) {
 
 export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
-  const [filters, setFilters] = useState<FiltersState>(() => ({
-    brand: "",
-    group: "",
-    search: "",
-    sortBy: Object.keys(SORT_BY)[3],
-    limit: LIMIT[9],
-    priceFrom: PRICE_LIST[0],
-    priceTo: PRICE_LIST[PRICE_LIST.length - 2],
-  }));
-
-  const [queries, setQueries] = useState(() => filters);
-  const search$ = useMemo(() => new Subject<any>(), []);
+  const [queries, setQueries] = useState(() => initialQueries());
 
   useEffect(() => {
-    const subscription = search$
-      .pipe(
-        map(({ search, ...filters }) =>
-          JSON.stringify({
-            ...queries,
-            ...filters,
-            search: search.toLowerCase().trim(),
-          })
-        ),
-        distinctUntilChanged(),
-        debounceTime(400)
-      )
-      .subscribe((filters) =>
-        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
-      );
-    return () => subscription.unsubscribe();
-  }, [search$]);
-
-  useEffect(() => {
-    search$.next(filters);
-  }, [filters]);
-
-  useEffect(() => {
-    fetch(`/api/prod?limit=${filters.limit}`)
+    fetch(`/api/prod?limit=${queries.limit}`)
       .then((res) => res.json())
       .then((data: { result: Item[] }) => setData(data));
-  }, [filters.limit]);
+  }, [queries.limit]);
 
   const grouped = useMemo(
     () =>
@@ -293,11 +257,11 @@ export function Price() {
         )
         .sort(
           (a, b) =>
-            (["minPrice", "price"].includes(filters.sortBy) ? -1 : 1) *
-            (b[2][filters.sortBy as keyof typeof SORT_BY] -
-              a[2][filters.sortBy as keyof typeof SORT_BY])
+            (["minPrice", "price"].includes(queries.sortBy) ? -1 : 1) *
+            (b[2][queries.sortBy as keyof typeof SORT_BY] -
+              a[2][queries.sortBy as keyof typeof SORT_BY])
         ),
-    [data, , filters.sortBy]
+    [data, , queries.sortBy]
   );
 
   const filtered = useMemo(
@@ -352,10 +316,10 @@ export function Price() {
   );
 
   if (data === null) return <Loading />;
-  console.log({ result: data.result, options, filters, filtered });
+  console.log({ result: data.result, options, queries, filtered });
   return (
     <section>
-      <Filters options={options} filters={filters} setFilters={setFilters} />
+      <Filters options={options} setQueries={setQueries} />
       <small>
         {filtered.length === grouped.length
           ? `Showing all of ${grouped.length}`

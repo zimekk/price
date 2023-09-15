@@ -3,29 +3,18 @@ import {
   type Dispatch,
   type SetStateAction,
   useCallback,
+  useEffect,
+  useMemo,
+  useState,
 } from "react";
+import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { Input, Picker, Range } from "@acme/components";
-
-export interface FiltersState {
-  brand: string;
-  group: string;
-  search: string;
-  sortBy: string;
-  limit: number;
-  priceFrom: number;
-  priceTo: number;
-}
-
-export interface OptionsState {
-  brand: string[];
-  group: string[];
-}
 
 export const LIMIT = [...Array(19)].map((_value, index) => (index + 1) * 500);
 
 export const PRICE_LIST = [
   0, 100, 200, 500, 1_000, 2_000, 5_000, 10_000, 15_000,
-] as const;
+];
 
 export const SORT_BY = {
   price: "Cena",
@@ -34,15 +23,55 @@ export const SORT_BY = {
   minPriceChanged: "Data najniższej ceny",
 } as const;
 
+const INITIAL_FILTERS = {
+  brand: "",
+  group: "",
+  search: "",
+  sortBy: Object.keys(SORT_BY)[3],
+  limit: LIMIT[9],
+  priceFrom: PRICE_LIST[0],
+  priceTo: PRICE_LIST[PRICE_LIST.length - 2],
+};
+
+export type FiltersState = typeof INITIAL_FILTERS;
+
+export interface OptionsState {
+  brand: string[];
+  group: string[];
+}
+
+export const stringifyFilters = ({ search, ...filters }: FiltersState) =>
+  JSON.stringify({
+    ...filters,
+    search: search.toLowerCase().trim(),
+  });
+
+export const initialQueries = () =>
+  JSON.parse(stringifyFilters(INITIAL_FILTERS));
+
 export function Filters({
   options,
-  filters,
-  setFilters,
+  setQueries,
 }: {
   options: OptionsState;
-  filters: FiltersState;
-  setFilters: Dispatch<SetStateAction<FiltersState>>;
+  setQueries: Dispatch<SetStateAction<FiltersState>>;
 }) {
+  const [filters, setFilters] = useState(INITIAL_FILTERS);
+  const search$ = useMemo(() => new Subject<any>(), []);
+
+  useEffect(() => {
+    const subscription = search$
+      .pipe(map(stringifyFilters), distinctUntilChanged(), debounceTime(400))
+      .subscribe((filters) =>
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+      );
+    return () => subscription.unsubscribe();
+  }, [search$]);
+
+  useEffect(() => {
+    search$.next(filters);
+  }, [filters]);
+
   return (
     <fieldset>
       <div>
