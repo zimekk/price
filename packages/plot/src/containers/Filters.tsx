@@ -7,6 +7,7 @@ import {
 import { Input, Picker, Range } from "@acme/components";
 
 export interface FiltersState {
+  private: boolean;
   search: string;
   sortBy: string;
   limit: number;
@@ -151,6 +152,21 @@ export function Filters({
             []
           )}
         />
+        <label>
+          <span>Private owner</span>{" "}
+          <input
+            type="checkbox"
+            checked={filters.private}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  private: target.checked,
+                })),
+              []
+            )}
+          />
+        </label>
       </div>
     </fieldset>
   );

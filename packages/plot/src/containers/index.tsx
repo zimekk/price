@@ -227,6 +227,7 @@ export function List({ list }: { list: Item[] }) {
 export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
+    private: false,
     search: "",
     sortBy: Object.keys(SORT_BY)[0],
     limit: LIMIT[0],
@@ -358,6 +359,7 @@ export function Price() {
             queries.search === id ||
             data.title.toLowerCase().includes(queries.search) ||
             data.location.pathName.toLowerCase().includes(queries.search)) &&
+          (!data.isBusiness || !queries.private) &&
           (queries.areaTo === PRICE_LIST[0] ||
             (meta.terrainAreaInSquareMeters
               ? queries.areaFrom <= meta.terrainAreaInSquareMeters &&
