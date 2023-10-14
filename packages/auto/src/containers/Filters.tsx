@@ -26,7 +26,7 @@ export interface OptionsState {
 export const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 100);
 
 export const PRICE_LIST = [
-  0, 100_000, 200_000, 300_000, 400_000, 500_000,
+  0, 100_000, 200_000, 300_000, 400_000, 500_000, 600_000,
 ] as const;
 
 export const TYPE = ["AVAILABLE", "RESERVED_MANUAL", "SOLD"] as const;
