@@ -201,13 +201,17 @@ export function List({ list, meta }: { list: Item[]; meta: Meta }) {
 }
 
 export function Price() {
+  const [error, setError] = useState<Error | null>(null);
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [queries, setQueries] = useState(() => initialQueries());
 
   useEffect(() => {
     fetch(`/api/prod?limit=${queries.limit}`)
-      .then((res) => res.json())
-      .then((data: { result: Item[] }) => setData(data));
+      .then(async (res) =>
+        res.ok ? await res.json() : Promise.reject(await res.text())
+      )
+      .then((data: { result: Item[] }) => (setData(data), setError(null)))
+      .catch((error) => setError(error));
   }, [queries.limit]);
 
   const grouped = useMemo(
@@ -316,10 +320,23 @@ export function Price() {
   );
 
   if (data === null) return <Loading />;
-  console.log({ result: data.result, options, queries, filtered });
+  console.log({ error, result: data.result, options, queries, filtered });
   return (
     <section>
       <Filters options={options} setQueries={setQueries} />
+      {error && (
+        <div
+          style={{
+            fontSize: "small",
+            backgroundColor: "lemonchiffon",
+            color: "red",
+            margin: "0 -.5em",
+            padding: ".5em",
+          }}
+        >
+          {error.toString()}
+        </div>
+      )}
       <small>
         {filtered.length === grouped.length
           ? `Showing all of ${grouped.length}`
