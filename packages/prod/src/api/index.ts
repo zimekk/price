@@ -17,5 +17,5 @@ export default (query: unknown) =>
       )
     )
     .then((res) => res.json())
-    .then((data) => ItemSchema.array().parse(data.result).splice(0, 10000));
+    .then((data) => ItemSchema.array().parse(data.result));
 // .catch(console.error);

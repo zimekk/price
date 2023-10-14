@@ -10,7 +10,7 @@ import {
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { Input, Picker, Range } from "@acme/components";
 
-export const LIMIT = [...Array(19)].map((_value, index) => (index + 1) * 500);
+export const LIMIT = [...Array(20)].map((_value, index) => (index + 1) * 1000);
 
 export const PRICE_LIST = [
   0, 100, 200, 500, 1_000, 2_000, 5_000, 10_000, 15_000,
@@ -28,7 +28,7 @@ const INITIAL_FILTERS = {
   group: "",
   search: "",
   sortBy: Object.keys(SORT_BY)[3],
-  limit: LIMIT[9],
+  limit: LIMIT[4],
   priceFrom: PRICE_LIST[0],
   priceTo: PRICE_LIST[PRICE_LIST.length - 2],
 };
