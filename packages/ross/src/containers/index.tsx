@@ -17,6 +17,7 @@ interface FiltersState {
   brand: string;
   group: string;
   limit: number;
+  promo: boolean;
   sortBy: string;
   search: string;
 }
@@ -182,6 +183,23 @@ function Filters({
           </select>
         </label>
         <label>
+          <span>Promo</span>{" "}
+          <input
+            type="checkbox"
+            checked={filters.promo}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  promo: target.checked,
+                })),
+              []
+            )}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
           <span>Group</span>
           <select
             value={filters.group}
@@ -310,6 +328,7 @@ export function Price() {
     brand: "",
     group: "",
     limit: LIMIT[1],
+    promo: false,
     sortBy: Object.keys(SORT_BY)[0],
     search: "",
   }));
@@ -417,7 +436,8 @@ export function Price() {
             data.caption?.toLowerCase().includes(queries.search) ||
             data.cmpDescription?.toLowerCase().includes(queries.search)) &&
           [data.brand, ""].includes(queries.brand) &&
-          [data.category, ""].includes(queries.group)
+          [data.category, ""].includes(queries.group) &&
+          (!queries.promo || data.oldPrice)
       ),
     [queries, grouped]
   );
