@@ -134,7 +134,7 @@ export const DataSchema = z.object({
     priceUpdatedAt: z.string(),
   }),
   salesProcess: z.object({
-    reason: z.string(),
+    reason: z.string().optional(),
     type: z.enum(["AVAILABLE", "RESERVED_MANUAL", "SOLD"]),
   }),
   vehicleLifeCycle: z.object({ isRepaired: z.boolean() }),

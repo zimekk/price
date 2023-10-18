@@ -26,10 +26,22 @@ export interface OptionsState {
 export const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 100);
 
 export const PRICE_LIST = [
-  0, 100_000, 200_000, 300_000, 400_000, 500_000, 600_000,
+  0, 100_000, 200_000, 300_000, 400_000, 500_000, 600_000, 700_000, 800_000,
+  900_000,
 ] as const;
 
 export const TYPE = ["AVAILABLE", "RESERVED_MANUAL", "SOLD"] as const;
+
+export const INITIAL_FILTERS = {
+  availability: TYPE[0],
+  brand: "",
+  model: "",
+  dealer: "",
+  search: "M40i",
+  limit: LIMIT[0],
+  priceFrom: PRICE_LIST[0],
+  priceTo: PRICE_LIST[5],
+};
 
 export function Filters({
   options,

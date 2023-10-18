@@ -8,9 +8,8 @@ import {
   type FiltersState,
   type OptionsState,
   Filters,
-  LIMIT,
+  INITIAL_FILTERS,
   PRICE_LIST,
-  TYPE,
 } from "./Filters";
 
 type Data = z.infer<typeof DataSchema>;
@@ -173,16 +172,7 @@ export function List({ list }: { list: Item[] }) {
 
 export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
-  const [filters, setFilters] = useState<FiltersState>(() => ({
-    availability: TYPE[0],
-    brand: "",
-    model: "",
-    dealer: "",
-    search: "M40i",
-    limit: LIMIT[0],
-    priceFrom: PRICE_LIST[0],
-    priceTo: PRICE_LIST[PRICE_LIST.length - 2],
-  }));
+  const [filters, setFilters] = useState<FiltersState>(() => INITIAL_FILTERS);
 
   const [queries, setQueries] = useState(() => filters);
   const search$ = useMemo(() => new Subject<any>(), []);
