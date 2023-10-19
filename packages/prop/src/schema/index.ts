@@ -91,6 +91,7 @@ const Ad = z.object({
   dateCreatedFirst: z.string(),
   developmentTitle: z.string().optional(),
   isExclusiveOffer: z.boolean(),
+  shortDescription: z.string().optional(),
   areaInSquareMeters: z.number(),
   pricePerSquareMeter: MoneyType.nullable(),
   totalPossibleImages: z.number(),

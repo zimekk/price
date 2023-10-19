@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
-import { Gallery, Link, Loading, LocationLink } from "@acme/components";
+import { Gallery, Link, Loading, LocationLink, Text } from "@acme/components";
 import type { Data, Item } from "../schema";
 import {
   type FiltersState,
@@ -38,6 +38,10 @@ function getLocationLink(location: string, zoom = 0) {
   return `//www.google.com/maps?t=k&q=${encodeURIComponent(location)}&hl=pl${
     zoom ? `&z=${zoom}` : ""
   }`;
+}
+
+function Description({ children }: { children: string }) {
+  return <Text>{children}</Text>;
 }
 
 function Summary({ data }: { data: Data }) {
@@ -148,6 +152,9 @@ function Summary({ data }: { data: Data }) {
               PRIVATE
             </span>
           </>
+        )}
+        {data.shortDescription && (
+          <Description>{data.shortDescription}</Description>
         )}
       </div>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
