@@ -7,11 +7,13 @@ import {
   useMemo,
   useState,
 } from "react";
+import cx from "clsx";
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { Loading, LocationLink } from "@acme/components";
 import { TYPES, ItemSchema } from "../schema";
+import styles from "./styles.module.scss";
 
 interface FiltersState {
   search: string;
@@ -53,7 +55,55 @@ function Filters({
   );
 }
 
+enum Compare {
+  LT = "LT",
+  GT = "GT",
+  EQ = "EQ",
+}
+
+const compare = (list: Item[], i: number, t: (typeof TYPES)[number]) => {
+  if (list[i + 1] && list[i + 1].data.petrol_list[t]) {
+    const a = list[i].data.petrol_list[t];
+    const b = list[i + 1].data.petrol_list[t];
+    console.log(a, b);
+    return a === b ? Compare.EQ : a > b ? Compare.GT : Compare.LT;
+  }
+  return null;
+};
+
+function PriceItem({
+  list,
+  type,
+  index,
+}: {
+  list: Item[];
+  type: (typeof TYPES)[number];
+  index: number;
+}) {
+  const item = list[index];
+
+  return (
+    item.data.petrol_list[type] && (
+      <div
+        className={cx(
+          styles.Price,
+          ((type) =>
+            type &&
+            {
+              [Compare.GT]: styles.gt,
+              [Compare.LT]: styles.lt,
+              [Compare.EQ]: styles.eq,
+            }[type])(compare(list, index, type))
+        )}
+      >
+        {item.data.petrol_list[type]}
+      </div>
+    )
+  );
+}
+
 export function Price() {
+  const [expanded, setExpanded] = useState<string[]>([]);
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
     search: "",
@@ -88,112 +138,134 @@ export function Price() {
   useEffect(() => {
     fetch("/api/fuel")
       .then((res) => res.json())
-      .then((data) => {
-        setData(
-          z
-            .object({
-              result: ItemSchema.array(),
-            })
-            .parse(data)
-        );
-      });
+      .then(setData);
   }, []);
 
   const grouped = useMemo(
     () =>
-      (data ? data.result : [])
-        .filter((item) => item.data.petrol_list.length > 0)
-        .sort((a, b) => b.created.localeCompare(a.created))
-        .map((item) => ({
-          ...item,
-          data: Object.assign(
-            {
-              ...item.data,
-              petrol_list: item.data.petrol_list.reduce(
-                (petrol_list, { type, price }) =>
-                  Object.assign(petrol_list, { [type]: price }),
-                {} as Record<(typeof TYPES)[number], number>
-              ),
-            },
-            item.data.map_img
-              ? {
-                  map_img: new URL(
-                    item.data.map_img,
-                    new URL(item.data.url)
-                  ).toString(),
-                }
-              : {}
-          ),
-        })),
+      Object.entries(
+        (data ? data.result : [])
+          .filter((item) => Object.keys(item.data.petrol_list).length > 0)
+          .sort((a, b) => b.created.localeCompare(a.created))
+          .map((item) => ({
+            ...item,
+            data: Object.assign(
+              {},
+              item.data,
+              item.data.map_img
+                ? {
+                    map_img: new URL(
+                      item.data.map_img,
+                      new URL(item.data.url)
+                    ).toString(),
+                  }
+                : {}
+            ),
+          }))
+          .reduce(
+            (list, item) =>
+              Object.assign(list, {
+                [item.data.station_id]: (
+                  list[item.data.station_id] || []
+                ).concat(item),
+              }),
+            {} as Record<string, Item[]>
+          )
+      ).sort(([, a], [, b]) => b[0].created.localeCompare(a[0].created)),
     [data]
   );
 
   const filtered = useMemo(() => grouped, [grouped]);
+
+  const handleExpand = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    ({ target }) =>
+      setExpanded((expanded) =>
+        !target.checked
+          ? expanded.filter((id) => id !== target.value)
+          : expanded.concat(target.value)
+      ),
+    []
+  );
 
   if (data === null) return <Loading />;
   console.log({ filters, filtered });
   return (
     <section>
       <Filters filters={filters} setFilters={setFilters} />
-      <table>
+      <table className={styles.Table}>
         <thead>
           <tr>
-            <th>station</th>
+            <th style={{ width: 20 }}></th>
+            <th style={{ width: 260 }}>station</th>
             {TYPES.map((type) => (
               <th key={type}>{type}</th>
             ))}
-            <th>updated</th>
+            <th style={{ width: 120 }}>updated</th>
           </tr>
         </thead>
         <tbody>
-          {filtered.map(
-            ({
-              id,
-              created,
-              data: { address, map_img, network_name, petrol_list },
-            }) => (
-              <tr key={id}>
-                <td>
-                  <div
-                    style={{
-                      display: "flex",
-                    }}
-                  >
-                    {map_img && (
+          {filtered.map(([station_id, list]) => {
+            const expandedList = expanded.includes(station_id)
+              ? list
+              : list.slice(0, 1);
+            const rowSpan =
+              expandedList.length > 1 ? expandedList.length : undefined;
+            return expandedList.map((item, key) => (
+              <tr key={`${station_id}-${key}`}>
+                {key === 0 && (
+                  <td rowSpan={rowSpan}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        value={station_id}
+                        checked={expanded.includes(station_id)}
+                        onChange={handleExpand}
+                      />
+                    </label>
+                  </td>
+                )}
+                {key === 0 && (
+                  <td rowSpan={rowSpan}>
+                    <div
+                      style={{
+                        display: "flex",
+                      }}
+                    >
+                      {item.data.map_img && (
+                        <div>
+                          <img
+                            src={item.data.map_img}
+                            alt={item.data.network_name}
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                      )}
                       <div>
-                        <img
-                          src={map_img}
-                          alt={network_name}
-                          referrerPolicy="no-referrer"
-                          style={{
-                            width: 20,
-                            float: "left",
-                            marginRight: "0.5em",
-                            marginTop: "-0.5em",
-                            position: "relative",
-                            top: 12,
-                          }}
-                        />
-                      </div>
-                    )}
-                    <div>
-                      <div>{network_name}</div>
-                      <div style={{ fontSize: "small" }}>
-                        <LocationLink href={getLocationLink(address)}>
-                          <i>{address}</i>
-                        </LocationLink>
+                        <div>{item.data.network_name}</div>
+                        <div style={{ fontSize: "xx-small" }}>
+                          <LocationLink
+                            href={getLocationLink(item.data.address)}
+                          >
+                            <i>
+                              {item.data.address} ({item.data.station_id})
+                            </i>
+                          </LocationLink>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </td>
+                  </td>
+                )}
                 {TYPES.map((type) => (
-                  <td key={type}>{petrol_list[type]}</td>
+                  <td key={type}>
+                    <PriceItem list={list} index={key} type={type} />
+                  </td>
                 ))}
-                <td>{dayjs(created).format("MMM D, YYYY H:mm")}</td>
+                <td style={{ fontSize: "small" }}>
+                  {dayjs(item.created).format("MMM D, YYYY H:mm")}
+                </td>
               </tr>
-            )
-            // ))
-          )}
+            ));
+          })}
         </tbody>
       </table>
     </section>

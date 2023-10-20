@@ -20,7 +20,14 @@ export const DataSchema = z
         type: z.enum(TYPES),
         price: z.coerce.number(),
       })
-      .array(),
+      .array()
+      .transform((petrol_list) =>
+        petrol_list.reduce(
+          (petrol_list, { type, price }) =>
+            Object.assign(petrol_list, { [type]: price }),
+          {} as Record<(typeof TYPES)[number], number>
+        )
+      ),
   });
 
 export const ItemSchema = z.object({

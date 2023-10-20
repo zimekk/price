@@ -1,0 +1,40 @@
+.Table {
+  width: 100%;
+  table-layout: fixed;
+  tbody tr {
+    border-top: 1px solid linen;
+  }
+  th,
+  td {
+    vertical-align: top;
+  }
+  td {
+    img {
+      width: 20px;
+      margin: 0 0.5em;
+    }
+    label {
+      padding: 0 0.25em;
+    }
+  }
+}
+.Price {
+  color: black;
+  text-align: right;
+  width: 3em;
+  &.eq {
+    color: blue;
+  }
+  &.gt {
+    color: red;
+    &::before {
+      content: "\2196";
+    }
+  }
+  &.lt {
+    color: green;
+    &::before {
+      content: "\2198";
+    }
+  }
+}
