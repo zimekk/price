@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { Loading, LocationLink } from "@acme/components";
+import Calculator, { useFilters } from "./Calculator";
 import { TYPES, ItemSchema } from "../schema";
 import styles from "./styles.module.scss";
 
@@ -65,7 +66,6 @@ const compare = (list: Item[], i: number, t: (typeof TYPES)[number]) => {
   if (list[i + 1] && list[i + 1].data.petrol_list[t]) {
     const a = list[i].data.petrol_list[t];
     const b = list[i + 1].data.petrol_list[t];
-    console.log(a, b);
     return a === b ? Compare.EQ : a > b ? Compare.GT : Compare.LT;
   }
   return null;
@@ -75,16 +75,24 @@ function PriceItem({
   list,
   type,
   index,
+  setValue,
 }: {
   list: Item[];
   type: (typeof TYPES)[number];
   index: number;
+  setValue: (value: number) => void;
 }) {
   const item = list[index];
+  const handleClick = useCallback(
+    () => item.data.petrol_list[type] && setValue(item.data.petrol_list[type]),
+    []
+  );
 
   return (
     item.data.petrol_list[type] && (
-      <div
+      <a
+        href="#"
+        onClick={handleClick}
         className={cx(
           styles.Price,
           ((type) =>
@@ -97,7 +105,7 @@ function PriceItem({
         )}
       >
         {item.data.petrol_list[type]}
-      </div>
+      </a>
     )
   );
 }
@@ -187,10 +195,15 @@ export function Price() {
     []
   );
 
+  const [filters2, setFilters2] = useFilters();
+  const setPrice = (price: number) =>
+    setFilters2((filters) => ({ ...filters, price }));
+
   if (data === null) return <Loading />;
   console.log({ filters, filtered });
   return (
     <section>
+      <Calculator filters={filters2} setFilters={setFilters2} />
       <Filters filters={filters} setFilters={setFilters} />
       <table className={styles.Table}>
         <thead>
@@ -257,7 +270,12 @@ export function Price() {
                 )}
                 {TYPES.map((type) => (
                   <td key={type}>
-                    <PriceItem list={list} index={key} type={type} />
+                    <PriceItem
+                      list={list}
+                      index={key}
+                      type={type}
+                      setValue={setPrice}
+                    />
                   </td>
                 ))}
                 <td style={{ fontSize: "small" }}>
