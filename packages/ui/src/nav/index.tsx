@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useMemo, useRef } from "react";
 // https://github.com/vercel/examples/blob/main/internal/packages/ui/src/nav.tsx
 import { Button, Link } from "@vercel/examples-ui";
 import { DeployButton, type DeployButtonProps } from "./deploy-button";
@@ -14,8 +15,61 @@ export interface NavProps {
 export const Nav = ({ title, links, path, deployButton }: NavProps) => {
   const repositoryUrl = deployButton?.repositoryUrl || `${REPO_URL}/${path}`;
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  const offset = useRef(100);
+  const recent = useRef(0);
+
+  useEffect(() => {
+    // https://muhammetaydinn.medium.com/hide-header-when-scrolling-down-in-react-native-without-package-2bc74c35e23
+    // https://stackoverflow.com/questions/65321989/how-in-rxjs-bubble-a-scroll-event
+    // fromEvent(window, 'scroll', { capture: true }).subscribe(console.log);
+    function handleScroll() {
+      if (ref.current) {
+        const y = Math.max(0, window.scrollY);
+        const delta = ref.current.clientHeight + 1;
+
+        // https://www.codemzy.com/blog/react-sticky-header-disappear-scroll
+        if (y > recent.current + offset.current) {
+          const current = y - recent.current;
+          if (current > delta) {
+            offset.current = delta;
+            recent.current = y - delta;
+          } else {
+            offset.current = current;
+          }
+        } else if (y < recent.current + offset.current) {
+          const delta = 0;
+          const current = y - recent.current;
+          if (current < delta) {
+            offset.current = delta;
+            recent.current = y - delta;
+          } else {
+            offset.current = current;
+          }
+        }
+
+        ref.current.style.transform = `translateY(${-offset.current}px)`;
+      }
+    }
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [offset, recent, ref]);
+
   return (
-    <nav className="border-b border-gray-200 py-5 relative z-20 bg-background shadow-[0_0_15px_0_rgb(0,0,0,0.1)]">
+    <nav
+      ref={ref}
+      style={{
+        position: "sticky",
+        top: 0,
+      }}
+      className="border-b border-gray-200 py-5 relative z-20 bg-background shadow-[0_0_15px_0_rgb(0,0,0,0.1)]"
+    >
       <div className="flex items-center lg:px-6 px-8 mx-auto max-w-7xl">
         <div className="flex flex-row items-center">
           <Link href="/">

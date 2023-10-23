@@ -14,7 +14,7 @@ export const getLayout = <LP extends {} = LayoutProps>(
 ): ComponentType<LP> => Component?.Layout || Noop;
 
 export const Layout = ({ children, ...props }: LayoutProps) => (
-  <div className="mx-auto h-screen flex flex-col">
+  <div className="mx-auto min-h-screen flex flex-col">
     <Nav {...props} />
 
     <div className="px-8 bg-accents-0">{children}</div>
