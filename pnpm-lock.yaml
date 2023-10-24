@@ -103,8 +103,8 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -161,8 +161,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -253,8 +253,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -296,8 +296,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -348,8 +348,8 @@ importers:
         specifier: ^7.4.0
         version: 7.4.0
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -425,8 +425,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -468,8 +468,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -511,8 +511,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -554,8 +554,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -646,8 +646,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -689,8 +689,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -732,8 +732,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -775,8 +775,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -821,8 +821,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -904,8 +904,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/node':
-        specifier: ^18.0.0
-        version: 18.11.9
+        specifier: ^20.0.0
+        version: 20.8.7
       '@types/react':
         specifier: latest
         version: 18.2.30
@@ -1687,6 +1687,12 @@ packages:
 
   /@types/node@18.11.9:
     resolution: {integrity: sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==}
+    dev: true
+
+  /@types/node@20.8.7:
+    resolution: {integrity: sha512-21TKHHh3eUHIi2MloeptJWALuCu5H7HQTdTrWIFReA8ad+aggoX+lRes3ex7/FtpC+sVUpFMQ+QTfYr74mruiQ==}
+    dependencies:
+      undici-types: 5.25.3
     dev: true
 
   /@types/normalize-package-data@2.4.1:
@@ -5312,6 +5318,10 @@ packages:
       has-bigints: 1.0.2
       has-symbols: 1.0.3
       which-boxed-primitive: 1.0.2
+    dev: true
+
+  /undici-types@5.25.3:
+    resolution: {integrity: sha512-Ga1jfYwRn7+cP9v8auvEXN1rX3sWqlayd4HP7OKk4mZWylEmu3KzXDUGrQUN6Ol7qo1gPvB2e5gX6udnyEPgdA==}
     dev: true
 
   /universalify@2.0.0:
