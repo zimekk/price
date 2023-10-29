@@ -1,7 +1,5 @@
 import {
   type ChangeEventHandler,
-  type Dispatch,
-  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -13,12 +11,9 @@ import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { Loading, LocationLink } from "@acme/components";
 import Calculator, { useFilters } from "./Calculator";
+import { type FiltersState, type OptionsState, Filters } from "./Filters";
 import { TYPES, ItemSchema } from "../schema";
 import styles from "./styles.module.scss";
-
-interface FiltersState {
-  search: string;
-}
 
 type Item = z.infer<typeof ItemSchema>;
 
@@ -26,34 +21,6 @@ function getLocationLink(location: string, zoom = 0) {
   return `//www.google.com/maps?t=k&q=${encodeURIComponent(location)}&hl=pl${
     zoom ? `&z=${zoom}` : ""
   }`;
-}
-
-function Filters({
-  filters,
-  setFilters,
-}: {
-  filters: FiltersState;
-  setFilters: Dispatch<SetStateAction<FiltersState>>;
-}) {
-  return (
-    <fieldset>
-      <label>
-        <span>Search</span>
-        <input
-          type="search"
-          value={filters.search}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                search: target.value,
-              })),
-            []
-          )}
-        />
-      </label>
-    </fieldset>
-  );
 }
 
 enum Compare {
@@ -114,6 +81,7 @@ export function Price() {
   const [expanded, setExpanded] = useState<string[]>([]);
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
+    network: "",
     search: "",
   }));
 
@@ -183,7 +151,39 @@ export function Price() {
     [data]
   );
 
-  const filtered = useMemo(() => grouped, [grouped]);
+  const filtered = useMemo(
+    () =>
+      grouped.filter(
+        ([id, [{ data }]]) =>
+          (queries.search === "" ||
+            queries.search === id ||
+            data.address?.toLowerCase().includes(queries.search)) &&
+          [data.network_name, ""].includes(queries.network)
+      ),
+    [queries, grouped]
+  );
+
+  const options = useMemo(
+    () =>
+      Object.entries(
+        (data ? data.result : []).reduce(
+          (options, { data }) =>
+            Object.assign(options, {
+              network: Object.assign(options.network || {}, {
+                [data.network_name]: data.network_name,
+              }),
+            }),
+          {} as OptionsState
+        )
+      ).reduce(
+        (options, [key, value]) =>
+          Object.assign(options, {
+            [key]: Object.keys(value).sort(),
+          }),
+        {} as OptionsState
+      ),
+    [data]
+  );
 
   const handleExpand = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
@@ -204,7 +204,7 @@ export function Price() {
   return (
     <section>
       <Calculator filters={filters2} setFilters={setFilters2} />
-      <Filters filters={filters} setFilters={setFilters} />
+      <Filters options={options} filters={filters} setFilters={setFilters} />
       <table className={styles.Table}>
         <thead>
           <tr>
@@ -269,7 +269,7 @@ export function Price() {
                   </td>
                 )}
                 {TYPES.map((type) => (
-                  <td key={type}>
+                  <td key={type} align="right">
                     <PriceItem
                       list={list}
                       index={key}
