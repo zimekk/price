@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { Color, Gallery, Link, Loading } from "@acme/components";
+import { Chart } from "../components";
 import { DataSchema, ItemSchema } from "../schema";
 import {
   type FiltersState,
@@ -296,6 +297,16 @@ export function Price() {
   console.log({ result: data.result, options, filters, filtered, grouped });
   return (
     <section>
+      <Chart
+        data={filtered
+          .map(([, list]) => list[0])
+          .map(({ data }) => ({
+            modelName: data.vehicleSpecification.modelAndOption.model.modelName,
+            grossSalesPrice: data.price.grossSalesPrice,
+            equipmentsTotalGrossPrice: data.price.equipmentsTotalGrossPrice,
+            priceUpdatedAt: new Date(data.price.priceUpdatedAt),
+          }))}
+      />
       <Filters options={options} filters={filters} setFilters={setFilters} />
       <small>
         {filtered.length === grouped.length
