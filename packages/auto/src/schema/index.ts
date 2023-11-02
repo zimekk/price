@@ -137,7 +137,7 @@ export const DataSchema = z.object({
     reason: z.string().optional(),
     type: z.enum(["AVAILABLE", "RESERVED_MANUAL", "SOLD"]),
   }),
-  vehicleLifeCycle: z.object({ isRepaired: z.boolean() }),
+  vehicleLifeCycle: z.object({ isRepaired: z.boolean().optional() }),
   vehicleSpecification: z.object({
     modelAndOption: z.object({
       // baseFuelType: z.string(),
