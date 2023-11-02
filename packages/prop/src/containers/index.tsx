@@ -34,6 +34,14 @@ const formatArea = (area: number) =>
     minimumFractionDigits: 0,
   }).format(area)}`;
 
+function getLocationAddress({ address }: Data["location"]) {
+  return ([] as string[])
+    .concat(address.street ? address.street.name : [])
+    .concat(address.city.name || [])
+    .concat(address.province.name || [])
+    .join(", ");
+}
+
 function getLocationLink(location: string, zoom = 0) {
   return `//www.google.com/maps?t=k&q=${encodeURIComponent(location)}&hl=pl${
     zoom ? `&z=${zoom}` : ""
@@ -102,15 +110,21 @@ function Summary({ data }: { data: Data }) {
           </>
         )}
       </div>
-      {data.locationLabel && (
+      {(data.location || data.locationLabel) && (
         <div
           style={{
             fontSize: "small",
           }}
         >
-          <LocationLink href={getLocationLink(data.locationLabel.value)}>
-            <i>{data.locationLabel.value}</i>
-          </LocationLink>
+          {((location) => (
+            <LocationLink href={getLocationLink(location)}>
+              <i>{location}</i>
+            </LocationLink>
+          ))(
+            data.locationLabel
+              ? data.locationLabel.value
+              : getLocationAddress(data.location)
+          )}
         </div>
       )}
       <div

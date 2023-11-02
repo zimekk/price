@@ -17,6 +17,7 @@
     "start": "turbo run start",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
+    "reset": "pnpm store prune && rm -rf node_modules apps/*/node_modules packages/*/node_modules",
     "update:browserlist": "pnpm update caniuse-lite -r",
     "update:latest": "pnpm up -i",
     "prepare": "husky install"
