@@ -755,6 +755,9 @@ importers:
       '@acme/components':
         specifier: workspace:*
         version: link:../components
+      '@acme/prod':
+        specifier: workspace:*
+        version: link:../prod
       '@swc/helpers':
         specifier: ^0.5.0
         version: 0.5.1

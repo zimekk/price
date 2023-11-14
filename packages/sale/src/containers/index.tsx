@@ -10,8 +10,9 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { Gallery, Loading } from "@acme/components";
-import { DataSchema, ItemSchema, ProductSchema } from "../schema";
+import { Gallery, Link, Loading } from "@acme/components";
+import { formatPrice, getPercentage } from "@acme/prod";
+import { ItemSchema, ProductSchema } from "../schema";
 
 interface FiltersState {
   search: string;
@@ -21,26 +22,23 @@ type Data = z.infer<typeof ProductSchema>;
 
 type Item = z.infer<typeof ItemSchema>;
 
-// type Product = z.infer<typeof ProductSchema>;
+function General({ data }: { data: Item["data"] }) {
+  const { general } = data;
+  return (
+    <div>
+      <Link href={`#${general.url}`}>
+        <strong>{general.name}</strong>
+      </Link>
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+    </div>
+  );
+}
 
 function Summary({ item, data }: { item: Item; data: Data }) {
   return (
     <div>
       <strong>{data.name}</strong>
       {item.data.general.name && <i>{` ${item.data.general.name}`}</i>}
-      {/* <div
-        style={{
-          fontSize: "small",
-        }}
-      >
-        {data.featureSummary && (
-          <ul>
-            {data.featureSummary?.map((text, key) => (
-              <li key={key}>{text}</li>
-            ))}
-          </ul>
-        )}
-      </div> */}
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
   );
@@ -69,7 +67,7 @@ function Details({
             <span
               style={{ color: "lightgray", textDecoration: "line-through" }}
             >
-              {data.priceInfo.oldPrice}
+              {formatPrice(data.priceInfo.oldPrice)}
             </span>{" "}
           </span>
         )}
@@ -78,7 +76,12 @@ function Details({
             color: data.priceInfo.oldPrice ? "orangered" : "darkslateblue",
           }}
         >
-          {data.priceInfo.price}
+          {formatPrice(data.priceInfo.price)}
+          {data.priceInfo.oldPrice && (
+            <small>{` (${new Intl.NumberFormat("pl-PL", {
+              maximumFractionDigits: 2,
+            }).format(getPercentage(data.priceInfo))}%)`}</small>
+          )}
         </span>
       </strong>
       {data.availabilityStatus && <span>{` ${data.availabilityStatus}`}</span>}
@@ -113,7 +116,7 @@ function Filters({
                 ...filters,
                 search: target.value,
               })),
-            []
+            [],
           )}
         />
       </label>
@@ -122,8 +125,6 @@ function Filters({
 }
 
 export function List({ item, data }: { item: Item; data: Data }) {
-  // const [show, setShow] = useState(false);
-
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
       {[data].map((item) => (
@@ -138,16 +139,6 @@ export function List({ item, data }: { item: Item; data: Data }) {
               created={item.created}
               checked={item.checked}
             />
-            {/* {!show && list.length > 1 && (
-              <div>
-                <a
-                  href="#"
-                  onClick={(e) => (e.preventDefault(), setShow(true))}
-                >
-                  <pre>[...]</pre>
-                </a>
-              </div>
-            )} */}
             {/* <pre>{JSON.stringify(item, null, 2)}</pre> */}
           </div>
         ))}
@@ -173,13 +164,13 @@ export function Price() {
             ...queries,
             ...filters,
             search: search.toLowerCase().trim(),
-          })
+          }),
         ),
         distinctUntilChanged(),
-        debounceTime(400)
+        debounceTime(400),
       )
       .subscribe((filters) =>
-        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) })),
       );
     return () => subscription.unsubscribe();
   }, [search$]);
@@ -197,7 +188,7 @@ export function Price() {
             .object({
               result: ItemSchema.array(),
             })
-            .parse(data)
+            .parse(data),
         );
       });
   }, []);
@@ -212,27 +203,41 @@ export function Price() {
               Object.assign(list, {
                 [item.item]: (list[item.item] || []).concat(item),
               }),
-            {} as Record<string, Item[]>
-          )
+            {} as Record<string, Item[]>,
+          ),
       ).sort((a, b) => b[1][0].created.localeCompare(a[1][0].created)),
-    [data]
+    [data],
   );
 
-  // const filtered = useMemo(
-  //   () =>
-  //     grouped.filter(
-  //       ([id, [{ data }]]) =>
-  //         queries.search === "" ||
-  //         queries.search === id ||
-  //         data.producer.name?.toLowerCase().includes(queries.search) ||
-  //         data.name?.toLowerCase().includes(queries.search)
-  //     ),
-  //   [queries, grouped]
-  // );
+  const filtered = useMemo(
+    () =>
+      grouped
+        .map(
+          ([id, [item]]) =>
+            [
+              id,
+              [
+                {
+                  ...item,
+                  data: {
+                    ...item.data,
+                    products: item.data.products.filter(
+                      (product) =>
+                        queries.search === "" ||
+                        product.name?.toLowerCase().includes(queries.search),
+                    ),
+                  },
+                },
+              ],
+            ] as [string, Item[]],
+        )
+        .filter(([_id, list]) =>
+          list.find((item) => item.data.products.length > 0),
+        ),
+    [queries, grouped],
+  );
 
   if (data === null) return <Loading />;
-
-  const filtered = grouped;
 
   console.log({ filters, filtered });
   return (
@@ -240,13 +245,18 @@ export function Price() {
       <Filters filters={filters} setFilters={setFilters} />
       <ol>
         {filtered.map(([id, list]) =>
-          list.map((item) =>
-            item.data.products.map((product) => (
-              <li key={`${id}-${product.id}`}>
-                <List item={item} data={product} />
-              </li>
-            ))
-          )
+          list.map((item) => (
+            <li>
+              <General data={item.data} />
+              <ol>
+                {item.data.products.map((product) => (
+                  <li key={`${id}-${product.id}`}>
+                    <List item={item} data={product} />
+                  </li>
+                ))}
+              </ol>
+            </li>
+          )),
         )}
       </ol>
     </section>
