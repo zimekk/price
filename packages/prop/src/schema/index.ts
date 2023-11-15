@@ -103,7 +103,7 @@ const Ad = z.object({
   investmentUnitsAreaInSquareMeters: z.null(),
 });
 
-export const DataSchema = Ad.strict();
+export const DataSchema = Ad;
 
 export const ItemSchema = z.object({
   id: z.number(),

@@ -7,7 +7,7 @@ export const DataSchema = z.object({
   category: z.object({
     id: z.number(),
     type: z.string(),
-    itemType: z.string(),
+    itemType: z.string().optional(),
   }),
   map: z.object({
     zoom: z.number(),
@@ -49,7 +49,7 @@ export const DataSchema = z.object({
       type: z.string(),
       value: z.string(),
       normalizedValue: z.string(),
-    })
+    }),
   ),
   itemCondition: z.string(),
   price: z.object({
