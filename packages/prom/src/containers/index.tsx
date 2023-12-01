@@ -12,54 +12,42 @@ import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
 import { Gallery, Link, Loading } from "@acme/components";
 import { formatPrice, getPercentage } from "@acme/prod";
-import { ItemSchema, ProductSchema } from "../schema";
+import { GeneralSchema, ProductSchema } from "../schema";
+
+const ItemSchema = z.object({
+  general: GeneralSchema,
+  product: ProductSchema,
+});
 
 interface FiltersState {
   search: string;
 }
 
-type Data = z.infer<typeof ProductSchema>;
-
 type Item = z.infer<typeof ItemSchema>;
 
-function General({ data }: { data: Item["data"] }) {
-  const { general } = data;
-  return (
-    <div>
-      <Link href={`#${general.url}`}>
-        <strong>{general.name}</strong>
-      </Link>
-      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-    </div>
-  );
-}
-
-function Summary({ item, data }: { item: Item; data: Data }) {
+function Summary({ general, product: data }: Item) {
   return (
     <div>
       <strong>{data.name}</strong>
-      {item.data.general.name && <i>{` ${item.data.general.name}`}</i>}
+      {general.name && (
+        <Link href={`#${general.url}`}>
+          <small>{` ${general.name}`}</small>
+        </Link>
+      )}
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
   );
 }
 
-function Details({
-  data,
-  created,
-  checked,
-}: {
-  data: Data;
-  created: string;
-  checked: string | null;
-}) {
+function Details({ general, product: data }: Item) {
   return (
     <div style={{ borderTop: "1px solid lightgray", marginTop: ".25em" }}>
       <div style={{ float: "right" }}>
-        <small>{dayjs(created).format("MMM D, YYYY H:mm")}</small>
-        {checked && (
-          <small> / {dayjs(checked).format("MMM D, YYYY H:mm")}</small>
-        )}
+        <small>{dayjs(general.date_start).format("MMM D, YYYY H:mm")}</small>
+        <small>
+          {" "}
+          &rarr; {dayjs(general.date_stop).format("MMM D, YYYY H:mm")}
+        </small>
       </div>
       <strong>
         {data.priceInfo.oldPrice && (
@@ -124,24 +112,16 @@ function Filters({
   );
 }
 
-export function List({ item, data }: { item: Item; data: Data }) {
+export function List({ general, product }: Item) {
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
-      {[data].map((item) => (
+      {[product].map((item) => (
         <Gallery key={item.id} images={[item.photo]} />
       ))}
       <div style={{ flex: 1 }}>
-        {[data].map((data, key) => (
-          <div key={item.id}>
-            {!key && <Summary item={item} data={data} />}
-            <Details
-              data={data}
-              created={item.created}
-              checked={item.checked}
-            />
-            {/* <pre>{JSON.stringify(item, null, 2)}</pre> */}
-          </div>
-        ))}
+        <Summary general={general} product={product} />
+        <Details general={general} product={product} />
+        {/* <pre>{JSON.stringify(item, null, 2)}</pre> */}
       </div>
     </div>
   );
@@ -180,7 +160,7 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch("/api/sale")
+    fetch(`/api/prom?${new URLSearchParams({ ilike: queries.search })}`)
       .then((res) => res.json())
       .then((data) => {
         setData(
@@ -191,73 +171,23 @@ export function Price() {
             .parse(data),
         );
       });
-  }, []);
+  }, [queries]);
 
-  const grouped = useMemo(
-    () =>
-      Object.entries(
-        (data ? data.result : [])
-          .sort((a, b) => b.created.localeCompare(a.created))
-          .reduce(
-            (list, item) =>
-              Object.assign(list, {
-                [item.item]: (list[item.item] || []).concat(item),
-              }),
-            {} as Record<string, Item[]>,
-          ),
-      ).sort((a, b) => b[1][0].created.localeCompare(a[1][0].created)),
-    [data],
-  );
-
-  const filtered = useMemo(
-    () =>
-      grouped
-        .map(
-          ([id, [item]]) =>
-            [
-              id,
-              [
-                {
-                  ...item,
-                  data: {
-                    ...item.data,
-                    products: item.data.products.filter(
-                      (product) =>
-                        queries.search === "" ||
-                        product.name?.toLowerCase().includes(queries.search),
-                    ),
-                  },
-                },
-              ],
-            ] as [string, Item[]],
-        )
-        .filter(([_id, list]) =>
-          list.find((item) => item.data.products.length > 0),
-        ),
-    [queries, grouped],
-  );
+  const list = useMemo(() => data && data.result, [data]);
 
   if (data === null) return <Loading />;
 
-  console.log({ filters, filtered });
+  console.log({ filters, list });
   return (
     <section>
       <Filters filters={filters} setFilters={setFilters} />
       <ol>
-        {filtered.map(([id, list]) =>
+        {list &&
           list.map((item) => (
-            <li key={item.id}>
-              <General data={item.data} />
-              <ol>
-                {item.data.products.map((product) => (
-                  <li key={`${id}-${product.id}`}>
-                    <List item={item} data={product} />
-                  </li>
-                ))}
-              </ol>
+            <li key={`${item.general.id}-${item.product.id}`}>
+              <List {...item} />
             </li>
-          )),
-        )}
+          ))}
       </ol>
     </section>
   );

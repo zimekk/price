@@ -18,6 +18,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         "moto",
         "plot",
         "prod",
+        "prom",
         "prop",
         "rate",
         "real",

@@ -21,6 +21,7 @@
     "@acme/moto": "workspace:*",
     "@acme/plot": "workspace:*",
     "@acme/prod": "workspace:*",
+    "@acme/prom": "workspace:*",
     "@acme/prop": "workspace:*",
     "@acme/rate": "workspace:*",
     "@acme/real": "workspace:*",
