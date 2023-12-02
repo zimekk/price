@@ -10,8 +10,10 @@ import cx from "clsx";
 import { createAsset } from "use-asset";
 import { Spinner } from "../spinner";
 import styles from "./styles.module.scss";
+// https://www.svgrepo.com/svg/365383/file-x-thin
+import icon from "./assets/file-x-thin.svg";
 
-const imgSrcFallback = () => "";
+const imgSrcFallback = () => icon.src;
 
 const image = createAsset(
   async (src): Promise<string> =>
@@ -22,7 +24,7 @@ const image = createAsset(
         onerror: () => resolve(imgSrcFallback()),
         src,
       });
-    })
+    }),
 );
 
 export function Img({ src, ...props }: { src: string; srcSet?: string }) {
@@ -78,7 +80,7 @@ export function LazyImage({
 
   const handleZoom = useCallback<MouseEventHandler<HTMLAnchorElement>>(
     (e) => (e.preventDefault(), setIsZoom((zoom) => !zoom)),
-    []
+    [],
   );
 
   return (
