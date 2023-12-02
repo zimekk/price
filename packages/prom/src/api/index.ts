@@ -10,6 +10,29 @@ export default (query: unknown) =>
       start: z.coerce.number().default(0).transform(String),
     })
     .parseAsync(query)
-    .then((query) => fetch(`${API_URL}/promo/v2?${new URLSearchParams(query)}`))
-    .then((res) => res.json())
-    .then((data) => data.result.splice(0, 10000));
+    .then(({ start, limit, ...query }) =>
+      fetch(
+        `${API_URL}/promo/v2?${new URLSearchParams({
+          start,
+          limit: String(Number(limit) + 1),
+          ...query,
+        })}`,
+      )
+        .then((res) => res.json())
+        .then(
+          ({ result }) => (
+            console.log(
+              { start, limit },
+              result.length,
+              result.length > Number(limit),
+            ),
+            {
+              result: result.slice(0, Number(limit)),
+              offset:
+                result.length > Number(limit)
+                  ? Number(start) + Number(limit)
+                  : 0,
+            }
+          ),
+        ),
+    );

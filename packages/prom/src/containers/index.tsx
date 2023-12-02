@@ -14,16 +14,25 @@ import { Gallery, Link, Loading } from "@acme/components";
 import { formatPrice, getPercentage } from "@acme/prod";
 import { GeneralSchema, ProductSchema } from "../schema";
 
+const LIMIT = 100;
+
 const ItemSchema = z.object({
   general: GeneralSchema,
   product: ProductSchema,
 });
 
+const DataSchema = z.object({
+  offset: z.number(),
+  result: ItemSchema.array(),
+});
+
 interface FiltersState {
+  offset: number;
   search: string;
 }
 
 type Item = z.infer<typeof ItemSchema>;
+type Data = z.infer<typeof DataSchema>;
 
 function Summary({ general, product: data }: Item) {
   return (
@@ -128,8 +137,9 @@ export function List({ general, product }: Item) {
 }
 
 export function Price() {
-  const [data, setData] = useState<{ result: Item[] } | null>(null);
+  const [data, setData] = useState<Data | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
+    offset: 0,
     search: "",
   }));
 
@@ -160,16 +170,21 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch(`/api/prom?${new URLSearchParams({ ilike: queries.search })}`)
+    fetch(
+      `/api/prom?${new URLSearchParams({
+        ilike: queries.search,
+        limit: String(LIMIT),
+        start: String(queries.offset),
+      })}`,
+    )
       .then((res) => res.json())
-      .then((data) => {
-        setData(
-          z
-            .object({
-              result: ItemSchema.array(),
-            })
-            .parse(data),
-        );
+      .then((data) => DataSchema.parse(data))
+      .then(({ result, offset }) => {
+        setData((data) => ({
+          offset,
+          result:
+            data && queries.offset > 0 ? data.result.concat(result) : result,
+        }));
       });
   }, [queries]);
 
@@ -183,12 +198,25 @@ export function Price() {
       <Filters filters={filters} setFilters={setFilters} />
       <ol>
         {list &&
-          list.map((item) => (
-            <li key={`${item.general.id}-${item.product.id}`}>
+          list.map((item, key) => (
+            <li key={`${item.general.id}-${item.product.id}-${key}`}>
               <List {...item} />
             </li>
           ))}
       </ol>
+      {data && data.offset > 0 && (
+        <Link
+          onClick={(e) => (
+            e.preventDefault(),
+            setQueries((queries) => ({
+              ...queries,
+              offset: data.offset,
+            }))
+          )}
+        >
+          More &darr;
+        </Link>
+      )}
     </section>
   );
 }
