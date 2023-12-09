@@ -10,11 +10,22 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { Gallery, Link, Loading } from "@acme/components";
+import { Gallery, Input, Link, Loading, Picker } from "@acme/components";
 import { formatPrice, getPercentage } from "@acme/prod";
 import { GeneralSchema, ProductSchema } from "../schema";
 
 const LIMIT = 100;
+
+export const SORT_BY = {
+  price: "Cena",
+  date_start: "Data promocji",
+} as const;
+
+const INITIAL_FILTERS = {
+  offset: 0,
+  search: "",
+  sortBy: Object.keys(SORT_BY)[1],
+};
 
 const ItemSchema = z.object({
   general: GeneralSchema,
@@ -26,10 +37,7 @@ const DataSchema = z.object({
   result: ItemSchema.array(),
 });
 
-interface FiltersState {
-  offset: number;
-  search: string;
-}
+type FiltersState = typeof INITIAL_FILTERS;
 
 type Item = z.infer<typeof ItemSchema>;
 type Data = z.infer<typeof DataSchema>;
@@ -102,21 +110,32 @@ function Filters({
 }) {
   return (
     <fieldset>
-      <label>
-        <span>Search</span>
-        <input
-          type="search"
-          value={filters.search}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                search: target.value,
-              })),
-            [],
-          )}
-        />
-      </label>
+      <Input
+        label="Search"
+        type="search"
+        value={filters.search}
+        onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+          ({ target }) =>
+            setFilters((filters) => ({
+              ...filters,
+              search: target.value,
+            })),
+          [],
+        )}
+      />
+      <Picker
+        label="Sort"
+        entries={Object.entries(SORT_BY)}
+        value={filters.sortBy}
+        onChange={useCallback(
+          ({ target }) =>
+            setFilters((filters) => ({
+              ...filters,
+              sortBy: target.value,
+            })),
+          [],
+        )}
+      />
     </fieldset>
   );
 }
@@ -138,10 +157,7 @@ export function List({ general, product }: Item) {
 
 export function Price() {
   const [data, setData] = useState<Data | null>(null);
-  const [filters, setFilters] = useState<FiltersState>(() => ({
-    offset: 0,
-    search: "",
-  }));
+  const [filters, setFilters] = useState<FiltersState>(() => INITIAL_FILTERS);
 
   const [queries, setQueries] = useState(() => filters);
   const search$ = useMemo(() => new Subject<any>(), []);
@@ -173,6 +189,7 @@ export function Price() {
     fetch(
       `/api/prom?${new URLSearchParams({
         ilike: queries.search,
+        orderBy: queries.sortBy,
         limit: String(LIMIT),
         start: String(queries.offset),
       })}`,

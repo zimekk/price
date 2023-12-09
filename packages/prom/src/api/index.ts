@@ -6,6 +6,7 @@ export default (query: unknown) =>
   z
     .object({
       ilike: z.string().default(""),
+      orderBy: z.enum(["date_start", "price"]).default("date_start"),
       limit: z.coerce.number().default(25).transform(String),
       start: z.coerce.number().default(0).transform(String),
     })
