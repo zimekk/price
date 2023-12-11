@@ -17,7 +17,7 @@ export const HotShotSchema = z
     Id: z.string(),
     Price: z.number(),
     OldPrice: z.number(),
-    PromotionGainText: z.string(),
+    PromotionGainText: z.string().nullable(),
     PromotionGainTextLines: z.string().array(),
     PromotionGainValue: z.number(),
     PromotionTotalCount: z.number(),
@@ -71,7 +71,7 @@ export const HotShotSchema = z
       freeShipping: false,
       ratingCount: 0,
       rating: 0,
-    })
+    }),
   );
 
 export const DataSchema = HotShotSchema;
