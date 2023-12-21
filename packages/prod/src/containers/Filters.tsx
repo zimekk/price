@@ -28,7 +28,7 @@ const INITIAL_FILTERS = {
   group: "",
   search: "",
   sortBy: Object.keys(SORT_BY)[3],
-  limit: LIMIT[4],
+  limit: LIMIT[3],
   priceFrom: PRICE_LIST[0],
   priceTo: PRICE_LIST[PRICE_LIST.length - 2],
 };
