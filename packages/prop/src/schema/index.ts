@@ -9,13 +9,15 @@ const MoneyType = z.object({
 const Ad = z.object({
   id: z.number(),
   slug: z.string(),
-  seo: z.object({
-    details: z.object({
+  seo: z
+    .object({
+      details: z.object({
+        __typename: z.string(),
+        description: z.string(),
+      }),
       __typename: z.string(),
-      description: z.string(),
-    }),
-    __typename: z.string(),
-  }),
+    })
+    .optional(),
   title: z.string(),
   agency: z
     .object({
