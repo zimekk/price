@@ -214,7 +214,7 @@ export function List({ list }: { list: Item[] }) {
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
       {list.slice(0, 1).map((item) => (
-        <Gallery key={item.id} images={Object.values(item.data.main_image)} />
+        <Gallery key={item.id} images={[item.data.main_image.m_img_750]} />
       ))}
       <div style={{ flex: 1 }}>
         {(show ? list : list.slice(0, 1)).map((item, key) => (
