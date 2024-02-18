@@ -5,10 +5,10 @@ import { Gallery, Link, Loading, Location, Map, Text } from "@acme/components";
 import type { Data, Item } from "../schema";
 import {
   type FiltersState,
-  AREA_LIST,
   Filters,
-  LIMIT,
-  PRICE_LIST,
+  INITIAL_FILTERS,
+  RENT_PRICE_LIST,
+  SALE_PRICE_LIST,
   SORT_BY,
 } from "./Filters";
 
@@ -21,6 +21,7 @@ interface Meta {
 
 interface Values {
   m: string;
+  price_per_m: string;
   rooms: string;
   rent: string;
 }
@@ -50,7 +51,7 @@ function Summary({ data }: { data: Data }) {
             ((selection) =>
               selection &&
               (selection.removeAllRanges(), selection.addRange(range)))(
-              window.getSelection()
+              window.getSelection(),
             );
           }}
         >
@@ -107,6 +108,24 @@ function Summary({ data }: { data: Data }) {
               }}
             >
               NEGOTIATION
+            </span>
+          </>
+        )}
+        {data.partner.code && (
+          <>
+            &nbsp;
+            <span
+              style={{
+                fontSize: "xx-small",
+                textTransform: "uppercase",
+                color: "blue",
+                border: "1px solid currentColor",
+                padding: "0 .25em",
+                position: "relative",
+                top: -2,
+              }}
+            >
+              {data.partner.code}
             </span>
           </>
         )}
@@ -167,14 +186,22 @@ function Details({
           <strong>{data.price.displayValue}</strong>
           {" / "}
           <strong>{data.values.m}</strong>
-          <small>
-            {" "}
-            (<strong>+{data.values.rent}</strong>)
-          </small>
+          {data.values.rent && (
+            <small>
+              {" "}
+              (<strong>+{data.values.rent}</strong>)
+            </small>
+          )}
+          {data.values.price_per_m && (
+            <small>
+              {" "}
+              (<strong>{data.values.price_per_m}</strong>)
+            </small>
+          )}
         </span>
         <small>
           {` ${dayjs(data.createdTime).format(
-            "MMM D, YYYY H:mm"
+            "MMM D, YYYY H:mm",
           )} \u2192 ${dayjs(data.validToTime).format("MMM D, YYYY H:mm")}`}
         </small>
       </div>
@@ -222,15 +249,7 @@ export function List({ list }: { list: Item[] }) {
 
 export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
-  const [filters, setFilters] = useState<FiltersState>(() => ({
-    search: "",
-    sortBy: Object.keys(SORT_BY)[0],
-    limit: LIMIT[0],
-    priceFrom: PRICE_LIST[1],
-    priceTo: PRICE_LIST[4],
-    areaFrom: AREA_LIST[1],
-    areaTo: AREA_LIST[9],
-  }));
+  const [filters, setFilters] = useState<FiltersState>(INITIAL_FILTERS);
 
   const [queries, setQueries] = useState(() => filters);
   const search$ = useMemo(() => new Subject<any>(), []);
@@ -243,13 +262,13 @@ export function Price() {
             ...queries,
             ...filters,
             search: search.toLowerCase().trim(),
-          })
+          }),
         ),
         distinctUntilChanged(),
-        debounceTime(400)
+        debounceTime(400),
       )
       .subscribe((filters) =>
-        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) })),
       );
     return () => subscription.unsubscribe();
   }, [search$]);
@@ -277,17 +296,17 @@ export function Price() {
                     Object.assign(params, {
                       [key]: value,
                     }),
-                  {}
+                  {},
                 ),
                 normalizedValues: data.params.reduce(
                   (params, { key, normalizedValue }) =>
                     Object.assign(params, {
                       [key]: normalizedValue,
                     }),
-                  {}
+                  {},
                 ),
               },
-              data
+              data,
             ),
             ...item,
           }))
@@ -296,8 +315,8 @@ export function Price() {
               Object.assign(list, {
                 [item.item]: (list[item.item] || []).concat(item),
               }),
-            {} as Record<string, Item[]>
-          )
+            {} as Record<string, Item[]>,
+          ),
       )
         .map(
           ([item, list]) =>
@@ -318,9 +337,14 @@ export function Price() {
                       data.price.regularPrice.value && {
                         totalPrice: data.price.regularPrice.value,
                       },
+                    data.normalizedValues.price_per_m && {
+                      pricePerSquareMeter: Number(
+                        data.normalizedValues.price_per_m,
+                      ),
+                    },
                     data.normalizedValues.m && {
                       areaInSquareMeters: Number(data.normalizedValues.m),
-                    }
+                    },
                   ),
                 {
                   dateCreated: 0,
@@ -328,9 +352,9 @@ export function Price() {
                   totalPrice: 0,
                   pricePerSquareMeter: 0,
                   areaInSquareMeters: 0,
-                }
+                },
               ),
-            ] as [string, Item[], Meta]
+            ] as [string, Item[], Meta],
         )
         .sort(
           (a, b) =>
@@ -338,9 +362,14 @@ export function Price() {
               ? -1
               : 1) *
             (b[2][filters.sortBy as keyof typeof SORT_BY] -
-              a[2][filters.sortBy as keyof typeof SORT_BY])
+              a[2][filters.sortBy as keyof typeof SORT_BY]),
         ),
-    [data, filters.sortBy]
+    [data, filters.sortBy],
+  );
+
+  const PRICE_LIST = useMemo(
+    () => (filters.type === "SALE" ? SALE_PRICE_LIST : RENT_PRICE_LIST),
+    [filters.type],
   );
 
   const filtered = useMemo(
@@ -360,9 +389,9 @@ export function Price() {
             (data.price.regularPrice
               ? queries.priceFrom <= data.price.regularPrice.value &&
                 data.price.regularPrice.value <= queries.priceTo
-              : true))
+              : true)),
       ),
-    [queries, grouped]
+    [PRICE_LIST, queries, grouped],
   );
 
   if (data === null) return <Loading />;

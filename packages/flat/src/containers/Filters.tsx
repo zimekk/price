@@ -6,7 +6,22 @@ import {
 } from "react";
 import { Input, Picker, Range } from "@acme/components";
 
+export const SORT_BY = {
+  dateCreated: "Data aktualizacji",
+  dateCreatedFirst: "Data utworzenia",
+  totalPrice: "Cena",
+  // pricePerSquareMeter: "Cena za m2",
+  // areaInSquareMeters: "Powierzchnia",
+  // terrainAreaInSquareMeters: "Powierzchnia działki",
+} as const;
+
+export const TYPE = {
+  SALE: "Sprzedaż",
+  RENT: "Wynajem",
+} as const;
+
 export interface FiltersState {
+  type: keyof typeof TYPE;
   search: string;
   sortBy: string;
   limit: number;
@@ -22,18 +37,24 @@ export const AREA_LIST = [
   0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200,
 ] as const;
 
-export const PRICE_LIST = [
+export const RENT_PRICE_LIST = [
   0, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000,
 ] as const;
 
-export const SORT_BY = {
-  dateCreated: "Data aktualizacji",
-  dateCreatedFirst: "Data utworzenia",
-  totalPrice: "Cena",
-  // pricePerSquareMeter: "Cena za m2",
-  // areaInSquareMeters: "Powierzchnia",
-  // terrainAreaInSquareMeters: "Powierzchnia działki",
-} as const;
+export const SALE_PRICE_LIST = [
+  0, 250000, 500000, 750000, 1000000, 1250000, 1500000,
+] as const;
+
+export const INITIAL_FILTERS: FiltersState = {
+  type: "SALE",
+  search: "",
+  sortBy: Object.keys(SORT_BY)[0],
+  limit: LIMIT[0],
+  priceFrom: SALE_PRICE_LIST[1],
+  priceTo: SALE_PRICE_LIST[4],
+  areaFrom: AREA_LIST[1],
+  areaTo: AREA_LIST[9],
+};
 
 export function Filters({
   filters,
@@ -44,6 +65,27 @@ export function Filters({
 }) {
   return (
     <fieldset>
+      <div>
+        <Picker
+          label="Type"
+          entries={Object.entries(TYPE)}
+          value={filters.type}
+          onChange={useCallback(
+            ({ target }) =>
+              setFilters((filters) =>
+                ((type) => ({
+                  ...filters,
+                  type,
+                  priceFrom:
+                    type === "SALE" ? SALE_PRICE_LIST[1] : RENT_PRICE_LIST[1],
+                  priceTo:
+                    type === "SALE" ? SALE_PRICE_LIST[6] : RENT_PRICE_LIST[4],
+                }))(target.value as FiltersState["type"]),
+              ),
+            [],
+          )}
+        />
+      </div>
       <div>
         <Range
           options={AREA_LIST}
@@ -58,9 +100,9 @@ export function Filters({
                   ...criteria,
                   areaFrom,
                   areaTo: areaTo < areaFrom ? areaFrom : areaTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
           onChangeTo={useCallback<ChangeEventHandler<HTMLInputElement>>(
             ({ target }) =>
@@ -69,16 +111,16 @@ export function Filters({
                   ...criteria,
                   areaFrom: areaTo > areaFrom ? areaFrom : areaTo,
                   areaTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
         />
         <span>{`${filters.areaFrom} - ${filters.areaTo}`} m&sup2;</span>
       </div>
       <div>
         <Range
-          options={PRICE_LIST}
+          options={filters.type === "SALE" ? SALE_PRICE_LIST : RENT_PRICE_LIST}
           labelFrom="Price From"
           labelTo="Price To"
           valueFrom={filters.priceFrom}
@@ -90,9 +132,9 @@ export function Filters({
                   ...criteria,
                   priceFrom,
                   priceTo: priceTo < priceFrom ? priceFrom : priceTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
           onChangeTo={useCallback<ChangeEventHandler<HTMLInputElement>>(
             ({ target }) =>
@@ -101,13 +143,13 @@ export function Filters({
                   ...criteria,
                   priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
                   priceTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
         />
         <span>{`${new Intl.NumberFormat().format(
-          filters.priceFrom
+          filters.priceFrom,
         )} - ${new Intl.NumberFormat().format(filters.priceTo)} zł`}</span>
       </div>
       <div>
@@ -121,7 +163,7 @@ export function Filters({
                 ...filters,
                 search: target.value,
               })),
-            []
+            [],
           )}
         />
         <Picker
@@ -134,7 +176,7 @@ export function Filters({
                 ...filters,
                 limit: Number(target.value),
               })),
-            []
+            [],
           )}
         />
         <Picker
@@ -147,7 +189,7 @@ export function Filters({
                 ...filters,
                 sortBy: target.value,
               })),
-            []
+            [],
           )}
         />
       </div>
