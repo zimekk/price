@@ -24,7 +24,7 @@
     "update:browserlist": "pnpm update caniuse-lite -r",
     "update:dedupe": "pnpm dedupe",
     "update:latest": "pnpm update --interactive --latest",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.0.0",
