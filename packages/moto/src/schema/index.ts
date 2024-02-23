@@ -108,8 +108,7 @@ const Advert = z
       })
       .optional(),
     __typename: z.enum(["Advert"]),
-  })
-  .strict();
+  });
 
 export const DataSchema = Advert;
 
