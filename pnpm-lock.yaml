@@ -94,7 +94,7 @@ importers:
         version: link:../../packages/xkom
       '@vercel/examples-ui':
         specifier: ^1.0.4
-        version: 1.0.4(next@14.0.2-canary.12)(react-dom@18.2.0)(react@18.2.0)
+        version: 1.0.5(next@14.0.2-canary.12)(react-dom@18.2.0)(react@18.2.0)
       next:
         specifier: canary
         version: 14.0.2-canary.12(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
@@ -898,7 +898,7 @@ importers:
         version: 0.5.6
       '@vercel/examples-ui':
         specifier: ^1.0.4
-        version: 1.0.4(next@0.1.0)(react-dom@18.2.0)(react@18.2.0)
+        version: 1.0.5(next@0.1.0)(react-dom@18.2.0)(react@18.2.0)
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -1762,8 +1762,8 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: true
 
-  /@vercel/examples-ui@1.0.4(next@0.1.0)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-yfCHFn478904BLa9iwvoTPCEBGzxd7MOFHmuVgYPBQemNqO4bjdU3i51qFcYYMQJxOjYfk/1cGCxEBJ4UGE2Zg==}
+  /@vercel/examples-ui@1.0.5(next@0.1.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-6pj8V9MPLgrPajIUbqEkbmupEMnK6xBk5zkwsilwhA9mYQdxttqgVyDqlFMQhEVqb3tk0PshA+XxnZoDfLCpoQ==}
     peerDependencies:
       next: '*'
       react: ^17.0.2 || ^18.0.0-0
@@ -1774,22 +1774,22 @@ packages:
       next: 0.1.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      sugar-high: 0.4.6
+      sugar-high: 0.4.7
     dev: false
 
-  /@vercel/examples-ui@1.0.4(next@14.0.2-canary.12)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-yfCHFn478904BLa9iwvoTPCEBGzxd7MOFHmuVgYPBQemNqO4bjdU3i51qFcYYMQJxOjYfk/1cGCxEBJ4UGE2Zg==}
+  /@vercel/examples-ui@1.0.5(next@14.0.2-canary.12)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-6pj8V9MPLgrPajIUbqEkbmupEMnK6xBk5zkwsilwhA9mYQdxttqgVyDqlFMQhEVqb3tk0PshA+XxnZoDfLCpoQ==}
     peerDependencies:
       next: '*'
       react: ^17.0.2 || ^18.0.0-0
       react-dom: ^17.0.2 || ^18.0.0-0
     dependencies:
-      '@swc/helpers': 0.4.14
+      '@swc/helpers': 0.4.36
       clsx: 1.2.1
       next: 14.0.2-canary.12(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      sugar-high: 0.4.6
+      sugar-high: 0.4.7
     dev: false
 
   /JSONStream@1.3.5:
@@ -5071,8 +5071,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /sugar-high@0.4.6:
-    resolution: {integrity: sha512-V/5BlmDTQ0YCD6o+xumBpOBP8CWDqVDA8Pt7W/i8QzkwFnYwBxX9T4a8XRmay7ulnnCj/5rX3f845tbkXU1lIw==}
+  /sugar-high@0.4.7:
+    resolution: {integrity: sha512-vCg55qNhUBbBylR1DNWAYvqlwSVPebBJPh+fNzknN70b9CIyS1xoCRa0CnRzrAw4RYiqprteDfZg8ZeToZqqug==}
     dev: false
 
   /supports-color@5.5.0:
