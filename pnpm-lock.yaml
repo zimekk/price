@@ -140,7 +140,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -238,7 +238,7 @@ importers:
         version: link:../xkom
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -281,7 +281,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -324,7 +324,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -376,7 +376,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -410,7 +410,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -453,7 +453,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -496,7 +496,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -585,7 +585,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -628,7 +628,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -677,7 +677,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -720,7 +720,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -763,7 +763,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -809,7 +809,7 @@ importers:
         version: link:../prod
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -855,7 +855,7 @@ importers:
         version: link:../xkom
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -895,7 +895,7 @@ importers:
     dependencies:
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       '@vercel/examples-ui':
         specifier: ^1.0.4
         version: 1.0.4(next@0.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -938,7 +938,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.1
+        version: 0.5.6
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -1429,14 +1429,21 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@swc/helpers@0.5.1:
-    resolution: {integrity: sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==}
+  /@swc/helpers@0.4.36:
+    resolution: {integrity: sha512-5lxnyLEYFskErRPenYItLRSge5DjrJngYKdVjRSrWfza9G6KkgHEXi0vUZiyUeMU5JfXH1YnvXZzSp8ul88o2Q==}
     dependencies:
+      legacy-swc-helpers: /@swc/helpers@0.4.14
       tslib: 2.6.2
     dev: false
 
   /@swc/helpers@0.5.2:
     resolution: {integrity: sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw==}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
+  /@swc/helpers@0.5.6:
+    resolution: {integrity: sha512-aYX01Ke9hunpoCexYAgQucEpARGQ5w/cqHFrIR+e9gdKb1QWTsVJuTJ2ozQzIAxLyRQe/m+2RqzkyOOGiMKRQA==}
     dependencies:
       tslib: 2.6.2
     dev: false
@@ -1762,7 +1769,7 @@ packages:
       react: ^17.0.2 || ^18.0.0-0
       react-dom: ^17.0.2 || ^18.0.0-0
     dependencies:
-      '@swc/helpers': 0.4.14
+      '@swc/helpers': 0.4.36
       clsx: 1.2.1
       next: 0.1.0
       react: 18.2.0
