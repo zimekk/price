@@ -200,8 +200,8 @@ importers:
         specifier: canary
         version: 14.0.2-canary.12(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
       ol:
-        specifier: ^8.0.0
-        version: 8.2.0
+        specifier: ^9.0.0
+        version: 9.0.0
       react:
         specifier: ^17.0.0 || ^18.0.0-0
         version: 18.2.0
@@ -4097,8 +4097,8 @@ packages:
       es-abstract: 1.22.2
     dev: true
 
-  /ol@8.2.0:
-    resolution: {integrity: sha512-/m1ddd7Jsp4Kbg+l7+ozR5aKHAZNQOBAoNZ5pM9Jvh4Etkf0WGkXr9qXd7PnhmwiC1Hnc2Toz9XjCzBBvexfXw==}
+  /ol@9.0.0:
+    resolution: {integrity: sha512-+nYHZYbHrRUTDJ8ryxXPdDoAiaT6Zea02cocmGqsJXs4Oac1fYC9EbTIU2Y7803QcmG3u2MR88RxbksBvK+ZfQ==}
     dependencies:
       color-rgba: 3.0.0
       color-space: 2.0.1

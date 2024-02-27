@@ -38,7 +38,7 @@
     "clsx": "^2.0.0",
     "leaflet": "^1.9.4",
     "next": "canary",
-    "ol": "^8.0.0",
+    "ol": "^9.0.0",
     "react-leaflet": "^4.2.1",
     "use-asset": "^1.0.4"
   },
