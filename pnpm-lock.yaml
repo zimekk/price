@@ -143,7 +143,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       d3:
         specifier: ^7.8.5
         version: 7.8.5
@@ -192,7 +192,7 @@ importers:
         version: 0.2.0(@fortawesome/fontawesome-svg-core@6.5.1)(react@18.2.0)
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
@@ -241,7 +241,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -284,7 +284,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -327,7 +327,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       d3:
         specifier: ^7.8.5
         version: 7.8.5
@@ -379,7 +379,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       next:
         specifier: '*'
         version: 0.1.0
@@ -413,7 +413,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -456,7 +456,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -499,7 +499,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -545,7 +545,7 @@ importers:
         version: link:../sale
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -588,7 +588,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -631,7 +631,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       d3:
         specifier: ^7.8.5
         version: 7.8.5
@@ -680,7 +680,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -723,7 +723,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -766,7 +766,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -812,7 +812,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -858,7 +858,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -901,7 +901,7 @@ importers:
         version: 1.0.5(next@0.1.0)(react-dom@18.2.0)(react@18.2.0)
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       next:
         specifier: '*'
         version: 0.1.0
@@ -941,7 +941,7 @@ importers:
         version: 0.5.6
       clsx:
         specifier: ^2.0.0
-        version: 2.0.0
+        version: 2.1.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.10
@@ -2128,8 +2128,8 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /clsx@2.0.0:
-    resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
+  /clsx@2.1.0:
+    resolution: {integrity: sha512-m3iNNWpd9rl3jvvcBnu70ylMdrXt8Vlq4HYadnU5fwcOtvkSQWPmj7amUcDT2qYI7risszBjI5AUIUox9D16pg==}
     engines: {node: '>=6'}
     dev: false
 
