@@ -30,7 +30,7 @@ function Summary({ data }: { data: Data }) {
       <div style={{ float: "right", fontSize: "small" }}>
         #
         <Link
-          href={`${URL}/pl/stocklocator.html#/details/${data.documentId}`}
+          href={`${URL}/pl-pl/sl/stocklocator#/details/${data.documentId}`}
           onClick={(e) => {
             const range = document.createRange();
             e.preventDefault();
@@ -38,7 +38,7 @@ function Summary({ data }: { data: Data }) {
             ((selection) =>
               selection &&
               (selection.removeAllRanges(), selection.addRange(range)))(
-              window.getSelection()
+              window.getSelection(),
             );
           }}
         >
@@ -186,13 +186,13 @@ export function Price() {
             ...queries,
             ...filters,
             search: search.toLowerCase().trim(),
-          })
+          }),
         ),
         distinctUntilChanged(),
-        debounceTime(400)
+        debounceTime(400),
       )
       .subscribe((filters) =>
-        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) })),
       );
     return () => subscription.unsubscribe();
   }, [search$]);
@@ -221,10 +221,10 @@ export function Price() {
               Object.assign(list, {
                 [item.item]: (list[item.item] || []).concat(item),
               }),
-            {} as Record<string, Item[]>
-          )
+            {} as Record<string, Item[]>,
+          ),
       ).sort((a, b) => b[1][0].created.localeCompare(a[1][0].created)),
-    [data]
+    [data],
   );
 
   const filtered = useMemo(
@@ -241,24 +241,24 @@ export function Price() {
               .includes(queries.search)) &&
           [data.salesProcess.type, ""].includes(queries.availability) &&
           [data.vehicleSpecification.modelAndOption.brand, ""].includes(
-            queries.brand
+            queries.brand,
           ) &&
           [
             data.vehicleSpecification.modelAndOption.model.modelName,
             "",
           ].includes(queries.model) &&
           [data.ordering.distributionData.locationOutletNickname, ""].includes(
-            queries.dealer
+            queries.dealer,
           ) &&
           (queries.priceTo === PRICE_LIST[0] ||
             (data.price
               ? ((price) =>
                   queries.priceFrom <= price && price <= queries.priceTo)(
-                  data.price.grossSalesPrice
+                  data.price.grossSalesPrice,
                 )
-              : true))
+              : true)),
       ),
-    [queries, grouped]
+    [queries, grouped],
   );
 
   const options = useMemo(
@@ -278,19 +278,19 @@ export function Price() {
                 options.dealer || {},
                 data.ordering.distributionData.locationOutletNickname && {
                   [data.ordering.distributionData.locationOutletNickname]: true,
-                }
+                },
               ),
             }),
-          {} as OptionsState
-        )
+          {} as OptionsState,
+        ),
       ).reduce(
         (options, [key, value]) =>
           Object.assign(options, {
             [key]: Object.keys(value).sort(),
           }),
-        {} as OptionsState
+        {} as OptionsState,
       ),
-    [data]
+    [data],
   );
 
   if (data === null) return <Loading />;
