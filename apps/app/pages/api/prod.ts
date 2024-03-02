@@ -8,7 +8,8 @@ type Data = {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data>,
 ) {
+  // req.setTimeout(8000);
   return api(req.query).then((result) => res.status(200).json({ result }));
 }

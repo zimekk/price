@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { Gallery, Link, Loading } from "@acme/components";
 import type { Data, Item } from "../schema";
 import {
+  type FiltersState,
   Filters,
   OptionsState,
   PRICE_LIST,
@@ -46,7 +47,7 @@ function Summary({ data }: { data: Data; type: string }) {
             ((selection) =>
               selection &&
               (selection.removeAllRanges(), selection.addRange(range)))(
-              window.getSelection()
+              window.getSelection(),
             );
           }}
         >
@@ -201,32 +202,25 @@ export function List({ list, meta }: { list: Item[]; meta: Meta }) {
   );
 }
 
-export function Price() {
-  const [error, setError] = useState<Error | null>(null);
-  const [data, setData] = useState<{ result: Item[] } | null>(null);
-  const [queries, setQueries] = useState(() => initialQueries());
-
-  useEffect(() => {
-    fetch(`/api/prod?limit=${queries.limit}`)
-      .then(async (res) =>
-        res.ok ? await res.json() : Promise.reject(await res.text())
-      )
-      .then((data: { result: Item[] }) => (setData(data), setError(null)))
-      .catch((error) => setError(error));
-  }, [queries.limit]);
-
+export function Main({
+  result,
+  queries,
+}: {
+  result: Item[];
+  queries: FiltersState;
+}) {
   const grouped = useMemo(
     () =>
       Object.entries(
-        (data ? data.result : [])
+        result
           .sort((a, b) => b.created.localeCompare(a.created))
           .reduce(
             (list, item) =>
               Object.assign(list, {
                 [item.item]: (list[item.item] || []).concat(item),
               }),
-            {} as Record<string, Item[]>
-          )
+            {} as Record<string, Item[]>,
+          ),
       )
         .map(
           ([item, list]) =>
@@ -248,7 +242,7 @@ export function Price() {
                     0 === meta.price && {
                       price: data.price,
                       priceChanged: new Date(created).getTime(),
-                    }
+                    },
                   ),
                 {
                   minPrice: Infinity,
@@ -256,17 +250,17 @@ export function Price() {
                   minPriceChanged: 0,
                   price: 0,
                   priceChanged: 0,
-                }
+                },
               ),
-            ] as [string, Item[], Meta]
+            ] as [string, Item[], Meta],
         )
         .sort(
           (a, b) =>
             (["minPrice", "price"].includes(queries.sortBy) ? -1 : 1) *
             (b[2][queries.sortBy as keyof typeof SORT_BY] -
-              a[2][queries.sortBy as keyof typeof SORT_BY])
+              a[2][queries.sortBy as keyof typeof SORT_BY]),
         ),
-    [data, , queries.sortBy]
+    [result, queries.sortBy],
   );
 
   const filtered = useMemo(
@@ -282,62 +276,18 @@ export function Price() {
             (data.price
               ? ((price) =>
                   queries.priceFrom <= price && price <= queries.priceTo)(
-                  data.price
+                  data.price,
                 )
-              : true))
+              : true)),
         // [data.category.id, ""].includes(queries.group)
       ),
-    [queries, grouped]
+    [queries, grouped],
   );
 
-  const options = useMemo(
-    () =>
-      Object.entries(
-        (data ? data.result : []).reduce(
-          (options, { data }) =>
-            Object.assign(options, {
-              brand: Object.assign(
-                options.brand || {},
-                data.brand
-                  ? {
-                      [data.brand]: true,
-                    }
-                  : {}
-              ),
-              // group: Object.assign(options.group || {}, {
-              //   [data.category.id]: true,
-              // }),
-            }),
-          {} as OptionsState
-        )
-      ).reduce(
-        (options, [key, value]) =>
-          Object.assign(options, {
-            [key]: Object.keys(value).sort(),
-          }),
-        {} as OptionsState
-      ),
-    [data]
-  );
+  console.log({ result, filtered });
 
-  if (data === null) return <Loading />;
-  console.log({ error, result: data.result, options, queries, filtered });
   return (
     <section>
-      <Filters options={options} setQueries={setQueries} />
-      {error && (
-        <div
-          style={{
-            fontSize: "small",
-            backgroundColor: "lemonchiffon",
-            color: "red",
-            margin: "0 -.5em",
-            padding: ".5em",
-          }}
-        >
-          {error.toString()}
-        </div>
-      )}
       <small>
         {filtered.length === grouped.length
           ? `Showing all of ${grouped.length}`
@@ -350,6 +300,94 @@ export function Price() {
           </li>
         ))}
       </ol>
+    </section>
+  );
+}
+
+export function Price() {
+  const [{ error, loading = false, result }, setData] = useState<{
+    error?: Error;
+    loading?: boolean;
+    result?: Item[];
+  }>({});
+  const [queries, setQueries] = useState(() => initialQueries());
+
+  const fetcher = () =>
+    (setData(({ error, ...data }) => ({ ...data, loading: true })),
+    fetch(`/api/prod?limit=${queries.limit}`))
+      .then(async (res) =>
+        res.ok ? await res.json() : Promise.reject(await res.text()),
+      )
+      .then(({ result }: { result: Item[] }) => setData({ result }))
+      .catch((error) =>
+        setData(({ loading, ...data }) => ({ ...data, error })),
+      );
+
+  useEffect(() => {
+    fetcher();
+  }, [queries.limit]);
+
+  const options = useMemo(
+    () =>
+      Object.entries(
+        (result || []).reduce(
+          (options, { data }) =>
+            Object.assign(options, {
+              brand: Object.assign(
+                options.brand || {},
+                data.brand
+                  ? {
+                      [data.brand]: true,
+                    }
+                  : {},
+              ),
+              // group: Object.assign(options.group || {}, {
+              //   [data.category.id]: true,
+              // }),
+            }),
+          {} as OptionsState,
+        ),
+      ).reduce(
+        (options, [key, value]) =>
+          Object.assign(options, {
+            [key]: Object.keys(value).sort(),
+          }),
+        {} as OptionsState,
+      ),
+    [result],
+  );
+
+  console.log({ error, options, queries });
+
+  return (
+    <section>
+      <Filters options={options} setQueries={setQueries} />
+      {error && (
+        <div
+          style={{
+            fontSize: "small",
+            backgroundColor: "lemonchiffon",
+            color: "red",
+            margin: "0 -.5em",
+            padding: ".5em 1em",
+          }}
+        >
+          {error.toString()}
+          <button
+            style={{
+              padding: ".25em .5em",
+              margin: "0 .5em",
+              background: "white",
+              border: "1px solid red",
+            }}
+            onClick={() => fetcher()}
+          >
+            Retry
+          </button>
+        </div>
+      )}
+      {loading && <Loading />}
+      {result && <Main result={result} queries={queries} />}
     </section>
   );
 }

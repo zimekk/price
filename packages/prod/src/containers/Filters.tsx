@@ -47,7 +47,7 @@ export const stringifyFilters = ({ search, ...filters }: FiltersState) =>
   });
 
 export const initialQueries = () =>
-  JSON.parse(stringifyFilters(INITIAL_FILTERS));
+  JSON.parse(stringifyFilters(INITIAL_FILTERS)) as FiltersState;
 
 export function Filters({
   options,
@@ -63,7 +63,7 @@ export function Filters({
     const subscription = search$
       .pipe(map(stringifyFilters), distinctUntilChanged(), debounceTime(400))
       .subscribe((filters) =>
-        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) })),
       );
     return () => subscription.unsubscribe();
   }, [search$]);
@@ -85,7 +85,7 @@ export function Filters({
                 ...filters,
                 brand: target.value,
               })),
-            []
+            [],
           )}
         />
         <Range
@@ -101,9 +101,9 @@ export function Filters({
                   ...criteria,
                   priceFrom,
                   priceTo: priceTo < priceFrom ? priceFrom : priceTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
           onChangeTo={useCallback<ChangeEventHandler<HTMLInputElement>>(
             ({ target }) =>
@@ -112,13 +112,13 @@ export function Filters({
                   ...criteria,
                   priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
                   priceTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
         />
         <span>{`${new Intl.NumberFormat().format(
-          filters.priceFrom
+          filters.priceFrom,
         )} - ${new Intl.NumberFormat().format(filters.priceTo)} zł`}</span>
       </div>
       <div>
@@ -132,7 +132,7 @@ export function Filters({
                 ...filters,
                 search: target.value,
               })),
-            []
+            [],
           )}
         />
         <Picker
@@ -145,7 +145,7 @@ export function Filters({
                 ...filters,
                 sortBy: target.value,
               })),
-            []
+            [],
           )}
         />
         <Picker
@@ -158,7 +158,7 @@ export function Filters({
                 ...filters,
                 limit: Number(target.value),
               })),
-            []
+            [],
           )}
         />
       </div>
