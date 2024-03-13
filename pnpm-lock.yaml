@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@commitlint/cli':
         specifier: ^19.0.0
-        version: 19.0.1(@types/node@20.11.26)(typescript@5.4.2)
+        version: 19.0.1(@types/node@20.11.27)(typescript@5.4.2)
       '@commitlint/config-conventional':
         specifier: ^19.0.0
         version: 19.0.0
@@ -97,7 +97,7 @@ importers:
         version: 1.0.5(next@14.0.2-canary.12)(react-dom@18.2.0)(react@18.2.0)
       next:
         specifier: canary
-        version: 14.0.2-canary.12(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
+        version: 14.0.2-canary.12(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0)
       react:
         specifier: latest
         version: 18.2.0
@@ -125,7 +125,7 @@ importers:
         version: 8.4.35
       sass:
         specifier: ^1.62.1
-        version: 1.71.1
+        version: 1.72.0
       tailwindcss:
         specifier: ^3.2.1
         version: 3.4.1
@@ -198,7 +198,7 @@ importers:
         version: 1.9.4
       next:
         specifier: canary
-        version: 14.0.2-canary.12(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
+        version: 14.0.2-canary.12(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0)
       ol:
         specifier: ^9.0.0
         version: 9.0.0
@@ -1015,14 +1015,14 @@ packages:
       regenerator-runtime: 0.14.0
     dev: true
 
-  /@commitlint/cli@19.0.1(@types/node@20.11.26)(typescript@5.4.2):
+  /@commitlint/cli@19.0.1(@types/node@20.11.27)(typescript@5.4.2):
     resolution: {integrity: sha512-6D+KT/RasFPF92M549I3lABSBWXAdmKvBfxtYWlWO5JdYFSK+B6jY6XyE/hN/DNSYvwwcuNk+CzbqQcy+EbrCw==}
     engines: {node: '>=v18'}
     hasBin: true
     dependencies:
       '@commitlint/format': 19.0.0
       '@commitlint/lint': 19.0.0
-      '@commitlint/load': 19.0.1(@types/node@20.11.26)(typescript@5.4.2)
+      '@commitlint/load': 19.0.1(@types/node@20.11.27)(typescript@5.4.2)
       '@commitlint/read': 19.0.0
       '@commitlint/types': 19.0.0
       execa: 8.0.1
@@ -1091,7 +1091,7 @@ packages:
       '@commitlint/types': 19.0.0
     dev: true
 
-  /@commitlint/load@19.0.1(@types/node@20.11.26)(typescript@5.4.2):
+  /@commitlint/load@19.0.1(@types/node@20.11.27)(typescript@5.4.2):
     resolution: {integrity: sha512-5w5RHhtidRPMRm8ktph+NKypt1Wu5Z2jbU1Lc+1IS9Azy83JWRBQ9xKBbW9gF66R/TwHF0v6Jy8KOqRS8I/GgA==}
     engines: {node: '>=v18'}
     dependencies:
@@ -1101,7 +1101,7 @@ packages:
       '@commitlint/types': 19.0.0
       chalk: 5.3.0
       cosmiconfig: 8.3.6(typescript@5.4.2)
-      cosmiconfig-typescript-loader: 5.0.0(@types/node@20.11.26)(cosmiconfig@8.3.6)(typescript@5.4.2)
+      cosmiconfig-typescript-loader: 5.0.0(@types/node@20.11.27)(cosmiconfig@8.3.6)(typescript@5.4.2)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -1670,8 +1670,8 @@ packages:
       undici-types: 5.26.5
     dev: true
 
-  /@types/node@20.11.26:
-    resolution: {integrity: sha512-YwOMmyhNnAWijOBQweOJnQPl068Oqd4K3OFbTc6AHJwzweUwwWG3GIFY74OKks2PJUDkQPeddOQES9mLn1CTEQ==}
+  /@types/node@20.11.27:
+    resolution: {integrity: sha512-qyUZfMnCg1KEz57r7pzFtSGt49f6RPkPBis3Vo4PbS7roQEDn22hiHzl/Lo1q4i4hDEgBJmBF/NTNg2XR0HbFg==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -1791,7 +1791,7 @@ packages:
     dependencies:
       '@swc/helpers': 0.4.36
       clsx: 1.2.1
-      next: 14.0.2-canary.12(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
+      next: 14.0.2-canary.12(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       sugar-high: 0.4.7
@@ -2258,7 +2258,7 @@ packages:
       split2: 4.2.0
     dev: true
 
-  /cosmiconfig-typescript-loader@5.0.0(@types/node@20.11.26)(cosmiconfig@8.3.6)(typescript@5.4.2):
+  /cosmiconfig-typescript-loader@5.0.0(@types/node@20.11.27)(cosmiconfig@8.3.6)(typescript@5.4.2):
     resolution: {integrity: sha512-+8cK7jRAReYkMwMiG+bxhcNKiHJDM6bR9FD/nGBXOWdMLuYawjF5cGrtLilJ+LGd3ZjCXnJjR5DkfWPoIVlqJA==}
     engines: {node: '>=v16'}
     peerDependencies:
@@ -2266,7 +2266,7 @@ packages:
       cosmiconfig: '>=8.2'
       typescript: '>=4'
     dependencies:
-      '@types/node': 20.11.26
+      '@types/node': 20.11.27
       cosmiconfig: 8.3.6(typescript@5.4.2)
       jiti: 1.21.0
       typescript: 5.4.2
@@ -4064,7 +4064,7 @@ packages:
       es5-ext: 0.5.1
     dev: false
 
-  /next@14.0.2-canary.12(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1):
+  /next@14.0.2-canary.12(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0):
     resolution: {integrity: sha512-a0cH+VQpwlG2G1wf2l8DrL4vhow0T+H8zoZql8GqQbFrGOg3TgxVycDRvSmwkcrnvOCVN7P/wYA+XhMN8b+oYA==}
     engines: {node: '>=18.17.0'}
     hasBin: true
@@ -4086,7 +4086,7 @@ packages:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      sass: 1.71.1
+      sass: 1.72.0
       styled-jsx: 5.1.1(react@18.2.0)
       watchpack: 2.4.0
     optionalDependencies:
@@ -4668,8 +4668,8 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: false
 
-  /sass@1.71.1:
-    resolution: {integrity: sha512-wovtnV2PxzteLlfNzbgm1tFXPLoZILYAMJtvoXXkD7/+1uP41eKkIt1ypWq5/q2uT94qHjXehEYfmjKOvjL9sg==}
+  /sass@1.72.0:
+    resolution: {integrity: sha512-Gpczt3WA56Ly0Mn8Sl21Vj94s1axi9hDIzDFn9Ph9x3C3p4nNyvsqJoQyVXKou6cBlfFWEgRW4rT8Tb4i3XnVA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
