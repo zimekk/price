@@ -266,12 +266,13 @@ export function Main({
   const filtered = useMemo(
     () =>
       grouped.filter(
-        ([id, [{ data }]]) =>
+        ([id, [{ data, type }]]) =>
           (queries.search === "" ||
             queries.search === data.id ||
             data.brand?.toLowerCase().includes(queries.search) ||
             data.name?.toLowerCase().includes(queries.search)) &&
           [data.brand, ""].includes(queries.brand) &&
+          [type, ""].includes(queries.type) &&
           (queries.priceTo === PRICE_LIST[0] ||
             (data.price
               ? ((price) =>

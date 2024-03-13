@@ -23,11 +23,19 @@ export const SORT_BY = {
   minPriceChanged: "Data najniższej ceny",
 } as const;
 
+export const TYPES = {
+  "": "",
+  alto: "alto",
+  euro: "euro",
+  xkom: "xkom",
+} as const;
+
 const INITIAL_FILTERS = {
   brand: "",
   group: "",
   search: "",
   sortBy: Object.keys(SORT_BY)[3],
+  type: "",
   limit: LIMIT[3],
   priceFrom: PRICE_LIST[0],
   priceTo: PRICE_LIST[PRICE_LIST.length - 2],
@@ -131,6 +139,19 @@ export function Filters({
               setFilters((filters) => ({
                 ...filters,
                 search: target.value,
+              })),
+            [],
+          )}
+        />
+        <Picker
+          label="Type"
+          entries={Object.entries(TYPES)}
+          value={filters.type}
+          onChange={useCallback(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                type: target.value,
               })),
             [],
           )}

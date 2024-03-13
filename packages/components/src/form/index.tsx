@@ -36,8 +36,8 @@ export function Picker({
     <label>
       <span>{label}</span>
       <select value={value} onChange={onChange}>
-        {options.map((value) => (
-          <option key={value} value={value}>
+        {options.map((value, index) => (
+          <option key={[index, value].join("-")} value={value}>
             {value}
           </option>
         ))}
