@@ -929,7 +929,7 @@ importers:
         version: 8.57.0
       typescript:
         specifier: ^5.0.0
-        version: 5.4.2
+        version: 5.4.3
 
   packages/xkom:
     dependencies:
@@ -5152,12 +5152,6 @@ packages:
       call-bind: 1.0.5
       for-each: 0.3.3
       is-typed-array: 1.1.12
-    dev: true
-
-  /typescript@5.4.2:
-    resolution: {integrity: sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==}
-    engines: {node: '>=14.17'}
-    hasBin: true
     dev: true
 
   /typescript@5.4.3:
