@@ -41,7 +41,7 @@
     "@types/node": "^20.0.0",
     "@types/react": "latest",
     "autoprefixer": "^10.4.12",
-    "eslint": "^8.11.0",
+    "eslint": "^9.0.0",
     "eslint-config-next": "canary",
     "postcss": "^8.4.18",
     "sass": "^1.62.1",
