@@ -97,7 +97,7 @@ importers:
         version: 1.0.5(next@14.2.0-canary.56)(react-dom@18.2.0)(react@18.2.0)
       next:
         specifier: canary
-        version: 14.2.0-canary.56(react-dom@18.2.0)(react@18.2.0)(sass@1.74.1)
+        version: 14.2.0-canary.56(react-dom@18.2.0)(react@18.2.0)(sass@1.75.0)
       react:
         specifier: latest
         version: 18.2.0
@@ -125,7 +125,7 @@ importers:
         version: 8.4.38
       sass:
         specifier: ^1.62.1
-        version: 1.74.1
+        version: 1.75.0
       tailwindcss:
         specifier: ^3.2.1
         version: 3.4.3
@@ -198,7 +198,7 @@ importers:
         version: 1.9.4
       next:
         specifier: canary
-        version: 14.2.0-canary.56(react-dom@18.2.0)(react@18.2.0)(sass@1.74.1)
+        version: 14.2.0-canary.56(react-dom@18.2.0)(react@18.2.0)(sass@1.75.0)
       ol:
         specifier: ^9.0.0
         version: 9.1.0
@@ -1875,7 +1875,7 @@ packages:
     dependencies:
       '@swc/helpers': 0.4.36
       clsx: 1.2.1
-      next: 14.2.0-canary.56(react-dom@18.2.0)(react@18.2.0)(sass@1.74.1)
+      next: 14.2.0-canary.56(react-dom@18.2.0)(react@18.2.0)(sass@1.75.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       sugar-high: 0.4.7
@@ -4231,7 +4231,7 @@ packages:
       - babel-plugin-macros
     dev: false
 
-  /next@14.2.0-canary.56(react-dom@18.2.0)(react@18.2.0)(sass@1.74.1):
+  /next@14.2.0-canary.56(react-dom@18.2.0)(react@18.2.0)(sass@1.75.0):
     resolution: {integrity: sha512-o5/GGmNwGY3y3At/K9Y/9Vmuhjk7lwXPh7W/feePYeqpYu7/jp47NDg+EKczNj3ueOdKPFJr2kiwYfD3rT2RBQ==}
     engines: {node: '>=18.17.0'}
     hasBin: true
@@ -4257,7 +4257,7 @@ packages:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      sass: 1.74.1
+      sass: 1.75.0
       styled-jsx: 5.1.1(react@18.2.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.2.0-canary.56
@@ -4836,8 +4836,8 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: false
 
-  /sass@1.74.1:
-    resolution: {integrity: sha512-w0Z9p/rWZWelb88ISOLyvqTWGmtmu2QJICqDBGyNnfG4OUnPX9BBjjYIXUpXCMOOg5MQWNpqzt876la1fsTvUA==}
+  /sass@1.75.0:
+    resolution: {integrity: sha512-ShMYi3WkrDWxExyxSZPst4/okE9ts46xZmJDSawJQrnte7M1V9fScVB+uNXOVKRBt0PggHOwoZcn8mYX4trnBw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
