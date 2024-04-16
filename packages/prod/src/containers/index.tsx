@@ -64,6 +64,7 @@ function Summary({ data }: { data: Data; type: string }) {
               fontSize: "xx-small",
               color: {
                 ForTeacher: "blue",
+                Installment0Percent: "violet",
                 LastItems: "mediumvioletred",
                 New: "darkorange",
                 Presale: "limegreen",
