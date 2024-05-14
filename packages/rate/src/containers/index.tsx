@@ -12,6 +12,7 @@ import { z } from "zod";
 import { Loading } from "@acme/components";
 import { Chart } from "../components";
 import { Calculator } from "./Calculator";
+import { Installment } from "./Installment";
 
 interface FiltersState {
   search: string;
@@ -63,7 +64,7 @@ function Filters({
                 ...filters,
                 search: target.value,
               })),
-            []
+            [],
           )}
         />
       </label>
@@ -88,13 +89,13 @@ export function Price() {
             ...queries,
             ...filters,
             search: search.toLowerCase().trim(),
-          })
+          }),
         ),
         distinctUntilChanged(),
-        debounceTime(400)
+        debounceTime(400),
       )
       .subscribe((filters) =>
-        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) })),
       );
     return () => subscription.unsubscribe();
   }, [search$]);
@@ -112,7 +113,7 @@ export function Price() {
             .object({
               result: ItemSchema.array(),
             })
-            .parse(data)
+            .parse(data),
         );
       });
   }, []);
@@ -122,7 +123,7 @@ export function Price() {
       (data ? data.result : [])
         .map(({ data }) => data)
         .sort((a, b) => b.date.localeCompare(a.date)),
-    [data]
+    [data],
   );
 
   const filtered = useMemo(() => grouped, [grouped]);
@@ -130,18 +131,24 @@ export function Price() {
   const [value, setValue] = useState(() => 0);
   const rate = useMemo(
     () =>
-      value ||
-      (filtered.length > 0
-        ? Number(Object.values(grouped[0].rates)[0][0].sell)
-        : 0),
-    [value, grouped]
+      (grouped.length > 0 ? Object.values(grouped[0].rates)[0] : []).reduce(
+        (result, { code, sell }) =>
+          Object.assign(result, { [code]: Number(sell) }),
+        {} as Record<"EUR" | "CHF", number>,
+      ),
+    [grouped],
+  );
+  const date = useMemo(
+    () => (grouped.length > 0 ? grouped[0].date : ""),
+    [grouped],
   );
 
   if (data === null) return <Loading />;
   console.log({ filters, filtered });
   return (
     <section>
-      <Calculator rate={rate} />
+      <Calculator rate={value || rate.EUR} />
+      <Installment date={date} rate={value || rate.CHF} />
       <Chart
         data={filtered.flatMap(({ date, rates }) =>
           Object.entries(rates).map(([time, rates]) =>
@@ -150,9 +157,9 @@ export function Price() {
                 Object.assign(result, { [code]: Number(buy) }),
               {
                 x: new Date(date).getTime(),
-              }
-            )
-          )
+              },
+            ),
+          ),
         )}
       />
       <Filters filters={filters} setFilters={setFilters} />
@@ -178,7 +185,7 @@ export function Price() {
                   </td>
                 ))}
               </tr>
-            ))
+            )),
           )}
         </tbody>
       </table>
