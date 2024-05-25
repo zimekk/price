@@ -67,6 +67,7 @@ function Summary({ data }: { data: Data; type: string }) {
                 Installment0Percent: "violet",
                 LastItems: "mediumvioletred",
                 New: "darkorange",
+                PlusGratis: "limegreen",
                 Presale: "limegreen",
                 Promotion: "orangered",
                 RecommendedProduct: "cornflowerblue",

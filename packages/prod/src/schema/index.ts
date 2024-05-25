@@ -5,6 +5,7 @@ export const MARKS = [
   "Installment0Percent",
   "LastItems",
   "New",
+  "PlusGratis",
   "Presale",
   "Promotion",
   "RecommendedProduct",
