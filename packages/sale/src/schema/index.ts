@@ -10,7 +10,7 @@ export const ProductSchema = z
     rate_count: z.number(),
     // features: z.record(z.string()).array(),
     price: z.number(),
-    previous_price: z.number(),
+    previous_price: z.number().nullable(),
     filter_values: z.array(z.string()),
     popularity: z.number(),
     mark: z.string(),
