@@ -52,7 +52,7 @@ function PriceItem({
   const item = list[index];
   const handleClick = useCallback(
     () => item.data.petrol_list[type] && setValue(item.data.petrol_list[type]),
-    []
+    [],
   );
 
   return (
@@ -68,7 +68,7 @@ function PriceItem({
               [Compare.GT]: styles.gt,
               [Compare.LT]: styles.lt,
               [Compare.EQ]: styles.eq,
-            }[type])(compare(list, index, type))
+            }[type])(compare(list, index, type)),
         )}
       >
         {item.data.petrol_list[type]}
@@ -96,13 +96,13 @@ export function Price() {
             ...queries,
             ...filters,
             search: search.toLowerCase().trim(),
-          })
+          }),
         ),
         distinctUntilChanged(),
-        debounceTime(400)
+        debounceTime(400),
       )
       .subscribe((filters) =>
-        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) })),
       );
     return () => subscription.unsubscribe();
   }, [search$]);
@@ -132,10 +132,10 @@ export function Price() {
                 ? {
                     map_img: new URL(
                       item.data.map_img,
-                      new URL(item.data.url)
+                      new URL(item.data.url),
                     ).toString(),
                   }
-                : {}
+                : {},
             ),
           }))
           .reduce(
@@ -145,10 +145,10 @@ export function Price() {
                   list[item.data.station_id] || []
                 ).concat(item),
               }),
-            {} as Record<string, Item[]>
-          )
+            {} as Record<string, Item[]>,
+          ),
       ).sort(([, a], [, b]) => b[0].created.localeCompare(a[0].created)),
-    [data]
+    [data],
   );
 
   const filtered = useMemo(
@@ -158,9 +158,9 @@ export function Price() {
           (queries.search === "" ||
             queries.search === id ||
             data.address?.toLowerCase().includes(queries.search)) &&
-          [data.network_name, ""].includes(queries.network)
+          [data.network_name, ""].includes(queries.network),
       ),
-    [queries, grouped]
+    [queries, grouped],
   );
 
   const options = useMemo(
@@ -173,16 +173,16 @@ export function Price() {
                 [data.network_name]: data.network_name,
               }),
             }),
-          {} as OptionsState
-        )
+          {} as OptionsState,
+        ),
       ).reduce(
         (options, [key, value]) =>
           Object.assign(options, {
             [key]: Object.keys(value).sort(),
           }),
-        {} as OptionsState
+        {} as OptionsState,
       ),
-    [data]
+    [data],
   );
 
   const handleExpand = useCallback<ChangeEventHandler<HTMLInputElement>>(
@@ -190,9 +190,9 @@ export function Price() {
       setExpanded((expanded) =>
         !target.checked
           ? expanded.filter((id) => id !== target.value)
-          : expanded.concat(target.value)
+          : expanded.concat(target.value),
       ),
-    []
+    [],
   );
 
   const [filters2, setFilters2] = useFilters();
@@ -209,11 +209,11 @@ export function Price() {
         <thead>
           <tr>
             <th style={{ width: 20 }}></th>
-            <th style={{ width: 260 }}>station</th>
+            <th style={{ width: 265 }}>station</th>
             {TYPES.map((type) => (
               <th key={type}>{type}</th>
             ))}
-            <th style={{ width: 120 }}>updated</th>
+            <th style={{ width: 125 }}>updated</th>
           </tr>
         </thead>
         <tbody>
