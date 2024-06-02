@@ -18,6 +18,13 @@
     }
   }
 }
+.Date {
+  text-align: right;
+  font-size: small;
+  &.sunday {
+    color: red;
+  }
+}
 .Price {
   color: black;
   width: 3em;

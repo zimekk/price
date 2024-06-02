@@ -213,7 +213,7 @@ export function Price() {
             {TYPES.map((type) => (
               <th key={type}>{type}</th>
             ))}
-            <th style={{ width: 125 }}>updated</th>
+            <th style={{ width: 160 }}>updated</th>
           </tr>
         </thead>
         <tbody>
@@ -278,8 +278,13 @@ export function Price() {
                     />
                   </td>
                 ))}
-                <td style={{ fontSize: "small" }}>
-                  {dayjs(item.created).format("MMM D, YYYY H:mm")}
+                <td
+                  className={cx(
+                    styles.Date,
+                    new Date(item.created).getDay() === 0 && styles.sunday,
+                  )}
+                >
+                  {dayjs(item.created).format("ddd, MMM D, YYYY H:mm")}
                 </td>
               </tr>
             ));
