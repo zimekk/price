@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const MARKS = [
+  "CashBack",
   "ForTeacher",
   "Installment0Percent",
   "LastItems",
