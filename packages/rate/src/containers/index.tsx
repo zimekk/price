@@ -128,6 +128,7 @@ export function Price() {
 
   const filtered = useMemo(() => grouped, [grouped]);
 
+  const [date, setDate] = useState(() => "");
   const [value, setValue] = useState(() => 0);
   const rate = useMemo(
     () =>
@@ -138,10 +139,12 @@ export function Price() {
       ),
     [grouped],
   );
-  const date = useMemo(
-    () => (grouped.length > 0 ? grouped[0].date : ""),
-    [grouped],
-  );
+
+  useEffect(() => {
+    if (grouped.length > 0) {
+      setDate(grouped[0].date);
+    }
+  }, [grouped]);
 
   if (data === null) return <Loading />;
   console.log({ filters, filtered });
@@ -177,7 +180,9 @@ export function Price() {
                     <a
                       href="#"
                       onClick={(e) => (
-                        e.preventDefault(), setValue(Number(item.sell))
+                        e.preventDefault(),
+                        setValue(Number(item.sell)),
+                        setDate(date)
                       )}
                     >
                       {item.sell}
