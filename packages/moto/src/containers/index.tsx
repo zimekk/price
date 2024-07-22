@@ -50,7 +50,7 @@ function Summary({ data }: { data: Data }) {
             ((selection) =>
               selection &&
               (selection.removeAllRanges(), selection.addRange(range)))(
-              window.getSelection()
+              window.getSelection(),
             );
           }}
         >
@@ -212,7 +212,7 @@ export function Price() {
       priceTo: PRICE_LIST[7],
       yearFrom: yearTo - 3,
       yearTo,
-    }))(new Date().getFullYear())
+    }))(new Date().getFullYear()),
   );
 
   const [queries, setQueries] = useState(() => filters);
@@ -226,13 +226,13 @@ export function Price() {
             ...queries,
             ...filters,
             search: search.toLowerCase().trim(),
-          })
+          }),
         ),
         distinctUntilChanged(),
-        debounceTime(400)
+        debounceTime(400),
       )
       .subscribe((filters) =>
-        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) })),
       );
     return () => subscription.unsubscribe();
   }, [search$]);
@@ -258,12 +258,12 @@ export function Price() {
                       Object.assign(values, {
                         [key]: value,
                       }),
-                    {}
+                    {},
                   ),
-                })
+                }),
               ).array(),
             })
-            .parse(data)
+            .parse(data),
         );
       });
   }, [filters.limit]);
@@ -278,8 +278,8 @@ export function Price() {
               Object.assign(list, {
                 [item.item]: (list[item.item] || []).concat(item),
               }),
-            {} as Record<string, Item[]>
-          )
+            {} as Record<string, Item[]>,
+          ),
       )
         .map(
           ([item, list]) =>
@@ -293,12 +293,12 @@ export function Price() {
                   }),
                 {
                   created: 0,
-                }
+                },
               ),
-            ] as [string, Item[], Meta]
+            ] as [string, Item[], Meta],
         )
         .sort((a, b) => b[2].created - a[2].created),
-    [data]
+    [data],
   );
 
   const filtered = useMemo(
@@ -319,20 +319,20 @@ export function Price() {
             (data.price.amount
               ? ((price) =>
                   queries.priceFrom <= price && price <= queries.priceTo)(
-                  data.price.amount.units
+                  data.price.amount.units,
                 )
               : true)) &&
           (values.year
             ? ((year) => queries.yearFrom <= year && year <= queries.yearTo)(
-                Number(values.year)
+                Number(values.year),
               )
             : true) &&
           [values.country_origin, ""].includes(queries.country) &&
           [values.fuel_type, ""].includes(queries.fuel) &&
           [values.gearbox, ""].includes(queries.gearbox) &&
-          [values.make, ""].includes(queries.make)
+          [values.make, ""].includes(queries.make),
       ),
-    [queries, grouped]
+    [queries, grouped],
   );
 
   const options = useMemo(
@@ -345,43 +345,43 @@ export function Price() {
                 options.country || {},
                 values.country_origin && {
                   [values.country_origin]: true,
-                }
+                },
               ),
               fuel: Object.assign(
                 options.fuel || {},
                 values.fuel_type && {
                   [values.fuel_type]: true,
-                }
+                },
               ),
               gearbox: Object.assign(
                 options.gearbox || {},
                 values.gearbox && {
                   [values.gearbox]: true,
-                }
+                },
               ),
               make: Object.assign(
                 options.make || {},
                 values.make && {
                   [values.make]: true,
-                }
+                },
               ),
               year: Object.assign(
                 options.year || {},
                 values.year && {
                   [values.year]: true,
-                }
+                },
               ),
             }),
-          {} as OptionsState
-        )
+          {} as OptionsState,
+        ),
       ).reduce(
         (options, [key, value]) =>
           Object.assign(options, {
             [key]: Object.keys(value).sort(),
           }),
-        {} as OptionsState
+        {} as OptionsState,
       ),
-    [data]
+    [data],
   );
 
   if (data === null) return <Loading />;
@@ -389,6 +389,43 @@ export function Price() {
   return (
     <section>
       <Filters options={options} filters={filters} setFilters={setFilters} />
+      <small style={{ float: "right" }}>
+        {Object.entries({
+          "audi a6": {
+            search: "audi a6",
+            fuel: "petrol",
+          },
+          "audi a6 allroad": {
+            search: "audi a6 allroad",
+            fuel: "",
+          },
+          "audi q7": {
+            search: "audi q7",
+            fuel: "",
+            priceTo: PRICE_LIST[8],
+          },
+          "bmw x3": {
+            search: "bmw x3",
+            fuel: "petrol",
+          },
+        }).map(([name, values], index) => (
+          <span key={index}>
+            {index > 0 ? ` | ` : ``}
+            <a
+              href="#"
+              onClick={(e) => (
+                e.preventDefault(),
+                setFilters((filters) => ({
+                  ...filters,
+                  ...values,
+                }))
+              )}
+            >
+              {name}
+            </a>
+          </span>
+        ))}
+      </small>
       <small>
         {filtered.length === grouped.length
           ? `Showing all of ${grouped.length}`
