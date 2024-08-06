@@ -116,16 +116,16 @@ importers:
         version: 18.3.3
       autoprefixer:
         specifier: ^10.4.12
-        version: 10.4.20(postcss@8.4.40)
+        version: 10.4.20(postcss@8.4.41)
       eslint:
         specifier: ^9.0.0
         version: 9.8.0
       eslint-config-next:
         specifier: canary
-        version: 15.0.0-canary.100(eslint@9.8.0)(typescript@5.5.4)
+        version: 15.0.0-canary.103(eslint@9.8.0)(typescript@5.5.4)
       postcss:
         specifier: ^8.4.18
-        version: 8.4.40
+        version: 8.4.41
       sass:
         specifier: ^1.62.1
         version: 1.77.8
@@ -1149,8 +1149,8 @@ packages:
   '@next/env@14.2.5':
     resolution: {integrity: sha512-/zZGkrTOsraVfYjGP8uM0p6r0BDT6xWpkjdVbcz66PJVSpwXX3yNiRycxAuDfBKGWBrZBXRuK/YVlkNgxHGwmA==}
 
-  '@next/eslint-plugin-next@15.0.0-canary.100':
-    resolution: {integrity: sha512-Vjxv5hS7qkr9JjQuTq/ORpD+Z3mM2cG6w1p9nidVGG377na1rzjZFlFVjnxtfC4Asjb1zmOdX4ciR+yG0yq5Qw==}
+  '@next/eslint-plugin-next@15.0.0-canary.103':
+    resolution: {integrity: sha512-0k+NTwLbjYEVrjCHZgbD0sypI2u0pnHOiPKKS5uOJmi43OLyVyqx8HlmBKHORmQue6lh9Aut749MO4+c9+B6WA==}
 
   '@next/swc-darwin-arm64@14.2.5':
     resolution: {integrity: sha512-/9zVxJ+K9lrzSGli1///ujyRfon/ZneeZ+v4ptpiPoOU+GKZnm8Wj8ELWU1Pm7GHltYRBklmXMTUqM/DqQ99FQ==}
@@ -2041,8 +2041,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-config-next@15.0.0-canary.100:
-    resolution: {integrity: sha512-gu6qRMEeTrYhB4ipqnhnjKCivDK6mRMFsHIgC4Xp/VydStVoAIKGRLHkBUweeLgy8gpsFgQ+ehMVi3HjxYjmzg==}
+  eslint-config-next@15.0.0-canary.103:
+    resolution: {integrity: sha512-hKmR0hVcJ0HIYsAEec1d3IveYl4hQYJE1qY58fhZ1Naugl4+to/whdWssrVCmi0If/T552F+gBkuk8S22apIig==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -2922,8 +2922,8 @@ packages:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.4.40:
-    resolution: {integrity: sha512-YF2kKIUzAofPMpfH6hOi2cGnv/HrUlfucspc7pDyvv7kGdqXrfj8SCl/t8owkEgKEuu8ZcRjSOxFxVLqwChZ2Q==}
+  postcss@8.4.41:
+    resolution: {integrity: sha512-TesUflQ0WKZqAvg52PWL6kHgLKP6xB6heTOdoYM0Wt2UHyxNa4K25EZZMgKns3BH1RLVbZCREPpLY0rhnNoHVQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   prelude-ls@1.2.1:
@@ -3637,7 +3637,7 @@ snapshots:
 
   '@next/env@14.2.5': {}
 
-  '@next/eslint-plugin-next@15.0.0-canary.100':
+  '@next/eslint-plugin-next@15.0.0-canary.103':
     dependencies:
       fast-glob: 3.3.1
 
@@ -4110,14 +4110,14 @@ snapshots:
 
   ast-types-flow@0.0.8: {}
 
-  autoprefixer@10.4.20(postcss@8.4.40):
+  autoprefixer@10.4.20(postcss@8.4.41):
     dependencies:
       browserslist: 4.23.3
       caniuse-lite: 1.0.30001646
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.1
-      postcss: 8.4.40
+      postcss: 8.4.41
       postcss-value-parser: 4.2.0
 
   available-typed-arrays@1.0.7:
@@ -4652,9 +4652,9 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@15.0.0-canary.100(eslint@9.8.0)(typescript@5.5.4):
+  eslint-config-next@15.0.0-canary.103(eslint@9.8.0)(typescript@5.5.4):
     dependencies:
-      '@next/eslint-plugin-next': 15.0.0-canary.100
+      '@next/eslint-plugin-next': 15.0.0-canary.103
       '@rushstack/eslint-patch': 1.10.1
       '@typescript-eslint/eslint-plugin': 7.17.0(@typescript-eslint/parser@7.2.0(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(typescript@5.5.4)
       '@typescript-eslint/parser': 7.2.0(eslint@9.8.0)(typescript@5.5.4)
@@ -5562,28 +5562,28 @@ snapshots:
 
   possible-typed-array-names@1.0.0: {}
 
-  postcss-import@15.1.0(postcss@8.4.40):
+  postcss-import@15.1.0(postcss@8.4.41):
     dependencies:
-      postcss: 8.4.40
+      postcss: 8.4.41
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.8
 
-  postcss-js@4.0.1(postcss@8.4.40):
+  postcss-js@4.0.1(postcss@8.4.41):
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.4.40
+      postcss: 8.4.41
 
-  postcss-load-config@4.0.2(postcss@8.4.40):
+  postcss-load-config@4.0.2(postcss@8.4.41):
     dependencies:
       lilconfig: 3.1.2
       yaml: 2.5.0
     optionalDependencies:
-      postcss: 8.4.40
+      postcss: 8.4.41
 
-  postcss-nested@6.2.0(postcss@8.4.40):
+  postcss-nested@6.2.0(postcss@8.4.41):
     dependencies:
-      postcss: 8.4.40
+      postcss: 8.4.41
       postcss-selector-parser: 6.1.1
 
   postcss-selector-parser@6.1.1:
@@ -5599,7 +5599,7 @@ snapshots:
       picocolors: 1.0.1
       source-map-js: 1.2.0
 
-  postcss@8.4.40:
+  postcss@8.4.41:
     dependencies:
       nanoid: 3.3.7
       picocolors: 1.0.1
@@ -5913,11 +5913,11 @@ snapshots:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.0.1
-      postcss: 8.4.40
-      postcss-import: 15.1.0(postcss@8.4.40)
-      postcss-js: 4.0.1(postcss@8.4.40)
-      postcss-load-config: 4.0.2(postcss@8.4.40)
-      postcss-nested: 6.2.0(postcss@8.4.40)
+      postcss: 8.4.41
+      postcss-import: 15.1.0(postcss@8.4.41)
+      postcss-js: 4.0.1(postcss@8.4.41)
+      postcss-load-config: 4.0.2(postcss@8.4.41)
+      postcss-nested: 6.2.0(postcss@8.4.41)
       postcss-selector-parser: 6.1.1
       resolve: 1.22.8
       sucrase: 3.35.0
