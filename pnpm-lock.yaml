@@ -13,7 +13,7 @@ importers:
     devDependencies:
       '@commitlint/cli':
         specifier: ^19.0.0
-        version: 19.4.0(@types/node@22.1.0)(typescript@5.5.4)
+        version: 19.4.0(@types/node@22.2.0)(typescript@5.5.4)
       '@commitlint/config-conventional':
         specifier: ^19.0.0
         version: 19.2.2
@@ -110,7 +110,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -122,7 +122,7 @@ importers:
         version: 9.8.0
       eslint-config-next:
         specifier: canary
-        version: 15.0.0-canary.106(eslint@9.8.0)(typescript@5.5.4)
+        version: 15.0.0-canary.110(eslint@9.8.0)(typescript@5.5.4)
       postcss:
         specifier: ^8.4.18
         version: 8.4.41
@@ -174,7 +174,7 @@ importers:
         version: 7.4.3
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -266,7 +266,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -309,7 +309,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -361,7 +361,7 @@ importers:
         version: 7.4.3
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -438,7 +438,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -481,7 +481,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -524,7 +524,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -570,7 +570,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -613,7 +613,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -705,7 +705,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -748,7 +748,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -791,7 +791,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -837,7 +837,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -883,7 +883,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -966,7 +966,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.14.14
+        version: 20.14.15
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -1149,8 +1149,8 @@ packages:
   '@next/env@14.2.5':
     resolution: {integrity: sha512-/zZGkrTOsraVfYjGP8uM0p6r0BDT6xWpkjdVbcz66PJVSpwXX3yNiRycxAuDfBKGWBrZBXRuK/YVlkNgxHGwmA==}
 
-  '@next/eslint-plugin-next@15.0.0-canary.106':
-    resolution: {integrity: sha512-0+uuuZVv3qL8lpVWpt9iq6805fqufHUw20FOHQiAZkWRw0ohnoc7HwniDv30NJ3wHaPmtbHheeVtMZb3T5toBg==}
+  '@next/eslint-plugin-next@15.0.0-canary.110':
+    resolution: {integrity: sha512-f/o5IP5B5308LOZwWJGcJ8JRcZFfvWYsc6x1iFgV8mNsTzb3Uc5mjRfVrjzUVKJg+0Tm3hxU1CYzXXiKSmNW/A==}
 
   '@next/swc-darwin-arm64@14.2.5':
     resolution: {integrity: sha512-/9zVxJ+K9lrzSGli1///ujyRfon/ZneeZ+v4ptpiPoOU+GKZnm8Wj8ELWU1Pm7GHltYRBklmXMTUqM/DqQ99FQ==}
@@ -1355,11 +1355,11 @@ packages:
   '@types/leaflet@1.9.10':
     resolution: {integrity: sha512-mxt7Ponx1WubZdlFYIipwyGCUgFuKHgr3QeLY2ly7uDpHhp5FDKtJ7oswGyC8z0/Qz2g8yBSBV1odmul8Aqxkw==}
 
-  '@types/node@20.14.14':
-    resolution: {integrity: sha512-d64f00982fS9YoOgJkAMolK7MN8Iq3TDdVjchbYHdEmjth/DHowx82GnoA+tVUAN+7vxfYUgAzi+JXbKNd2SDQ==}
+  '@types/node@20.14.15':
+    resolution: {integrity: sha512-Fz1xDMCF/B00/tYSVMlmK7hVeLh7jE5f3B7X1/hmV0MJBwE27KlS7EvD/Yp+z1lm8mVhwV5w+n8jOZG8AfTlKw==}
 
-  '@types/node@22.1.0':
-    resolution: {integrity: sha512-AOmuRF0R2/5j1knA3c6G3HOk523Ga+l+ZXltX8SF1+5oqcXijjfTd8fY3XRZqSihEu9XhtQnKYLmkFaoxgsJHw==}
+  '@types/node@22.2.0':
+    resolution: {integrity: sha512-bm6EG6/pCpkxDf/0gDNDdtDILMOHgaQBVOJGdwsqClnxA3xL6jtMv76rLBc006RVMWbmaf0xbmom4Z/5o2nRkQ==}
 
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
@@ -2041,8 +2041,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-config-next@15.0.0-canary.106:
-    resolution: {integrity: sha512-0KEtcMZ71M8CS8gZtTJI8J3mDAapGr9WHNp1BY/ohlmONTOc8sPHr7O3GVZ7a1wHabpyb0vZgBBrL30kVgenxw==}
+  eslint-config-next@15.0.0-canary.110:
+    resolution: {integrity: sha512-H+Q1SGUiU46YkHauxz1Bf9x4VxQyM8m1afq9Q9ox/FKPkpUbMN+gNBD6zDPoC+F8oU4YxIS+2DEAfxhXPDz+bA==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -3436,11 +3436,11 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.14.1
 
-  '@commitlint/cli@19.4.0(@types/node@22.1.0)(typescript@5.5.4)':
+  '@commitlint/cli@19.4.0(@types/node@22.2.0)(typescript@5.5.4)':
     dependencies:
       '@commitlint/format': 19.3.0
       '@commitlint/lint': 19.2.2
-      '@commitlint/load': 19.4.0(@types/node@22.1.0)(typescript@5.5.4)
+      '@commitlint/load': 19.4.0(@types/node@22.2.0)(typescript@5.5.4)
       '@commitlint/read': 19.4.0
       '@commitlint/types': 19.0.3
       execa: 8.0.1
@@ -3487,7 +3487,7 @@ snapshots:
       '@commitlint/rules': 19.0.3
       '@commitlint/types': 19.0.3
 
-  '@commitlint/load@19.4.0(@types/node@22.1.0)(typescript@5.5.4)':
+  '@commitlint/load@19.4.0(@types/node@22.2.0)(typescript@5.5.4)':
     dependencies:
       '@commitlint/config-validator': 19.0.3
       '@commitlint/execute-rule': 19.0.0
@@ -3495,7 +3495,7 @@ snapshots:
       '@commitlint/types': 19.0.3
       chalk: 5.3.0
       cosmiconfig: 9.0.0(typescript@5.5.4)
-      cosmiconfig-typescript-loader: 5.0.0(@types/node@22.1.0)(cosmiconfig@9.0.0(typescript@5.5.4))(typescript@5.5.4)
+      cosmiconfig-typescript-loader: 5.0.0(@types/node@22.2.0)(cosmiconfig@9.0.0(typescript@5.5.4))(typescript@5.5.4)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -3630,7 +3630,7 @@ snapshots:
 
   '@next/env@14.2.5': {}
 
-  '@next/eslint-plugin-next@15.0.0-canary.106':
+  '@next/eslint-plugin-next@15.0.0-canary.110':
     dependencies:
       fast-glob: 3.3.1
 
@@ -3708,7 +3708,7 @@ snapshots:
 
   '@types/conventional-commits-parser@5.0.0':
     dependencies:
-      '@types/node': 22.1.0
+      '@types/node': 22.2.0
 
   '@types/d3-array@3.2.1': {}
 
@@ -3835,11 +3835,11 @@ snapshots:
     dependencies:
       '@types/geojson': 7946.0.14
 
-  '@types/node@20.14.14':
+  '@types/node@20.14.15':
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@22.1.0':
+  '@types/node@22.2.0':
     dependencies:
       undici-types: 6.13.0
 
@@ -4268,9 +4268,9 @@ snapshots:
       meow: 12.1.1
       split2: 4.2.0
 
-  cosmiconfig-typescript-loader@5.0.0(@types/node@22.1.0)(cosmiconfig@9.0.0(typescript@5.5.4))(typescript@5.5.4):
+  cosmiconfig-typescript-loader@5.0.0(@types/node@22.2.0)(cosmiconfig@9.0.0(typescript@5.5.4))(typescript@5.5.4):
     dependencies:
-      '@types/node': 22.1.0
+      '@types/node': 22.2.0
       cosmiconfig: 9.0.0(typescript@5.5.4)
       jiti: 1.21.6
       typescript: 5.5.4
@@ -4645,9 +4645,9 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@15.0.0-canary.106(eslint@9.8.0)(typescript@5.5.4):
+  eslint-config-next@15.0.0-canary.110(eslint@9.8.0)(typescript@5.5.4):
     dependencies:
-      '@next/eslint-plugin-next': 15.0.0-canary.106
+      '@next/eslint-plugin-next': 15.0.0-canary.110
       '@rushstack/eslint-patch': 1.10.1
       '@typescript-eslint/eslint-plugin': 7.17.0(@typescript-eslint/parser@7.2.0(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(typescript@5.5.4)
       '@typescript-eslint/parser': 7.2.0(eslint@9.8.0)(typescript@5.5.4)
