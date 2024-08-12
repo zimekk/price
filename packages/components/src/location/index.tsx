@@ -1,5 +1,8 @@
 import { type ComponentProps, type ReactNode } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  FontAwesomeIcon,
+  type FontAwesomeIconProps,
+} from "@fortawesome/react-fontawesome";
 import {
   // faCrosshairs,
   faMapMarkerAlt,
@@ -38,7 +41,9 @@ export function LocationLink({
   return (
     <span className={styles.Location} {...props}>
       <Link href={href}>
-        <FontAwesomeIcon icon={faMapMarkerAlt} />
+        <FontAwesomeIcon
+          icon={faMapMarkerAlt as FontAwesomeIconProps["icon"]}
+        />
         <span>{children}</span>
       </Link>
     </span>
