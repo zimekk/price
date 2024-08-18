@@ -110,7 +110,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -122,7 +122,7 @@ importers:
         version: 9.9.0(jiti@1.21.6)
       eslint-config-next:
         specifier: canary
-        version: 15.0.0-canary.117(eslint@9.9.0(jiti@1.21.6))(typescript@5.5.4)
+        version: 15.0.0-canary.120(eslint@9.9.0(jiti@1.21.6))(typescript@5.5.4)
       postcss:
         specifier: ^8.4.18
         version: 8.4.41
@@ -174,7 +174,7 @@ importers:
         version: 7.4.3
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -269,7 +269,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -312,7 +312,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -364,7 +364,7 @@ importers:
         version: 7.4.3
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -441,7 +441,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -484,7 +484,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -527,7 +527,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -573,7 +573,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -616,7 +616,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -708,7 +708,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -751,7 +751,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -794,7 +794,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -840,7 +840,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -886,7 +886,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -969,7 +969,7 @@ importers:
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
-        version: 20.15.0
+        version: 20.16.0
       '@types/react':
         specifier: latest
         version: 18.3.3
@@ -1148,8 +1148,8 @@ packages:
   '@next/env@14.2.5':
     resolution: {integrity: sha512-/zZGkrTOsraVfYjGP8uM0p6r0BDT6xWpkjdVbcz66PJVSpwXX3yNiRycxAuDfBKGWBrZBXRuK/YVlkNgxHGwmA==}
 
-  '@next/eslint-plugin-next@15.0.0-canary.117':
-    resolution: {integrity: sha512-TV9UTJ53mEujStOE3+GB5x/72VvYnjafXcaXdcmvddwd9aVsqJaiZLxoS4nm4gpNkUNnq0WPV1+rlWOZqND++g==}
+  '@next/eslint-plugin-next@15.0.0-canary.120':
+    resolution: {integrity: sha512-sxxx1hw1V/CmH/WAHTkWGX2eyusSGiQ4ULNZYxtnhm4c6fqCqMNea1T3eYyYV8mLI5jPHesRDTX9RhUSC4206g==}
 
   '@next/swc-darwin-arm64@14.2.5':
     resolution: {integrity: sha512-/9zVxJ+K9lrzSGli1///ujyRfon/ZneeZ+v4ptpiPoOU+GKZnm8Wj8ELWU1Pm7GHltYRBklmXMTUqM/DqQ99FQ==}
@@ -1354,8 +1354,8 @@ packages:
   '@types/leaflet@1.9.12':
     resolution: {integrity: sha512-BK7XS+NyRI291HIo0HCfE18Lp8oA30H1gpi1tf0mF3TgiCEzanQjOqNZ4x126SXzzi2oNSZhZ5axJp1k0iM6jg==}
 
-  '@types/node@20.15.0':
-    resolution: {integrity: sha512-eQf4OkH6gA9v1W0iEpht/neozCsZKMTK+C4cU6/fv7wtJCCL8LEQ4hie2Ln8ZP/0YYM2xGj7//f8xyqItkJ6QA==}
+  '@types/node@20.16.0':
+    resolution: {integrity: sha512-vDxceJcoZhIVh67S568bm1UGZO0DX0hpplJZxzeXMKwIPLn190ec5RRxQ69BKhX44SUGIxxgMdDY557lGLKprQ==}
 
   '@types/node@22.4.0':
     resolution: {integrity: sha512-49AbMDwYUz7EXxKU/r7mXOsxwFr4BYbvB7tWYxVuLdb2ibd30ijjXINSMAHiEEZk5PCRBmW1gUeisn2VMKt3cQ==}
@@ -2028,8 +2028,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-config-next@15.0.0-canary.117:
-    resolution: {integrity: sha512-ro2Hexj7G1naHueozTw0qeiXoR9xdZ4qMfGDxhgH1dJJ66rOz7pH/LzPLnBmYxLjD5VJlCqGBo+Psml4dd6ahA==}
+  eslint-config-next@15.0.0-canary.120:
+    resolution: {integrity: sha512-c6GIpcWKjKKLKwRuPCPqdn/Y4dqwqC9TZJZsGOwNW/QJW5eUjwOeefBvuTMmLenU4nInOnE9TWwRnm0PFwsG+A==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -3303,9 +3303,6 @@ packages:
   unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
 
-  undici-types@6.13.0:
-    resolution: {integrity: sha512-xtFJHudx8S2DSoujjMd1WeWvn7KKWFRESZTMeL1RptAYERu29D6jphMjjY+vn96jvN3kVPDNxU/E13VTaXj6jg==}
-
   undici-types@6.19.6:
     resolution: {integrity: sha512-e/vggGopEfTKSvj4ihnOLTsqhrKRN3LeO6qSN/GxohhuRv8qH9bNQ4B8W7e/vFL+0XTnmHPB4/kegunZGA4Org==}
 
@@ -3617,7 +3614,7 @@ snapshots:
 
   '@next/env@14.2.5': {}
 
-  '@next/eslint-plugin-next@15.0.0-canary.117':
+  '@next/eslint-plugin-next@15.0.0-canary.120':
     dependencies:
       fast-glob: 3.3.1
 
@@ -3822,9 +3819,9 @@ snapshots:
     dependencies:
       '@types/geojson': 7946.0.14
 
-  '@types/node@20.15.0':
+  '@types/node@20.16.0':
     dependencies:
-      undici-types: 6.13.0
+      undici-types: 6.19.6
 
   '@types/node@22.4.0':
     dependencies:
@@ -4626,9 +4623,9 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@15.0.0-canary.117(eslint@9.9.0(jiti@1.21.6))(typescript@5.5.4):
+  eslint-config-next@15.0.0-canary.120(eslint@9.9.0(jiti@1.21.6))(typescript@5.5.4):
     dependencies:
-      '@next/eslint-plugin-next': 15.0.0-canary.117
+      '@next/eslint-plugin-next': 15.0.0-canary.120
       '@rushstack/eslint-patch': 1.10.1
       '@typescript-eslint/eslint-plugin': 7.17.0(@typescript-eslint/parser@7.2.0(eslint@9.9.0(jiti@1.21.6))(typescript@5.5.4))(eslint@9.9.0(jiti@1.21.6))(typescript@5.5.4)
       '@typescript-eslint/parser': 7.2.0(eslint@9.9.0(jiti@1.21.6))(typescript@5.5.4)
@@ -6000,8 +5997,6 @@ snapshots:
       has-bigints: 1.0.2
       has-symbols: 1.0.3
       which-boxed-primitive: 1.0.2
-
-  undici-types@6.13.0: {}
 
   undici-types@6.19.6: {}
 
