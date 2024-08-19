@@ -12,6 +12,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       title={title}
       links={[
         "auto",
+        "bike",
         "euro",
         "flat",
         "fuel",

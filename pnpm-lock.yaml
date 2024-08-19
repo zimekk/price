@@ -41,6 +41,9 @@ importers:
       '@acme/auto':
         specifier: workspace:*
         version: link:../../packages/auto
+      '@acme/bike':
+        specifier: workspace:*
+        version: link:../../packages/bike
       '@acme/euro':
         specifier: workspace:*
         version: link:../../packages/euro
@@ -172,6 +175,49 @@ importers:
       '@types/d3':
         specifier: ^7.4.0
         version: 7.4.3
+      '@types/node':
+        specifier: ^20.0.0
+        version: 20.16.1
+      '@types/react':
+        specifier: latest
+        version: 18.3.3
+      eslint:
+        specifier: ^9.0.0
+        version: 9.9.0(jiti@1.21.6)
+      typescript:
+        specifier: 5.5.4
+        version: 5.5.4
+
+  packages/bike:
+    dependencies:
+      '@acme/components':
+        specifier: workspace:*
+        version: link:../components
+      '@swc/helpers':
+        specifier: ^0.5.0
+        version: 0.5.12
+      clsx:
+        specifier: ^2.0.0
+        version: 2.1.1
+      dayjs:
+        specifier: ^1.11.7
+        version: 1.11.12
+      next:
+        specifier: ~14.2.0
+        version: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)
+      react:
+        specifier: ^17.0.0 || ^18.0.0-0
+        version: 18.3.1
+      react-dom:
+        specifier: ^17.0.0 || ^18.0.0-0
+        version: 18.3.1(react@18.3.1)
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
+      zod:
+        specifier: ^3.21.4
+        version: 3.23.3
+    devDependencies:
       '@types/node':
         specifier: ^20.0.0
         version: 20.16.1
@@ -3692,7 +3738,7 @@ snapshots:
 
   '@types/conventional-commits-parser@5.0.0':
     dependencies:
-      '@types/node': 22.4.1
+      '@types/node': 20.16.1
 
   '@types/d3-array@3.2.1': {}
 
