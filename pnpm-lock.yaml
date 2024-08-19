@@ -170,7 +170,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/d3':
         specifier: ^7.4.0
@@ -216,7 +216,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -311,7 +311,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -354,7 +354,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -403,7 +403,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/d3':
         specifier: ^7.4.0
@@ -443,7 +443,7 @@ importers:
         version: 18.3.1(react@18.3.1)
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/react':
         specifier: latest
@@ -483,7 +483,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -526,7 +526,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -569,7 +569,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -615,7 +615,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -658,7 +658,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -707,7 +707,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/d3':
         specifier: ^7.4.0
@@ -750,7 +750,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -793,7 +793,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -836,7 +836,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -882,7 +882,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -928,7 +928,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -1011,7 +1011,7 @@ importers:
         version: 7.8.1
       zod:
         specifier: ^3.21.4
-        version: 3.23.3
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -3352,6 +3352,9 @@ packages:
   undici-types@6.19.6:
     resolution: {integrity: sha512-e/vggGopEfTKSvj4ihnOLTsqhrKRN3LeO6qSN/GxohhuRv8qH9bNQ4B8W7e/vFL+0XTnmHPB4/kegunZGA4Org==}
 
+  undici-types@6.19.8:
+    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+
   unicorn-magic@0.1.0:
     resolution: {integrity: sha512-lRfVq8fE8gz6QMBuDM6a+LO3IAzTi05H6gCVaUpir2E1Rwpo4ZUog45KpNXKC/Mn3Yb9UDuHumeFTo9iV/D9FQ==}
     engines: {node: '>=18'}
@@ -3440,8 +3443,8 @@ packages:
     resolution: {integrity: sha512-b4JR1PFR10y1mKjhHY9LaGo6tmrgjit7hxVIeAmyMw3jegXR4dhYqLaQF5zMXZxY7tLpMyJeLjr1C4rLmkVe8g==}
     engines: {node: '>=12.20'}
 
-  zod@3.23.3:
-    resolution: {integrity: sha512-tPvq1B/2Yu/dh2uAIH2/BhUlUeLIUvAjr6dpL/75I0pCYefHgjhXk1o1Kob3kTU8C7yU1j396jFHlsVWFi9ogg==}
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
   zstddec@0.1.0:
     resolution: {integrity: sha512-w2NTI8+3l3eeltKAdK8QpiLo/flRAr2p8AGeakfMZOXBxOg9HIu4LVDxBi81sYgVhFhdJjv1OrB5ssI8uFPoLg==}
@@ -3871,7 +3874,7 @@ snapshots:
 
   '@types/node@22.4.1':
     dependencies:
-      undici-types: 6.19.6
+      undici-types: 6.19.8
 
   '@types/prop-types@15.7.12': {}
 
@@ -6046,6 +6049,8 @@ snapshots:
 
   undici-types@6.19.6: {}
 
+  undici-types@6.19.8: {}
+
   unicorn-magic@0.1.0: {}
 
   update-browserslist-db@1.1.0(browserslist@4.23.3):
@@ -6151,6 +6156,6 @@ snapshots:
 
   yocto-queue@1.1.1: {}
 
-  zod@3.23.3: {}
+  zod@3.23.8: {}
 
   zstddec@0.1.0: {}
