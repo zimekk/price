@@ -23,9 +23,9 @@
     "lint": "turbo run lint",
     "clean": "turbo run clean",
     "reset": "pnpm store prune && rm -rf node_modules apps/*/node_modules packages/*/node_modules",
-    "update:browserlist": "pnpm update caniuse-lite -r",
+    "update:browserlist": "pnpm update caniuse-lite --recursive",
     "update:dedupe": "pnpm dedupe",
-    "update:latest": "pnpm update --interactive --latest",
+    "update:latest": "pnpm update --interactive --latest --recursive",
     "prepare": "husky && turbo telemetry disable"
   },
   "devDependencies": {
