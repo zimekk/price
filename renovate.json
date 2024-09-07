@@ -1,6 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
+  "extends": ["config:base"],
+  "hostRules": [
+    {
+      "matchHost": "https://npm.pkg.github.com/",
+      "hostType": "npm",
+      "encrypted": {
+        "token": "wcFMA/xDdHCJBTolAQ//bFLDBu5Iv/PMAd1IamsRHpLNs/UCR8lg8G8q87gvEMTFmeNjPjbEYyLvt205J3iYFBVPj9dzyIUiminPuqIBGGx3XzY7eDxPNFaTepfO1kJ2TzcDvnZ/KhUz9NLqqyqBkTeuEK6k7vRtQl+f1zB558WH5tPxWWIfflC2RdKiPDJIhIBP6JU+sWxziwk8VFYVlR7MmOF2jvBIW855du0Eq5HIv3jUG4RCHwPbuxqP2uTSTVq5oKO2Cwnbid5+N7P+y1WQixEN4RCgJ663oPEW9oD77dfbDjIU8oKJMa0xdz9OH7eIoS3QE8tInpy28/lAx0Dnm0yiGeasY0ctFOC+VTPsXWhQSX8wGaKoU7S+Iigw4j0ddswCqvhjw/Vzq55SHFlPJYqwanFD4CKUeWCGwvAF5tGzUouyEeaUcvPEU8NvleOR9yJZPmzqvfTkVfzq/gZVKqpgMySLe3QVlRs8CKJSC1i09qhn42+p11/I4BQ7Wp8FqsFuj7vc/hBSc+vaPajoxbc1R5RpRSHxDKH61aHwjhdyMG+H2Tllb22lxyEawTqqKIQ+jkd7HTjBo6KLAFV9EINNSxuFTXF0WJtiAaMHp+ucgbKF7jQA7wsl+e7oE/JbVnlMhMVsnKFdZf3daEnoh4lGL73eR80g2iEF0HtUYKTb8oBU6bot8SYy7bDSdQE3MxykwlVcYzZOZZnVYwnFX3jok2BS3AdtNdQQAIEfnN1w8PJCPe6nspgHfH3CLfJzQOQIYF+3adcj07F/LJmByJ+kBDO2Dh1fKsWyE+vv1ZYRJM52Ia1vePFQsY0UgH/ys7W02ptgon7TzXIAZoZd9xlfKA"
+      }
+    }
   ]
 }
