@@ -198,7 +198,7 @@ importers:
         version: 0.5.13
       '@zimekk/scrap-schema':
         specifier: ^1.0.0
-        version: 1.0.0
+        version: 1.0.2
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -1504,8 +1504,8 @@ packages:
       react: ^17.0.2 || ^18.0.0-0
       react-dom: ^17.0.2 || ^18.0.0-0
 
-  '@zimekk/scrap-schema@1.0.0':
-    resolution: {integrity: sha512-dJ+GVz9m9RJeaTb6RgNoAWahbBCNuG7DhbBQnwlD4rsku3/3EqISfN4E4XyJ4OHSKXRyMaVIejQejsTmhv83ZA==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-schema/1.0.0/f19c8725cfca7e87e2b51c5a57ba51f07df5e851}
+  '@zimekk/scrap-schema@1.0.2':
+    resolution: {integrity: sha512-oYGGXjMgCc5mFHlhZSyplgI0nGyxCuweYrTh2gqiX1SvN2IuDP3Te1zl5b4jUN0Wmnwr/i35h8VP4Ob15swo/g==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-schema/1.0.2/4a973e2a1d4d2bd5624c0c9cf484d170f30711f2}
 
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -4032,7 +4032,7 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       sugar-high: 0.4.7
 
-  '@zimekk/scrap-schema@1.0.0':
+  '@zimekk/scrap-schema@1.0.2':
     dependencies:
       zod: 3.23.8
 
