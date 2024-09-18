@@ -100,10 +100,10 @@ importers:
         version: link:../../packages/xkom
       '@vercel/examples-ui':
         specifier: ^1.0.4
-        version: 1.0.5(next@14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.78.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.0.5(next@14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next:
         specifier: ~14.2.0
-        version: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.78.0)
+        version: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1)
       react:
         specifier: latest
         version: 18.3.1
@@ -116,7 +116,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       autoprefixer:
         specifier: ^10.4.12
         version: 10.4.20(postcss@8.4.47)
@@ -125,13 +125,13 @@ importers:
         version: 9.10.0(jiti@1.21.6)
       eslint-config-next:
         specifier: canary
-        version: 15.0.0-canary.155(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)
+        version: 15.0.0-canary.158(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)
       postcss:
         specifier: ^8.4.18
         version: 8.4.47
       sass:
         specifier: ^1.62.1
-        version: 1.78.0
+        version: 1.79.1
       tailwindcss:
         specifier: ^3.2.1
         version: 3.4.8
@@ -180,7 +180,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -226,7 +226,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -253,7 +253,7 @@ importers:
         version: 1.9.4
       next:
         specifier: ~14.2.0
-        version: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.78.0)
+        version: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1)
       ol:
         specifier: ^10.0.0
         version: 10.1.0
@@ -275,7 +275,7 @@ importers:
         version: 1.9.12
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -321,7 +321,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -364,7 +364,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -416,7 +416,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -450,7 +450,7 @@ importers:
     devDependencies:
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -493,7 +493,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -536,7 +536,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -579,7 +579,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -625,7 +625,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -668,7 +668,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -717,7 +717,7 @@ importers:
         version: 7.4.3
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -760,7 +760,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -803,7 +803,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -846,7 +846,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -892,7 +892,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -938,7 +938,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -953,13 +953,13 @@ importers:
         version: 0.5.13
       '@vercel/examples-ui':
         specifier: ^1.0.4
-        version: 1.0.5(next@14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.78.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.0.5(next@14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
       next:
         specifier: ~14.2.0
-        version: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.78.0)
+        version: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
         version: 18.3.1
@@ -969,7 +969,7 @@ importers:
     devDependencies:
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -1021,7 +1021,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: latest
-        version: 18.3.5
+        version: 18.3.7
       eslint:
         specifier: ^9.0.0
         version: 9.10.0(jiti@1.21.6)
@@ -1201,8 +1201,8 @@ packages:
   '@next/env@14.2.5':
     resolution: {integrity: sha512-/zZGkrTOsraVfYjGP8uM0p6r0BDT6xWpkjdVbcz66PJVSpwXX3yNiRycxAuDfBKGWBrZBXRuK/YVlkNgxHGwmA==}
 
-  '@next/eslint-plugin-next@15.0.0-canary.155':
-    resolution: {integrity: sha512-AbqKhyft02f1oCi6Byk4edj6B/6Y7uamCfTOn1NDP0hOy3J7ShMDCJIwlT4ioUjwZ9Bm3jycCqDciBK+pmI4/Q==}
+  '@next/eslint-plugin-next@15.0.0-canary.158':
+    resolution: {integrity: sha512-o4jMTmLSmap9snuPClsw9B6cUFbPM8T2K+F8qImWF/zkDvHin69GrsyEje3YVRWSqY+yRHYW3qxaSJcsLi77SA==}
 
   '@next/swc-darwin-arm64@14.2.5':
     resolution: {integrity: sha512-/9zVxJ+K9lrzSGli1///ujyRfon/ZneeZ+v4ptpiPoOU+GKZnm8Wj8ELWU1Pm7GHltYRBklmXMTUqM/DqQ99FQ==}
@@ -1419,8 +1419,8 @@ packages:
   '@types/rbush@3.0.4':
     resolution: {integrity: sha512-knSt9cCW8jj1ZSFcFeBZaX++OucmfPxxHiRwTahZfJlnQsek7O0bazTJHWD2RVj9LEoejUYF2de3/stf+QXcXw==}
 
-  '@types/react@18.3.5':
-    resolution: {integrity: sha512-WeqMfGJLGuLCqHGYRGHxnKrXcTitc6L/nBUWfWPcTarG3t9PsquqUMuVeXZeca+mglY4Vo5GZjCi0A3Or2lnxA==}
+  '@types/react@18.3.7':
+    resolution: {integrity: sha512-KUnDCJF5+AiZd8owLIeVHqmW9yM4sqmDVf2JRJiBMFkGvkoZ4/WyV2lL4zVsoinmRS/W3FeEdZLEWFRofnT2FQ==}
 
   '@typescript-eslint/eslint-plugin@7.17.0':
     resolution: {integrity: sha512-pyiDhEuLM3PuANxH7uNYan1AaFs5XE0zw1hq69JBvGvE7gSuEoQl1ydtEe/XQeoC3GQxLXyOVa5kNOATgM638A==}
@@ -1689,6 +1689,10 @@ packages:
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
+
+  chokidar@4.0.0:
+    resolution: {integrity: sha512-mxIojEAQcuEvT/lyXq+jf/3cO/KoA6z4CeNDGGevTybECPOMFCnQy3OPahluUkbqgPNGw5Bi78UC7Po6Lhy+NA==}
+    engines: {node: '>= 14.16.0'}
 
   cli-cursor@5.0.0:
     resolution: {integrity: sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw==}
@@ -2096,8 +2100,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-config-next@15.0.0-canary.155:
-    resolution: {integrity: sha512-aqDA9NhYrGCLSpfSIk/+SIcfiYkG5RVcMwT0I3XiqmKUy+7rQw7iuHxlax7LcICyipwg7OXCVN51P773q2neIg==}
+  eslint-config-next@15.0.0-canary.158:
+    resolution: {integrity: sha512-5dE/0zKIuZhkCMz8z1CE6/XTENKKvH5N0mMbGOguqbmNN9nF8u0wis8Ng9dfhK6UKJilkXQZtc6iodXe34xJRQ==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -3047,6 +3051,10 @@ packages:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
     engines: {node: '>=8.10.0'}
 
+  readdirp@4.0.1:
+    resolution: {integrity: sha512-GkMg9uOTpIWWKbSsgwb5fA4EavTR+SG/PMPoAY8hkhHfEEY0/vqljY+XHqtDf2cr2IJtoNRDbrrEpZUiZCkYRw==}
+    engines: {node: '>= 14.16.0'}
+
   reflect.getprototypeof@1.0.6:
     resolution: {integrity: sha512-fmfw4XgoDke3kdI6h4xcUz1dG8uaiv5q9gcEwLS4Pnth2kxT+GZ7YehS1JTMGBQmtV7Y4GFGbs2re2NqhdozUg==}
     engines: {node: '>= 0.4'}
@@ -3124,6 +3132,11 @@ packages:
 
   sass@1.78.0:
     resolution: {integrity: sha512-AaIqGSrjo5lA2Yg7RvFZrlXDBCp3nV4XP73GrLGvdRWWwk+8H3l0SDvq/5bA4eF+0RFPLuWUk3E+P1U/YqnpsQ==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+
+  sass@1.79.1:
+    resolution: {integrity: sha512-+mA7svoNKeL0DiJqZGeR/ZGUu8he4I8o3jyUcOFyo4eBJrwNgIMmAEwCMo/N2Y3wdjOBcRzoNxZIOtrtMX8EXg==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -3707,7 +3720,7 @@ snapshots:
 
   '@next/env@14.2.5': {}
 
-  '@next/eslint-plugin-next@15.0.0-canary.155':
+  '@next/eslint-plugin-next@15.0.0-canary.158':
     dependencies:
       fast-glob: 3.3.1
 
@@ -3924,7 +3937,7 @@ snapshots:
 
   '@types/rbush@3.0.4': {}
 
-  '@types/react@18.3.5':
+  '@types/react@18.3.7':
     dependencies:
       '@types/prop-types': 15.7.12
       csstype: 3.1.3
@@ -4037,11 +4050,11 @@ snapshots:
       '@typescript-eslint/types': 7.2.0
       eslint-visitor-keys: 3.4.3
 
-  '@vercel/examples-ui@1.0.5(next@14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.78.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@vercel/examples-ui@1.0.5(next@14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@swc/helpers': 0.4.36
       clsx: 1.2.1
-      next: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.78.0)
+      next: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       sugar-high: 0.4.7
@@ -4272,6 +4285,10 @@ snapshots:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.3
+
+  chokidar@4.0.0:
+    dependencies:
+      readdirp: 4.0.1
 
   cli-cursor@5.0.0:
     dependencies:
@@ -4726,9 +4743,9 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@15.0.0-canary.155(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2):
+  eslint-config-next@15.0.0-canary.158(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2):
     dependencies:
-      '@next/eslint-plugin-next': 15.0.0-canary.155
+      '@next/eslint-plugin-next': 15.0.0-canary.158
       '@rushstack/eslint-patch': 1.10.1
       '@typescript-eslint/eslint-plugin': 7.17.0(@typescript-eslint/parser@7.2.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2))(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)
       '@typescript-eslint/parser': 7.2.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)
@@ -5491,6 +5508,32 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
+  next@14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1):
+    dependencies:
+      '@next/env': 14.2.5
+      '@swc/helpers': 0.5.5
+      busboy: 1.6.0
+      caniuse-lite: 1.0.30001655
+      graceful-fs: 4.2.11
+      postcss: 8.4.31
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      styled-jsx: 5.1.1(react@18.3.1)
+    optionalDependencies:
+      '@next/swc-darwin-arm64': 14.2.5
+      '@next/swc-darwin-x64': 14.2.5
+      '@next/swc-linux-arm64-gnu': 14.2.5
+      '@next/swc-linux-arm64-musl': 14.2.5
+      '@next/swc-linux-x64-gnu': 14.2.5
+      '@next/swc-linux-x64-musl': 14.2.5
+      '@next/swc-win32-arm64-msvc': 14.2.5
+      '@next/swc-win32-ia32-msvc': 14.2.5
+      '@next/swc-win32-x64-msvc': 14.2.5
+      sass: 1.79.1
+    transitivePeerDependencies:
+      - '@babel/core'
+      - babel-plugin-macros
+
   node-releases@2.0.18: {}
 
   normalize-path@3.0.0: {}
@@ -5736,6 +5779,8 @@ snapshots:
     dependencies:
       picomatch: 2.3.1
 
+  readdirp@4.0.1: {}
+
   reflect.getprototypeof@1.0.6:
     dependencies:
       call-bind: 1.0.7
@@ -5822,6 +5867,13 @@ snapshots:
       chokidar: 3.6.0
       immutable: 4.3.7
       source-map-js: 1.2.0
+    optional: true
+
+  sass@1.79.1:
+    dependencies:
+      chokidar: 4.0.0
+      immutable: 4.3.7
+      source-map-js: 1.2.1
 
   scheduler@0.23.2:
     dependencies:
@@ -5874,7 +5926,8 @@ snapshots:
       ansi-styles: 6.2.1
       is-fullwidth-code-point: 5.0.0
 
-  source-map-js@1.2.0: {}
+  source-map-js@1.2.0:
+    optional: true
 
   source-map-js@1.2.1: {}
 
