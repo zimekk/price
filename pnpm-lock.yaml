@@ -125,7 +125,7 @@ importers:
         version: 9.11.0(jiti@1.21.6)
       eslint-config-next:
         specifier: canary
-        version: 15.0.0-canary.160(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2)
+        version: 15.0.0-canary.161(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2)
       postcss:
         specifier: ^8.4.18
         version: 8.4.47
@@ -256,7 +256,7 @@ importers:
         version: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.3)
       ol:
         specifier: ^10.0.0
-        version: 10.1.0
+        version: 10.2.0
       react:
         specifier: ^17.0.0 || ^18.0.0-0
         version: 18.3.1
@@ -1201,8 +1201,8 @@ packages:
   '@next/env@14.2.5':
     resolution: {integrity: sha512-/zZGkrTOsraVfYjGP8uM0p6r0BDT6xWpkjdVbcz66PJVSpwXX3yNiRycxAuDfBKGWBrZBXRuK/YVlkNgxHGwmA==}
 
-  '@next/eslint-plugin-next@15.0.0-canary.160':
-    resolution: {integrity: sha512-m6IAc1X40J9NsvtBVUomT/2yS8lgXIsov3Wqu1i/cHZvkmfrIPWomTN0i5OmbtUjh1wOLAxaIlN7ucFUqdtmIw==}
+  '@next/eslint-plugin-next@15.0.0-canary.161':
+    resolution: {integrity: sha512-pxhcqfHf4+yJBR7sY9bQCZZ1qITEPZXfXwrVNi5s7AUqaSlZpZK0lBXiO1fPohVkn9ptwmRKLK+7QsuIF3TGNw==}
 
   '@next/swc-darwin-arm64@14.2.5':
     resolution: {integrity: sha512-/9zVxJ+K9lrzSGli1///ujyRfon/ZneeZ+v4ptpiPoOU+GKZnm8Wj8ELWU1Pm7GHltYRBklmXMTUqM/DqQ99FQ==}
@@ -1416,8 +1416,8 @@ packages:
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
 
-  '@types/rbush@3.0.4':
-    resolution: {integrity: sha512-knSt9cCW8jj1ZSFcFeBZaX++OucmfPxxHiRwTahZfJlnQsek7O0bazTJHWD2RVj9LEoejUYF2de3/stf+QXcXw==}
+  '@types/rbush@3.0.3':
+    resolution: {integrity: sha512-lX55lR0iYCgapxD3IrgujpQA1zDxwZI5qMRelKvmKAsSMplFVr7wmMpG7/6+Op2tjrgEex8o3vjg8CRDrRNYxg==}
 
   '@types/react@18.3.8':
     resolution: {integrity: sha512-syBUrW3/XpnW4WJ41Pft+I+aPoDVbrBVQGEnbD7NijDGlVC+8gV/XKRY+7vMDlfPpbwYt0l1vd/Sj8bJGMbs9Q==}
@@ -2091,8 +2091,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-config-next@15.0.0-canary.160:
-    resolution: {integrity: sha512-N9IEr5U1Gi0EN5cQ39gI4Ypai0CdPB6QexkE1eITuW2GKH0yY5SenlBmvHRbS7PyGH1esKsqGgiSRYJjCvWGjw==}
+  eslint-config-next@15.0.0-canary.161:
+    resolution: {integrity: sha512-Eb0/XH1GIseutlYJ1R7TYlIEDg6uK7CnLsbtl7lpcX0r1RCpLUiCrZnJ7EcJ1XbPthyfUbvPI0LAa1iGuwxSdQ==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -2830,8 +2830,8 @@ packages:
     resolution: {integrity: sha512-yBYjY9QX2hnRmZHAjG/f13MzmBzxzYgQhFrke06TTyKY5zSTEqkOeukBzIdVA3j3ulu8Qa3MbVFShV7T2RmGtQ==}
     engines: {node: '>= 0.4'}
 
-  ol@10.1.0:
-    resolution: {integrity: sha512-/efepydpzhFoeczA9KAN5t7G0WpFhP46ZXEfSl6JbZ7ipQZ2axpkYB2qt0qcOUlPFYMt7/XQFApH652KB08tTg==}
+  ol@10.2.0:
+    resolution: {integrity: sha512-yYFNV8LzN3uOP9qDecMdq07IKlD5P3KfbT+pfOje/XlsnMNLXOb3ZjCZN86wtbew8aq+RfdJ+XylVI8MZsp4Vw==}
 
   onetime@6.0.0:
     resolution: {integrity: sha512-1FlR+gjXK7X+AsAHso35MnyN5KqGwJRi/31ft6x0M194ht7S+rWAvd7PHss9xSKMzE0asv1pyIHaJYq+BbacAQ==}
@@ -3708,7 +3708,7 @@ snapshots:
 
   '@next/env@14.2.5': {}
 
-  '@next/eslint-plugin-next@15.0.0-canary.160':
+  '@next/eslint-plugin-next@15.0.0-canary.161':
     dependencies:
       fast-glob: 3.3.1
 
@@ -3923,7 +3923,7 @@ snapshots:
 
   '@types/prop-types@15.7.12': {}
 
-  '@types/rbush@3.0.4': {}
+  '@types/rbush@3.0.3': {}
 
   '@types/react@18.3.8':
     dependencies:
@@ -4727,9 +4727,9 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@15.0.0-canary.160(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2):
+  eslint-config-next@15.0.0-canary.161(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2):
     dependencies:
-      '@next/eslint-plugin-next': 15.0.0-canary.160
+      '@next/eslint-plugin-next': 15.0.0-canary.161
       '@rushstack/eslint-patch': 1.10.1
       '@typescript-eslint/eslint-plugin': 7.17.0(@typescript-eslint/parser@7.2.0(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2))(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2)
       '@typescript-eslint/parser': 7.2.0(eslint@9.11.0(jiti@1.21.6))(typescript@5.6.2)
@@ -5572,9 +5572,9 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.0.0
 
-  ol@10.1.0:
+  ol@10.2.0:
     dependencies:
-      '@types/rbush': 3.0.4
+      '@types/rbush': 3.0.3
       color-rgba: 3.0.0
       color-space: 2.0.1
       earcut: 3.0.0
