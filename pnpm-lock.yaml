@@ -22,7 +22,7 @@ importers:
         version: 9.12.0(jiti@1.21.6)
       eslint-config-turbo:
         specifier: latest
-        version: 2.1.3(eslint@9.12.0(jiti@1.21.6))
+        version: 2.2.0(eslint@9.12.0(jiti@1.21.6))
       husky:
         specifier: ^9.0.0
         version: 9.1.6
@@ -125,7 +125,7 @@ importers:
         version: 9.12.0(jiti@1.21.6)
       eslint-config-next:
         specifier: canary
-        version: 15.0.0-canary.196(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3)
+        version: 15.0.0-canary.197(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3)
       postcss:
         specifier: ^8.4.18
         version: 8.4.47
@@ -272,7 +272,7 @@ importers:
     devDependencies:
       '@types/leaflet':
         specifier: ^1.9.3
-        version: 1.9.12
+        version: 1.9.13
       '@types/react':
         specifier: latest
         version: 18.3.11
@@ -1209,8 +1209,8 @@ packages:
   '@next/env@14.2.5':
     resolution: {integrity: sha512-/zZGkrTOsraVfYjGP8uM0p6r0BDT6xWpkjdVbcz66PJVSpwXX3yNiRycxAuDfBKGWBrZBXRuK/YVlkNgxHGwmA==}
 
-  '@next/eslint-plugin-next@15.0.0-canary.196':
-    resolution: {integrity: sha512-AMPaqkrUhzot2r40DGGF2iTbFeUi/9QEDrlUK0TRB6n/PBq9mfTGWDu4tIioElHU+XcLmuhTGt6UOj69Cru9Vg==}
+  '@next/eslint-plugin-next@15.0.0-canary.197':
+    resolution: {integrity: sha512-PawKr9jxAjXr8P4p1OtpIX0NyopglQsRG3hDtmZ9RAxNNtheWwIJf3YeaRsXnlf0m8iljAN3MiOZve39GN1FLQ==}
 
   '@next/swc-darwin-arm64@14.2.5':
     resolution: {integrity: sha512-/9zVxJ+K9lrzSGli1///ujyRfon/ZneeZ+v4ptpiPoOU+GKZnm8Wj8ELWU1Pm7GHltYRBklmXMTUqM/DqQ99FQ==}
@@ -1497,8 +1497,8 @@ packages:
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
 
-  '@types/leaflet@1.9.12':
-    resolution: {integrity: sha512-BK7XS+NyRI291HIo0HCfE18Lp8oA30H1gpi1tf0mF3TgiCEzanQjOqNZ4x126SXzzi2oNSZhZ5axJp1k0iM6jg==}
+  '@types/leaflet@1.9.13':
+    resolution: {integrity: sha512-wwLL4VKKwYlLmhMQRc/8HT5/8HgkzZyETG0hG3nbsSiHKSdxBWZnHqEkRIOOtpyUks3gbc81dk9WgQMC6bicDw==}
 
   '@types/node@20.16.8':
     resolution: {integrity: sha512-sbo5JmfbZNkyDv+2HCccr9Y9ZkKJBMTru7UdAsCojMGjKNjdaOV73bqEW242QrHEZL8R4LbHMrW+FHB5lZ5/bw==}
@@ -2191,8 +2191,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-config-next@15.0.0-canary.196:
-    resolution: {integrity: sha512-gb5PVBz7+wbH8jbaG8wQ8WcJkN1R8X/Grat03voiRx/autBCZPDXDQthIEeooGD9RuuREBEbczI16kJNA4ssSg==}
+  eslint-config-next@15.0.0-canary.197:
+    resolution: {integrity: sha512-YkcBlszYqUwatcuWJzUkJxcb7ztwP6w+/xUKYTRiWhmZTH07YOtG0oHHkWqNqPb0NZ0B65wSKLnZAAPpuLyFGA==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0 || ^9.0.0
       typescript: '>=3.3.1'
@@ -2200,8 +2200,8 @@ packages:
       typescript:
         optional: true
 
-  eslint-config-turbo@2.1.3:
-    resolution: {integrity: sha512-smdkhd01V/e/I4EjJxaZA1kxZ1vdFCHpyryolxLtRBP0bZTrHDYh1H6NAyZ3Fy1jkhsQzXw+L+6m17ygROvNFw==}
+  eslint-config-turbo@2.2.0:
+    resolution: {integrity: sha512-AN41RIh6HuH62AQGFmGV/5h/2rL3S88/Xxvrwf29E8wo79YWMh170weWgUDT57M8OPiz9p3/Dcw/BmVh2WlbXw==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -2285,8 +2285,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
-  eslint-plugin-turbo@2.1.3:
-    resolution: {integrity: sha512-I9vPArzyOSYa6bm0iMCgD07MgdExc1VK2wGuVz21g4BUdj83w7mDKyCXR2rwOtCEW+wemFwgxanJ81imQZijNg==}
+  eslint-plugin-turbo@2.2.0:
+    resolution: {integrity: sha512-Xu99K8R6/wEVX34WreTbItyX25YYqW7VZU7/nyvKtlusHdsO6Be8IfhWIzIOgThigq4IiBsZXk/lhdcG1KzaNQ==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -3847,7 +3847,7 @@ snapshots:
 
   '@next/env@14.2.5': {}
 
-  '@next/eslint-plugin-next@15.0.0-canary.196':
+  '@next/eslint-plugin-next@15.0.0-canary.197':
     dependencies:
       fast-glob: 3.3.1
 
@@ -4110,7 +4110,7 @@ snapshots:
 
   '@types/json5@0.0.29': {}
 
-  '@types/leaflet@1.9.12':
+  '@types/leaflet@1.9.13':
     dependencies:
       '@types/geojson': 7946.0.14
 
@@ -4952,9 +4952,9 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@15.0.0-canary.196(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3):
+  eslint-config-next@15.0.0-canary.197(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3):
     dependencies:
-      '@next/eslint-plugin-next': 15.0.0-canary.196
+      '@next/eslint-plugin-next': 15.0.0-canary.197
       '@rushstack/eslint-patch': 1.10.4
       '@typescript-eslint/eslint-plugin': 7.17.0(@typescript-eslint/parser@7.2.0(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3))(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3)
       '@typescript-eslint/parser': 7.2.0(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3)
@@ -4971,10 +4971,10 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-config-turbo@2.1.3(eslint@9.12.0(jiti@1.21.6)):
+  eslint-config-turbo@2.2.0(eslint@9.12.0(jiti@1.21.6)):
     dependencies:
       eslint: 9.12.0(jiti@1.21.6)
-      eslint-plugin-turbo: 2.1.3(eslint@9.12.0(jiti@1.21.6))
+      eslint-plugin-turbo: 2.2.0(eslint@9.12.0(jiti@1.21.6))
 
   eslint-import-resolver-node@0.3.9:
     dependencies:
@@ -5098,7 +5098,7 @@ snapshots:
       string.prototype.matchall: 4.0.11
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-turbo@2.1.3(eslint@9.12.0(jiti@1.21.6)):
+  eslint-plugin-turbo@2.2.0(eslint@9.12.0(jiti@1.21.6)):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.12.0(jiti@1.21.6)
