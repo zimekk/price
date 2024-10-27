@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 // https://github.com/vercel/examples/blob/main/internal/packages/ui/src/nav.tsx
 import { Button, Link } from "@vercel/examples-ui";
+import { usePathname } from "next/navigation";
 import { DeployButton, type DeployButtonProps } from "./deploy-button";
 
 const REPO_URL = "https://github.com/vercel/examples/tree/main";
@@ -19,6 +20,8 @@ export const Nav = ({ title, links, path, deployButton }: NavProps) => {
 
   const offset = useRef(100);
   const recent = useRef(0);
+
+  const pathname = usePathname();
 
   useEffect(() => {
     // https://muhammetaydinn.medium.com/hide-header-when-scrolling-down-in-react-native-without-package-2bc74c35e23
@@ -97,15 +100,24 @@ export const Nav = ({ title, links, path, deployButton }: NavProps) => {
               </svg>
             </li>
             <li className="font-medium" style={{ letterSpacing: ".01px" }}>
-              {links.map((link) => (
-                <Link
-                  key={link}
-                  href={`/${link}`}
-                  style={{ marginRight: ".5em" }}
-                >
-                  {link}
-                </Link>
-              ))}
+              {links.map((link) =>
+                ((href) => (
+                  <Link
+                    key={link}
+                    href={href}
+                    style={Object.assign(
+                      { marginRight: ".5em" },
+                      pathname === href
+                        ? {
+                            color: "darkblue",
+                          }
+                        : {},
+                    )}
+                  >
+                    {link}
+                  </Link>
+                ))(`/${link}`),
+              )}
             </li>
           </ul>
         </div>

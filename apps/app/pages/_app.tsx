@@ -11,9 +11,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <Layout
       title={title}
       links={[
-        "auto",
+        // "auto",
         "bike",
-        "euro",
+        // "euro",
         "flat",
         "fuel",
         "moto",
@@ -25,9 +25,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         "real",
         "road",
         "ross",
-        "sale",
+        // "sale",
         "shot",
-        "xkom",
+        // "xkom",
       ]}
       path="solutions/monorepo"
     >
