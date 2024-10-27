@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
-import { Gallery, Link, Loading } from "@acme/components";
+import { Error, Gallery, Link, Loading } from "@acme/components";
 import type { Data, Item } from "../schema";
 import {
   type FiltersState,
@@ -366,30 +366,7 @@ export function Price() {
   return (
     <section>
       <Filters options={options} setQueries={setQueries} />
-      {error && (
-        <div
-          style={{
-            fontSize: "small",
-            backgroundColor: "lemonchiffon",
-            color: "red",
-            margin: "0 -.5em",
-            padding: ".5em 1em",
-          }}
-        >
-          {error.toString()}
-          <button
-            style={{
-              padding: ".25em .5em",
-              margin: "0 .5em",
-              background: "white",
-              border: "1px solid red",
-            }}
-            onClick={() => fetcher()}
-          >
-            Retry
-          </button>
-        </div>
-      )}
+      {error && <Error onRetry={fetcher}>{error.toString()}</Error>}
       {loading && <Loading />}
       {result && <Main result={result} queries={queries} />}
     </section>

@@ -1,4 +1,5 @@
 export * from "./color";
+export * from "./error";
 export * from "./form";
 export * from "./gallery";
 export * from "./image";

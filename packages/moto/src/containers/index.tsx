@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { Gallery, Link, Loading, LocationLink } from "@acme/components";
+import { Error, Gallery, Link, Loading, LocationLink } from "@acme/components";
 import {
   type FiltersState,
   type OptionsState,
@@ -197,7 +197,12 @@ export function List({ list, meta }: { list: Item[]; meta: Meta }) {
 }
 
 export function Price() {
-  const [data, setData] = useState<{ result: Item[] } | null>(null);
+  const [{ error, loading = false, result }, setData] = useState<{
+    error?: Error;
+    loading?: boolean;
+    result?: Item[];
+  }>({});
+
   const [filters, setFilters] = useState<FiltersState>(() =>
     ((yearTo) => ({
       country: "",
@@ -241,9 +246,12 @@ export function Price() {
     search$.next(filters);
   }, [filters]);
 
-  useEffect(() => {
-    fetch(`/api/moto?limit=${filters.limit}`)
-      .then((res) => res.json())
+  const fetcher = () =>
+    (setData(({ error, ...data }) => ({ ...data, loading: true })),
+    fetch(`/api/moto?limit=${queries.limit}`))
+      .then(async (res) =>
+        res.ok ? await res.json() : Promise.reject(await res.text()),
+      )
       .then((data) => {
         setData(
           z
@@ -265,13 +273,19 @@ export function Price() {
             })
             .parse(data),
         );
-      });
-  }, [filters.limit]);
+      })
+      .catch((error) =>
+        setData(({ loading, ...data }) => ({ ...data, error })),
+      );
+
+  useEffect(() => {
+    fetcher();
+  }, [queries.limit]);
 
   const grouped = useMemo(
     () =>
       Object.entries(
-        (data ? data.result : [])
+        (result ? result : [])
           .sort((a, b) => b.created.localeCompare(a.created))
           .reduce(
             (list, item) =>
@@ -298,7 +312,7 @@ export function Price() {
             ] as [string, Item[], Meta],
         )
         .sort((a, b) => b[2].created - a[2].created),
-    [data],
+    [result],
   );
 
   const filtered = useMemo(
@@ -338,7 +352,7 @@ export function Price() {
   const options = useMemo(
     () =>
       Object.entries(
-        (data ? data.result : []).reduce(
+        (result ? result : []).reduce(
           (options, { values }) =>
             Object.assign(options, {
               country: Object.assign(
@@ -381,14 +395,15 @@ export function Price() {
           }),
         {} as OptionsState,
       ),
-    [data],
+    [result],
   );
 
-  if (data === null) return <Loading />;
-  console.log({ result: data.result, options, filters, filtered });
+  console.log({ result, options, filters, filtered });
   return (
     <section>
-      <Filters options={options} filters={filters} setFilters={setFilters} />
+      {result && (
+        <Filters options={options} filters={filters} setFilters={setFilters} />
+      )}
       <small style={{ float: "right" }}>
         {Object.entries({
           "audi a6": {
@@ -426,18 +441,24 @@ export function Price() {
           </span>
         ))}
       </small>
-      <small>
-        {filtered.length === grouped.length
-          ? `Showing all of ${grouped.length}`
-          : `Found ${filtered.length} items out of a total of ${grouped.length}`}
-      </small>
-      <ol>
-        {filtered.map(([id, list, meta]) => (
-          <li key={id}>
-            <List list={list} meta={meta} />
-          </li>
-        ))}
-      </ol>
+      {error && <Error onRetry={fetcher}>{error.toString()}</Error>}
+      {loading && <Loading />}
+      {result && (
+        <>
+          <small>
+            {filtered.length === grouped.length
+              ? `Showing all of ${grouped.length}`
+              : `Found ${filtered.length} items out of a total of ${grouped.length}`}
+          </small>
+          <ol>
+            {filtered.map(([id, list, meta]) => (
+              <li key={id}>
+                <List list={list} meta={meta} />
+              </li>
+            ))}
+          </ol>
+        </>
+      )}
     </section>
   );
 }
