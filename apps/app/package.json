@@ -15,6 +15,7 @@
   "dependencies": {
     "@acme/auto": "workspace:*",
     "@acme/bike": "workspace:*",
+    "@acme/dyso": "workspace:*",
     "@acme/euro": "workspace:*",
     "@acme/flat": "workspace:*",
     "@acme/fuel": "workspace:*",

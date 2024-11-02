@@ -44,6 +44,9 @@ importers:
       '@acme/bike':
         specifier: workspace:*
         version: link:../../packages/bike
+      '@acme/dyso':
+        specifier: workspace:*
+        version: link:../../packages/dyso
       '@acme/euro':
         specifier: workspace:*
         version: link:../../packages/euro
@@ -273,6 +276,52 @@ importers:
       '@types/leaflet':
         specifier: ^1.9.3
         version: 1.9.14
+      '@types/react':
+        specifier: latest
+        version: 18.3.12
+      eslint:
+        specifier: ^9.0.0
+        version: 9.13.0(jiti@1.21.6)
+      typescript:
+        specifier: 5.6.3
+        version: 5.6.3
+
+  packages/dyso:
+    dependencies:
+      '@acme/components':
+        specifier: workspace:*
+        version: link:../components
+      '@swc/helpers':
+        specifier: ^0.5.0
+        version: 0.5.13
+      '@zimekk/scrap-schema':
+        specifier: ^1.0.0
+        version: 1.0.2
+      clsx:
+        specifier: ^2.0.0
+        version: 2.1.1
+      dayjs:
+        specifier: ^1.11.7
+        version: 1.11.13
+      next:
+        specifier: ~15.0.0
+        version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
+      react:
+        specifier: ^17.0.0 || ^18.0.0-0
+        version: 18.3.1
+      react-dom:
+        specifier: ^17.0.0 || ^18.0.0-0
+        version: 18.3.1(react@18.3.1)
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
+      zod:
+        specifier: ^3.21.4
+        version: 3.23.8
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.8.5
       '@types/react':
         specifier: latest
         version: 18.3.12
@@ -4160,7 +4209,7 @@ snapshots:
 
   '@swc/helpers@0.4.14':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@swc/helpers@0.4.36':
     dependencies:
@@ -6540,8 +6589,7 @@ snapshots:
 
   tslib@2.7.0: {}
 
-  tslib@2.8.0:
-    optional: true
+  tslib@2.8.0: {}
 
   turbo-darwin-64@2.2.3:
     optional: true
