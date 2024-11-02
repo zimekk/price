@@ -75,7 +75,7 @@ function Summary({ data }: { data: Data }) {
             ((selection) =>
               selection &&
               (selection.removeAllRanges(), selection.addRange(range)))(
-              window.getSelection()
+              window.getSelection(),
             );
           }}
         >
@@ -143,7 +143,7 @@ function Details({
       {data.pricePerUnit && <span>{` ${data.pricePerUnit}`}</span>}
       {data.lastLowestPrice && (
         <small>{` (last lowest price: ${formatPrice(
-          data.lastLowestPrice
+          data.lastLowestPrice,
         )})`}</small>
       )}
     </div>
@@ -172,7 +172,7 @@ function Filters({
                   ...filters,
                   brand: target.value,
                 })),
-              []
+              [],
             )}
           >
             {[""].concat(options.brand).map((value) => (
@@ -193,7 +193,7 @@ function Filters({
                   ...filters,
                   promo: target.checked,
                 })),
-              []
+              [],
             )}
           />
         </label>
@@ -209,7 +209,7 @@ function Filters({
                   ...filters,
                   group: target.value,
                 })),
-              []
+              [],
             )}
           >
             {[""].concat(options.group).map((value) => (
@@ -232,7 +232,7 @@ function Filters({
                   ...filters,
                   search: target.value,
                 })),
-              []
+              [],
             )}
           />
         </label>
@@ -246,7 +246,7 @@ function Filters({
                   ...filters,
                   sortBy: target.value,
                 })),
-              []
+              [],
             )}
           >
             {Object.entries(SORT_BY).map(([value, label]) => (
@@ -266,7 +266,7 @@ function Filters({
                   ...filters,
                   limit: Number(target.value),
                 })),
-              []
+              [],
             )}
           >
             {LIMIT.map((value) => (
@@ -328,7 +328,7 @@ export function Price() {
     brand: "",
     group: "",
     limit: LIMIT[1],
-    promo: false,
+    promo: true,
     sortBy: Object.keys(SORT_BY)[0],
     search: "",
   }));
@@ -344,13 +344,13 @@ export function Price() {
             ...queries,
             ...filters,
             search: search.toLowerCase().trim(),
-          })
+          }),
         ),
         distinctUntilChanged(),
-        debounceTime(400)
+        debounceTime(400),
       )
       .subscribe((filters) =>
-        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) })),
       );
     return () => subscription.unsubscribe();
   }, [search$]);
@@ -368,7 +368,7 @@ export function Price() {
             .object({
               result: ItemSchema.array(),
             })
-            .parse(data)
+            .parse(data),
         );
       });
   }, [filters.limit]);
@@ -383,8 +383,8 @@ export function Price() {
               Object.assign(list, {
                 [item.item]: (list[item.item] || []).concat(item),
               }),
-            {} as Record<string, Item[]>
-          )
+            {} as Record<string, Item[]>,
+          ),
       )
         .map(
           ([item, list]) =>
@@ -405,7 +405,7 @@ export function Price() {
                     0 === meta.price && {
                       price: data.price,
                       priceChanged: new Date(created).getTime(),
-                    }
+                    },
                   ),
                 {
                   minPrice: Infinity,
@@ -413,16 +413,16 @@ export function Price() {
                   minPriceChanged: 0,
                   price: 0,
                   priceChanged: 0,
-                }
+                },
               ),
-            ] as [string, Item[], Meta]
+            ] as [string, Item[], Meta],
         )
         .sort(
           (a, b) =>
             b[2][filters.sortBy as keyof typeof SORT_BY] -
-            a[2][filters.sortBy as keyof typeof SORT_BY]
+            a[2][filters.sortBy as keyof typeof SORT_BY],
         ),
-    [data, filters.sortBy]
+    [data, filters.sortBy],
   );
 
   const filtered = useMemo(
@@ -437,9 +437,9 @@ export function Price() {
             data.cmpDescription?.toLowerCase().includes(queries.search)) &&
           [data.brand, ""].includes(queries.brand) &&
           [data.category, ""].includes(queries.group) &&
-          (!queries.promo || data.oldPrice)
+          (!queries.promo || data.oldPrice),
       ),
-    [queries, grouped]
+    [queries, grouped],
   );
 
   const options = useMemo(
@@ -455,16 +455,16 @@ export function Price() {
                 [data.category]: true,
               }),
             }),
-          {} as OptionsState
-        )
+          {} as OptionsState,
+        ),
       ).reduce(
         (options, [key, value]) =>
           Object.assign(options, {
             [key]: Object.keys(value).sort(),
           }),
-        {} as OptionsState
+        {} as OptionsState,
       ),
-    [data]
+    [data],
   );
 
   if (data === null) return <Loading />;
