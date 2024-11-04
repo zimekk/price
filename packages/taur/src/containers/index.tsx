@@ -39,7 +39,7 @@ function Summary({ data }: { data: Data }) {
       <div style={{ float: "right", fontSize: "small" }}>
         #
         <Link
-          href={`#`}
+          href={data.url}
           onClick={(e) => {
             const range = document.createRange();
             e.preventDefault();
@@ -51,45 +51,29 @@ function Summary({ data }: { data: Data }) {
             );
           }}
         >
-          {data.productId}
+          {data.id}
         </Link>
       </div>
       <div>
-        <strong>{data.productName}</strong>
-        {data.stockStatus && (
+        <strong>{data.name}</strong>
+        {data.variant.trim().length > 0 && (
           <>
             &nbsp;
             <span
               style={{
                 fontSize: "xx-small",
                 textTransform: "uppercase",
-                color: {
-                  "In Stock": "limegreen",
-                  "Out of Stock": "mediumvioletred",
-                }[data.stockStatus],
+                color: "darkslateblue",
                 border: "1px solid currentColor",
                 padding: "0 .25em",
                 position: "relative",
                 top: -2,
               }}
             >
-              {data.stockStatus}
+              {data.variant}
             </span>
           </>
         )}
-      </div>
-      <div
-        style={{
-          fontSize: "small",
-        }}
-      >
-        {data.parents ? (
-          <ul>
-            {data.parents.map((item, key) => (
-              <li key={key}>{item}</li>
-            ))}
-          </ul>
-        ) : null}
       </div>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
@@ -114,37 +98,14 @@ function Details({
         )}
       </div>
       <strong>
-        {data.fullPrice > data.saleprice && (
-          <span>
-            <span
-              style={{ color: "lightgray", textDecoration: "line-through" }}
-            >
-              {formatPrice(data.fullPrice)}
-            </span>{" "}
-          </span>
-        )}
         <span
           style={{
-            color:
-              data.fullPrice > data.saleprice ? "orangered" : "darkslateblue",
+            color: "darkslateblue",
           }}
         >
-          {formatPrice(data.saleprice)}
-          {data.fullPrice && (
-            <small>{` (${new Intl.NumberFormat("pl-PL", {
-              maximumFractionDigits: 2,
-            }).format(getPercentage(data))}%)`}</small>
-          )}
+          {formatPrice(data.price)}
         </span>
       </strong>
-      {data.promotionalPriceCopy && (
-        <small>
-          &nbsp;
-          <span
-            dangerouslySetInnerHTML={{ __html: data.promotionalPriceCopy }}
-          />
-        </small>
-      )}
     </div>
   );
 }
@@ -155,10 +116,10 @@ export function List({ list }: { list: Item[] }) {
   return (
     <section
       style={{ display: "flex", margin: "1em 0" }}
-      id={`${list[0].data.productId}`}
+      id={`${list[0].data.id}`}
     >
       {list.slice(0, 1).map((item) => (
-        <Gallery key={item.id} images={[item.data.primaryImageUrl]} />
+        <Gallery key={item.id} images={[item.data.image]} />
       ))}
       <div style={{ flex: 1 }}>
         {(show ? list : list.slice(0, 1)).map((item, key) => (
@@ -218,7 +179,7 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch(`/api/dyso?limit=${filters.limit}`)
+    fetch(`/api/taur?limit=${filters.limit}`)
       .then((res) => res.json())
       .then((data) => setData(data));
   }, [filters.limit]);
@@ -245,15 +206,15 @@ export function Price() {
                 (meta, { data, created }) =>
                   Object.assign(
                     meta,
-                    data.saleprice <= meta.minPrice && {
-                      minPrice: data.saleprice,
+                    data.price <= meta.minPrice && {
+                      minPrice: data.price,
                       minPriceChanged: new Date(created).getTime(),
                     },
-                    data.saleprice > meta.maxPrice && {
-                      maxPrice: data.saleprice,
+                    data.price > meta.maxPrice && {
+                      maxPrice: data.price,
                     },
                     0 === meta.price && {
-                      price: data.saleprice,
+                      price: data.price,
                       priceChanged: new Date(created).getTime(),
                     },
                   ),
@@ -281,14 +242,13 @@ export function Price() {
         ([id, [{ data }]]) =>
           (queries.search === "" ||
             queries.search === id ||
-            data.productSKU.toLowerCase().includes(queries.search) ||
-            data.productName.toLowerCase().includes(queries.search)) &&
+            data.name.toLowerCase().includes(queries.search) ||
+            data.variant.toLowerCase().includes(queries.search)) &&
           (queries.priceTo === PRICE_LIST[0] ||
-            (data.saleprice
-              ? queries.priceFrom <= data.saleprice &&
-                data.saleprice <= queries.priceTo
+            (data.price
+              ? queries.priceFrom <= data.price && data.price <= queries.priceTo
               : true)) &&
-          [data.stockStatus, ""].includes(queries.status),
+          [data.category, ""].includes(queries.category),
       ),
     [PRICE_LIST, queries, grouped],
   );
@@ -299,10 +259,10 @@ export function Price() {
         grouped.reduce(
           (options, [, [{ data }]]) =>
             Object.assign(options, {
-              status: Object.assign(
-                options.status || {},
-                data.stockStatus && {
-                  [data.stockStatus]: true,
+              category: Object.assign(
+                options.category || {},
+                data.category && {
+                  [data.category]: true,
                 },
               ),
             }),

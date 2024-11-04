@@ -27,6 +27,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         "road",
         "ross",
         // "sale",
+        "taur",
         "shot",
         // "xkom",
       ]}

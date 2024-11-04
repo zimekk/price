@@ -31,6 +31,7 @@
     "@acme/ross": "workspace:*",
     "@acme/sale": "workspace:*",
     "@acme/shot": "workspace:*",
+    "@acme/taur": "workspace:*",
     "@acme/ui": "workspace:*",
     "@acme/utils": "workspace:*",
     "@acme/xkom": "workspace:*",
