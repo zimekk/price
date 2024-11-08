@@ -20,6 +20,20 @@ interface Meta {
   priceChanged: number;
 }
 
+const ENTITIES = {
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  nbsp: " ",
+  quot: '"',
+};
+
+const decodeHTMLEntities = (text: string) =>
+  text.replace(
+    /&([^;]+);/gm,
+    (match, entity: keyof typeof ENTITIES) => ENTITIES[entity] || match,
+  );
+
 const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
     minimumFractionDigits: 2,
@@ -151,7 +165,7 @@ function Details({
               top: -2,
             }}
           >
-            {data.badge.text}
+            {decodeHTMLEntities(data.badge.text)}
           </span>
         </>
       )}
