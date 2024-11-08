@@ -130,13 +130,31 @@ function Details({
           }}
         >
           {formatPrice(data.saleprice)}
-          {data.fullPrice && (
+          {data.fullPrice > data.saleprice && (
             <small>{` (${new Intl.NumberFormat("pl-PL", {
               maximumFractionDigits: 2,
             }).format(getPercentage(data))}%)`}</small>
           )}
         </span>
       </strong>
+      {data.badge?.text && (
+        <>
+          &nbsp;
+          <span
+            style={{
+              fontSize: "xx-small",
+              textTransform: "uppercase",
+              color: "cornflowerblue",
+              border: "1px solid currentColor",
+              padding: "0 .25em",
+              position: "relative",
+              top: -2,
+            }}
+          >
+            {data.badge.text}
+          </span>
+        </>
+      )}
       {data.promotionalPriceCopy && (
         <small>
           &nbsp;
