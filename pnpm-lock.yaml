@@ -131,7 +131,7 @@ importers:
         version: 9.14.0(jiti@1.21.6)
       eslint-config-next:
         specifier: canary
-        version: 15.0.4-canary.4(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)
+        version: 15.0.4-canary.5(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)
       postcss:
         specifier: ^8.4.18
         version: 8.4.48
@@ -152,7 +152,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -201,7 +201,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       '@zimekk/scrap-schema':
         specifier: ^1.0.0
         version: 1.0.2
@@ -296,7 +296,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       '@zimekk/scrap-schema':
         specifier: ^1.0.0
         version: 1.0.2
@@ -345,7 +345,7 @@ importers:
         version: link:../xkom
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -388,7 +388,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -431,7 +431,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -483,7 +483,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -517,7 +517,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -560,7 +560,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -603,7 +603,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -692,7 +692,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -735,7 +735,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -784,7 +784,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -827,7 +827,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -870,7 +870,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -916,7 +916,7 @@ importers:
         version: link:../prod
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -962,7 +962,7 @@ importers:
         version: link:../xkom
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -1005,7 +1005,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       '@zimekk/scrap-schema':
         specifier: ^1.0.0
         version: 1.0.2
@@ -1048,7 +1048,7 @@ importers:
     dependencies:
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       '@vercel/examples-ui':
         specifier: ^1.0.4
         version: 1.0.5(next@15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1091,7 +1091,7 @@ importers:
         version: link:../components
       '@swc/helpers':
         specifier: ^0.5.0
-        version: 0.5.13
+        version: 0.5.15
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -1419,8 +1419,8 @@ packages:
   '@next/env@15.0.0':
     resolution: {integrity: sha512-Mcv8ZVmEgTO3bePiH/eJ7zHqQEs2gCqZ0UId2RxHmDDc7Pw6ngfSrOFlxG8XDpaex+n2G+TKPsQAf28MO+88Gw==}
 
-  '@next/eslint-plugin-next@15.0.4-canary.4':
-    resolution: {integrity: sha512-2i9QR4Y6K56vp2UrLGFQYMv8Pvcc8rA+hUcizkFP7QPd3R2mm4qTL8fjEM/RsR+gIll9IBDjsRRk36QFcoGjAQ==}
+  '@next/eslint-plugin-next@15.0.4-canary.5':
+    resolution: {integrity: sha512-lsLJgoj/UK0ZNzt1Enb59xyoxX/rpE2x3OfEgVeCz6f0otjLrwc09II6OODW4x9GdbKrr5ZmpNFY2pk9Cp0SvQ==}
 
   '@next/swc-darwin-arm64@15.0.0':
     resolution: {integrity: sha512-Gjgs3N7cFa40a9QT9AEHnuGKq69/bvIOn0SLGDV+ordq07QOP4k1GDOVedMHEjVeqy1HBLkL8rXnNTuMZIv79A==}
@@ -1589,6 +1589,9 @@ packages:
 
   '@swc/helpers@0.5.13':
     resolution: {integrity: sha512-UoKGxQ3r5kYI9dALKJapMmuK+1zWM/H17Z1+iwnNmzcJRnfFuevZs375TA5rW31pu4BS4NoSy1fRsexDXfWn5w==}
+
+  '@swc/helpers@0.5.15':
+    resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
 
   '@types/conventional-commits-parser@5.0.0':
     resolution: {integrity: sha512-loB369iXNmAZglwWATL+WRe+CRMmmBPtpolYzIebFaX4YA3x+BEfLqhUAV9WanycKI3TG1IMr5bMJDajDKLlUQ==}
@@ -2400,8 +2403,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-config-next@15.0.4-canary.4:
-    resolution: {integrity: sha512-oOecOl49hT5i6bvvgOeLcqMRjQOjQtytca5+BvAsEbUDsVna7NyA1f+lDkIzPiv3vYA4xK2iLazIkdBG++HQKw==}
+  eslint-config-next@15.0.4-canary.5:
+    resolution: {integrity: sha512-tjWwS4D0tREPoTSO8BiuNWh8/HTrhORJ9cxIZFaZWES1O2NOOSQP1pBM4U3uHEFztLy+I5SK83BKH/sWadFIDA==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0 || ^9.0.0
       typescript: '>=3.3.1'
@@ -4146,7 +4149,7 @@ snapshots:
 
   '@next/env@15.0.0': {}
 
-  '@next/eslint-plugin-next@15.0.4-canary.4':
+  '@next/eslint-plugin-next@15.0.4-canary.5':
     dependencies:
       fast-glob: 3.3.1
 
@@ -4269,6 +4272,10 @@ snapshots:
       tslib: 2.6.3
 
   '@swc/helpers@0.5.13':
+    dependencies:
+      tslib: 2.8.1
+
+  '@swc/helpers@0.5.15':
     dependencies:
       tslib: 2.8.1
 
@@ -5254,9 +5261,9 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@15.0.4-canary.4(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3):
+  eslint-config-next@15.0.4-canary.5(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3):
     dependencies:
-      '@next/eslint-plugin-next': 15.0.4-canary.4
+      '@next/eslint-plugin-next': 15.0.4-canary.5
       '@rushstack/eslint-patch': 1.10.4
       '@typescript-eslint/eslint-plugin': 7.17.0(@typescript-eslint/parser@7.2.0(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3))(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)
       '@typescript-eslint/parser': 7.2.0(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)
