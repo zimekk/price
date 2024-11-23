@@ -785,6 +785,9 @@ importers:
       '@swc/helpers':
         specifier: ^0.5.0
         version: 0.5.15
+      '@zimekk/scrap-rynek-schema':
+        specifier: ^1.0.3
+        version: 1.0.3
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -1797,6 +1800,9 @@ packages:
       next: ~15.0.0
       react: ^17.0.2 || ^18.0.0-0
       react-dom: ^17.0.2 || ^18.0.0-0
+
+  '@zimekk/scrap-rynek-schema@1.0.3':
+    resolution: {integrity: sha512-xYXgbeEYsETsPJzoDIKMwnmOBlrnDmmRDNRDgrOVEsU8sNRgxzGYXDIbFwWqwdynfkfE4J0niy9qbgQrvkseTQ==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-rynek-schema/1.0.3/0e6fc265176253c0d7bb54d06ecd5c7c69fb5c9f}
 
   '@zimekk/scrap-schema@1.0.4':
     resolution: {integrity: sha512-wdRX/ppyQJ4RXa9sZRmtTjmUfsPK7qYo5SfsKRlKRyD/UqUjxmYCfVEudRHK6h3mbrggKDFNcGem/C1B/4l+LQ==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-schema/1.0.4/62601b58502ac8246675740e0d7c804fe8706d78}
@@ -4225,7 +4231,7 @@ snapshots:
 
   '@swc/helpers@0.4.14':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   '@swc/helpers@0.4.36':
     dependencies:
@@ -4502,6 +4508,10 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       sugar-high: 0.4.7
+
+  '@zimekk/scrap-rynek-schema@1.0.3':
+    dependencies:
+      zod: 3.23.8
 
   '@zimekk/scrap-schema@1.0.4':
     dependencies:

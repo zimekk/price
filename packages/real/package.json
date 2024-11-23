@@ -36,6 +36,7 @@
   "dependencies": {
     "@acme/components": "workspace:*",
     "@swc/helpers": "^0.5.0",
+    "@zimekk/scrap-rynek-schema": "^1.0.3",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.7",
     "rxjs": "^7.8.1",
