@@ -131,7 +131,7 @@ importers:
         version: 9.15.0(jiti@1.21.6)
       eslint-config-next:
         specifier: canary
-        version: 15.0.4-canary.24(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
+        version: 15.0.4-canary.25(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
       postcss:
         specifier: ^8.4.18
         version: 8.4.49
@@ -793,7 +793,7 @@ importers:
         version: 0.5.15
       '@zimekk/scrap-rynek-schema':
         specifier: ^1.0.3
-        version: 1.0.3
+        version: 1.0.4
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -1424,8 +1424,8 @@ packages:
   '@next/env@15.0.0':
     resolution: {integrity: sha512-Mcv8ZVmEgTO3bePiH/eJ7zHqQEs2gCqZ0UId2RxHmDDc7Pw6ngfSrOFlxG8XDpaex+n2G+TKPsQAf28MO+88Gw==}
 
-  '@next/eslint-plugin-next@15.0.4-canary.24':
-    resolution: {integrity: sha512-qCUveh97G9qUiNAcm27dkWuodY6jcbazeBi0P3mcyFjlwpbdCGdHnLvG/5RDIYRExGhFt0C+OpaDf3mE4AL4fQ==}
+  '@next/eslint-plugin-next@15.0.4-canary.25':
+    resolution: {integrity: sha512-K9AsomRnr7+ydt3XQE+x85eJ6+zXouAhwGPiYmkQgbDG0SjmKuQWYhP76e8RWtSfjhCyZVesBv9ti4YBM+9jfw==}
 
   '@next/swc-darwin-arm64@15.0.0':
     resolution: {integrity: sha512-Gjgs3N7cFa40a9QT9AEHnuGKq69/bvIOn0SLGDV+ordq07QOP4k1GDOVedMHEjVeqy1HBLkL8rXnNTuMZIv79A==}
@@ -1807,8 +1807,8 @@ packages:
       react: ^17.0.2 || ^18.0.0-0
       react-dom: ^17.0.2 || ^18.0.0-0
 
-  '@zimekk/scrap-rynek-schema@1.0.3':
-    resolution: {integrity: sha512-xYXgbeEYsETsPJzoDIKMwnmOBlrnDmmRDNRDgrOVEsU8sNRgxzGYXDIbFwWqwdynfkfE4J0niy9qbgQrvkseTQ==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-rynek-schema/1.0.3/0e6fc265176253c0d7bb54d06ecd5c7c69fb5c9f}
+  '@zimekk/scrap-rynek-schema@1.0.4':
+    resolution: {integrity: sha512-q9JhZd7ieyP/4Exk4AOu6BldveCSNrnWjOhmMZ0v46bNQOy+hBhed8LCGdRAPoaz4Az77gdoHiH8bk1vK/e7Hw==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-rynek-schema/1.0.4/fdd9a6c35e54799150bb88ef613e4dcecbef2563}
 
   '@zimekk/scrap-schema@1.0.9':
     resolution: {integrity: sha512-LAvTQw20SsmZiGROrJ27bRXODntu0FoDDy6Cah09LuThwjXX7FLYu+vE+zGt/zyn0zWAk/YIfP9/OPWl2p2iag==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-schema/1.0.9/394e7f7a2044557301cb41d5c97373455f7f3444}
@@ -2393,8 +2393,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-config-next@15.0.4-canary.24:
-    resolution: {integrity: sha512-UHQTa+D6I4jVJLKuavSRH+WCu5VvE/OQIuIOoFbCxqmU1XH3/i8wq1K/ugkW289mVCv5UU5DBmz/l8tW4EwaDw==}
+  eslint-config-next@15.0.4-canary.25:
+    resolution: {integrity: sha512-ligegD+x4M8s2AO2KNA52JSvG/9oTyKtOu5fTojIa+h4FCPNKEKBYbfjZAKnR2i60i0M6yauHqYwK0E1jVTdUA==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0 || ^9.0.0
       typescript: '>=3.3.1'
@@ -4122,7 +4122,7 @@ snapshots:
 
   '@next/env@15.0.0': {}
 
-  '@next/eslint-plugin-next@15.0.4-canary.24':
+  '@next/eslint-plugin-next@15.0.4-canary.25':
     dependencies:
       fast-glob: 3.3.1
 
@@ -4237,7 +4237,7 @@ snapshots:
 
   '@swc/helpers@0.4.14':
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   '@swc/helpers@0.4.36':
     dependencies:
@@ -4515,7 +4515,7 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       sugar-high: 0.4.7
 
-  '@zimekk/scrap-rynek-schema@1.0.3':
+  '@zimekk/scrap-rynek-schema@1.0.4':
     dependencies:
       zod: 3.23.8
 
@@ -5220,9 +5220,9 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@15.0.4-canary.24(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2):
+  eslint-config-next@15.0.4-canary.25(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2):
     dependencies:
-      '@next/eslint-plugin-next': 15.0.4-canary.24
+      '@next/eslint-plugin-next': 15.0.4-canary.25
       '@rushstack/eslint-patch': 1.10.4
       '@typescript-eslint/eslint-plugin': 7.17.0(@typescript-eslint/parser@7.2.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
       '@typescript-eslint/parser': 7.2.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
