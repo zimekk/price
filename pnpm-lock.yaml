@@ -204,7 +204,7 @@ importers:
         version: 0.5.15
       '@zimekk/scrap-schema':
         specifier: ^1.0.0
-        version: 1.0.4
+        version: 1.0.5
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -299,7 +299,7 @@ importers:
         version: 0.5.15
       '@zimekk/scrap-schema':
         specifier: ^1.0.0
-        version: 1.0.4
+        version: 1.0.5
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -1011,7 +1011,7 @@ importers:
         version: 0.5.15
       '@zimekk/scrap-schema':
         specifier: ^1.0.0
-        version: 1.0.4
+        version: 1.0.5
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -1804,8 +1804,8 @@ packages:
   '@zimekk/scrap-rynek-schema@1.0.3':
     resolution: {integrity: sha512-xYXgbeEYsETsPJzoDIKMwnmOBlrnDmmRDNRDgrOVEsU8sNRgxzGYXDIbFwWqwdynfkfE4J0niy9qbgQrvkseTQ==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-rynek-schema/1.0.3/0e6fc265176253c0d7bb54d06ecd5c7c69fb5c9f}
 
-  '@zimekk/scrap-schema@1.0.4':
-    resolution: {integrity: sha512-wdRX/ppyQJ4RXa9sZRmtTjmUfsPK7qYo5SfsKRlKRyD/UqUjxmYCfVEudRHK6h3mbrggKDFNcGem/C1B/4l+LQ==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-schema/1.0.4/62601b58502ac8246675740e0d7c804fe8706d78}
+  '@zimekk/scrap-schema@1.0.5':
+    resolution: {integrity: sha512-Yr5QI0OElH32XK2vi3I+mGG8+9wE1vlhwb5GPkB8iwpCmnAojweTsTazU9ipE1tF3U5O07J/ASdT1CfAHY8+GQ==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-schema/1.0.5/a1155f0e5d0361aa962edc3d2fe1dc99f0a70138}
 
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -4231,7 +4231,7 @@ snapshots:
 
   '@swc/helpers@0.4.14':
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   '@swc/helpers@0.4.36':
     dependencies:
@@ -4513,7 +4513,7 @@ snapshots:
     dependencies:
       zod: 3.23.8
 
-  '@zimekk/scrap-schema@1.0.4':
+  '@zimekk/scrap-schema@1.0.5':
     dependencies:
       zod: 3.23.8
 
