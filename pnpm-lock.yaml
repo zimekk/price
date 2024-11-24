@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  next: ~15.0.0
+  next: ^15.0.0
 
 importers:
 
@@ -108,7 +108,7 @@ importers:
         specifier: ^1.0.4
         version: 1.0.5(next@15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: latest
@@ -163,7 +163,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -203,8 +203,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.15
       '@zimekk/scrap-schema':
-        specifier: ^1.0.0
-        version: 1.0.5
+        specifier: ^1.0.9
+        version: 1.0.9
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -212,7 +212,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -258,7 +258,7 @@ importers:
         specifier: ^1.9.4
         version: 1.9.4
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       ol:
         specifier: ^10.0.0
@@ -298,8 +298,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.15
       '@zimekk/scrap-schema':
-        specifier: ^1.0.0
-        version: 1.0.5
+        specifier: ^1.0.9
+        version: 1.0.9
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -307,7 +307,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -353,7 +353,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -389,6 +389,9 @@ importers:
       '@swc/helpers':
         specifier: ^0.5.0
         version: 0.5.15
+      '@zimekk/scrap-schema':
+        specifier: ^1.0.9
+        version: 1.0.9
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -396,7 +399,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -445,7 +448,7 @@ importers:
         specifier: ^10.4.3
         version: 10.4.3
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -488,7 +491,7 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -525,7 +528,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -561,6 +564,9 @@ importers:
       '@swc/helpers':
         specifier: ^0.5.0
         version: 0.5.15
+      '@zimekk/scrap-schema':
+        specifier: ^1.0.9
+        version: 1.0.9
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -568,7 +574,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -611,7 +617,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -657,7 +663,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -700,7 +706,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -749,7 +755,7 @@ importers:
         specifier: ^10.4.3
         version: 10.4.3
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -795,7 +801,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -838,7 +844,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -881,7 +887,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -927,7 +933,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -973,7 +979,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -1010,8 +1016,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.15
       '@zimekk/scrap-schema':
-        specifier: ^1.0.0
-        version: 1.0.5
+        specifier: ^1.0.9
+        version: 1.0.9
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -1019,7 +1025,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -1059,7 +1065,7 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -1102,7 +1108,7 @@ importers:
         specifier: ^1.11.7
         version: 1.11.13
       next:
-        specifier: ~15.0.0
+        specifier: ^15.0.0
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       react:
         specifier: ^17.0.0 || ^18.0.0-0
@@ -1797,15 +1803,15 @@ packages:
   '@vercel/examples-ui@1.0.5':
     resolution: {integrity: sha512-6pj8V9MPLgrPajIUbqEkbmupEMnK6xBk5zkwsilwhA9mYQdxttqgVyDqlFMQhEVqb3tk0PshA+XxnZoDfLCpoQ==}
     peerDependencies:
-      next: ~15.0.0
+      next: ^15.0.0
       react: ^17.0.2 || ^18.0.0-0
       react-dom: ^17.0.2 || ^18.0.0-0
 
   '@zimekk/scrap-rynek-schema@1.0.3':
     resolution: {integrity: sha512-xYXgbeEYsETsPJzoDIKMwnmOBlrnDmmRDNRDgrOVEsU8sNRgxzGYXDIbFwWqwdynfkfE4J0niy9qbgQrvkseTQ==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-rynek-schema/1.0.3/0e6fc265176253c0d7bb54d06ecd5c7c69fb5c9f}
 
-  '@zimekk/scrap-schema@1.0.5':
-    resolution: {integrity: sha512-Yr5QI0OElH32XK2vi3I+mGG8+9wE1vlhwb5GPkB8iwpCmnAojweTsTazU9ipE1tF3U5O07J/ASdT1CfAHY8+GQ==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-schema/1.0.5/a1155f0e5d0361aa962edc3d2fe1dc99f0a70138}
+  '@zimekk/scrap-schema@1.0.9':
+    resolution: {integrity: sha512-LAvTQw20SsmZiGROrJ27bRXODntu0FoDDy6Cah09LuThwjXX7FLYu+vE+zGt/zyn0zWAk/YIfP9/OPWl2p2iag==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-schema/1.0.9/394e7f7a2044557301cb41d5c97373455f7f3444}
 
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -4231,7 +4237,7 @@ snapshots:
 
   '@swc/helpers@0.4.14':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   '@swc/helpers@0.4.36':
     dependencies:
@@ -4513,7 +4519,7 @@ snapshots:
     dependencies:
       zod: 3.23.8
 
-  '@zimekk/scrap-schema@1.0.5':
+  '@zimekk/scrap-schema@1.0.9':
     dependencies:
       zod: 3.23.8
 
@@ -6672,7 +6678,7 @@ snapshots:
     dependencies:
       browserslist: 4.23.3
       escalade: 3.2.0
-      picocolors: 1.0.1
+      picocolors: 1.1.1
 
   uri-js@4.4.1:
     dependencies:
