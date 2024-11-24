@@ -10,7 +10,7 @@ import {
 import dayjs from "dayjs";
 import { Subject, debounceTime, distinctUntilChanged, map } from "rxjs";
 import { z } from "zod";
-import { Gallery, Input, Link, Loading, Picker } from "@acme/components";
+import { Error, Gallery, Input, Link, Loading, Picker } from "@acme/components";
 import { formatPrice, getPercentage } from "@acme/prod";
 import { GeneralSchema, ProductSchema } from "../schema";
 
@@ -156,7 +156,12 @@ export function List({ general, product }: Item) {
 }
 
 export function Price() {
-  const [data, setData] = useState<Data | null>(null);
+  const [{ error, loading = false, offset = 0, result }, setData] = useState<{
+    error?: Error;
+    loading?: boolean;
+    offset?: number;
+    result?: Item[];
+  }>({});
   const [filters, setFilters] = useState<FiltersState>(() => INITIAL_FILTERS);
 
   const [queries, setQueries] = useState(() => filters);
@@ -185,7 +190,8 @@ export function Price() {
     search$.next(filters);
   }, [filters]);
 
-  useEffect(() => {
+  const fetcher = () => (
+    setData(({ error, ...data }) => ({ ...data, loading: true })),
     fetch(
       `/api/prom?${new URLSearchParams({
         ilike: queries.search,
@@ -194,40 +200,47 @@ export function Price() {
         start: String(queries.offset),
       })}`,
     )
-      .then((res) => res.json())
+      .then(async (res) =>
+        res.ok ? await res.json() : Promise.reject(await res.text()),
+      )
       .then((data) => DataSchema.parse(data))
       .then(({ result, offset }) => {
         setData((data) => ({
           offset,
           result:
-            data && queries.offset > 0 ? data.result.concat(result) : result,
+            data && queries.offset > 0 ? data.result?.concat(result) : result,
         }));
-      });
+      })
+      .catch((error) => setData(({ loading, ...data }) => ({ ...data, error })))
+  );
+
+  useEffect(() => {
+    fetcher();
   }, [queries]);
 
-  const list = useMemo(() => data && data.result, [data]);
+  console.log({ filters, offset, result });
 
-  if (data === null) return <Loading />;
-
-  console.log({ filters, list });
   return (
     <section>
       <Filters filters={filters} setFilters={setFilters} />
-      <ol>
-        {list &&
-          list.map((item, key) => (
+      {error && <Error onRetry={fetcher}>{error.toString()}</Error>}
+      {loading && <Loading />}
+      {result && (
+        <ol>
+          {result.map((item, key) => (
             <li key={`${item.general.id}-${item.product.id}-${key}`}>
               <List {...item} />
             </li>
           ))}
-      </ol>
-      {data && data.offset > 0 && (
+        </ol>
+      )}
+      {result && offset > 0 && (
         <Link
           onClick={(e) => (
             e.preventDefault(),
             setQueries((queries) => ({
               ...queries,
-              offset: data.offset,
+              offset,
             }))
           )}
         >
