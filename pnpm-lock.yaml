@@ -262,7 +262,7 @@ importers:
         version: 15.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.0)
       ol:
         specifier: ^10.0.0
-        version: 10.2.1
+        version: 10.3.0
       react:
         specifier: ^17.0.0 || ^18.0.0-0
         version: 18.3.1
@@ -1563,8 +1563,8 @@ packages:
     resolution: {integrity: sha512-HNjmfLQEVRZmHRET336f20H/8kOozUGwk7yajvsonjNxbj2wBTK1WsQuHkD5yYh9RxFGL2EyDHryOihOwUoKDA==}
     engines: {node: '>= 10.0.0'}
 
-  '@petamoriken/float16@3.8.7':
-    resolution: {integrity: sha512-/Ri4xDDpe12NT6Ex/DRgHzLlobiQXEW/hmG08w1wj/YU7hLemk97c+zHQFp0iZQ9r7YqgLEXZR2sls4HxBf9NA==}
+  '@petamoriken/float16@3.9.0':
+    resolution: {integrity: sha512-rYUZ+VFjPHD0NT2JYKj64NxXxrV642IiyaUxxorTEj0S3hT7B5Ixezyc9Fn+XvSk0ETEBp5VWjGIErzh0ug0Xw==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -1715,8 +1715,8 @@ packages:
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
 
-  '@types/rbush@3.0.3':
-    resolution: {integrity: sha512-lX55lR0iYCgapxD3IrgujpQA1zDxwZI5qMRelKvmKAsSMplFVr7wmMpG7/6+Op2tjrgEex8o3vjg8CRDrRNYxg==}
+  '@types/rbush@4.0.0':
+    resolution: {integrity: sha512-+N+2H39P8X+Hy1I5mC6awlTX54k3FhiUmvt7HWzGJZvF+syUAAxP/stwppS8JE84YHqFgRMv6fCy31202CMFxQ==}
 
   '@types/react@18.3.12':
     resolution: {integrity: sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==}
@@ -3164,8 +3164,8 @@ packages:
     resolution: {integrity: sha512-yBYjY9QX2hnRmZHAjG/f13MzmBzxzYgQhFrke06TTyKY5zSTEqkOeukBzIdVA3j3ulu8Qa3MbVFShV7T2RmGtQ==}
     engines: {node: '>= 0.4'}
 
-  ol@10.2.1:
-    resolution: {integrity: sha512-2bB/y2vEnmzjqynP0NA7Cp8k86No3Psn63Dueicep3E3i09axWRVIG5IS/bylEAGfWQx0QXD/uljkyFoY60Wig==}
+  ol@10.3.0:
+    resolution: {integrity: sha512-7cq3jdAPQq5d0OZfKH80wl15LyzWk0aqz1TPYUa2+0c+3MkIDND2JxM/ed9xhoA8Ds0CNxj9aRk9vFztxmxmjw==}
 
   onetime@6.0.0:
     resolution: {integrity: sha512-1FlR+gjXK7X+AsAHso35MnyN5KqGwJRi/31ft6x0M194ht7S+rWAvd7PHss9xSKMzE0asv1pyIHaJYq+BbacAQ==}
@@ -4218,7 +4218,7 @@ snapshots:
       '@parcel/watcher-win32-ia32': 2.4.1
       '@parcel/watcher-win32-x64': 2.4.1
 
-  '@petamoriken/float16@3.8.7': {}
+  '@petamoriken/float16@3.9.0': {}
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -4391,7 +4391,7 @@ snapshots:
 
   '@types/prop-types@15.7.12': {}
 
-  '@types/rbush@3.0.3': {}
+  '@types/rbush@4.0.0': {}
 
   '@types/react@18.3.12':
     dependencies:
@@ -5534,7 +5534,7 @@ snapshots:
 
   geotiff@2.1.3:
     dependencies:
-      '@petamoriken/float16': 3.8.7
+      '@petamoriken/float16': 3.9.0
       lerc: 3.0.0
       pako: 2.1.0
       parse-headers: 2.0.5
@@ -6062,9 +6062,9 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.0.0
 
-  ol@10.2.1:
+  ol@10.3.0:
     dependencies:
-      '@types/rbush': 3.0.3
+      '@types/rbush': 4.0.0
       color-rgba: 3.0.0
       color-space: 2.0.1
       earcut: 3.0.0
