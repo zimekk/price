@@ -18,6 +18,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         "flat",
         "fuel",
         "moto",
+        "petr",
         "plot",
         "prod",
         "prom",

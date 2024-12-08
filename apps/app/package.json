@@ -21,6 +21,7 @@
     "@acme/fuel": "workspace:*",
     "@acme/hello": "workspace:*",
     "@acme/moto": "workspace:*",
+    "@acme/petr": "workspace:*",
     "@acme/plot": "workspace:*",
     "@acme/prod": "workspace:*",
     "@acme/prom": "workspace:*",

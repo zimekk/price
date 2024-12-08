@@ -56,21 +56,24 @@ function Summary({ data }: { data: Data }) {
       </div>
       <div>
         <strong>{data.name}</strong>
-        {data.variant.trim().length > 0 && (
+        {data.availability && (
           <>
             &nbsp;
             <span
               style={{
                 fontSize: "xx-small",
                 textTransform: "uppercase",
-                color: "darkslateblue",
+                color:
+                  {
+                    InStock: "limegreen",
+                  }[data.availability] || "orangered",
                 border: "1px solid currentColor",
                 padding: "0 .25em",
                 position: "relative",
                 top: -2,
               }}
             >
-              {data.variant}
+              {data.availability}
             </span>
           </>
         )}
@@ -119,7 +122,14 @@ export function List({ list }: { list: Item[] }) {
       id={`${list[0].data.id}`}
     >
       {list.slice(0, 1).map((item) => (
-        <Gallery key={item.id} images={[item.data.image]} />
+        <Gallery
+          key={item.id}
+          images={
+            item.data.image
+              ? [`${new URL(item.data.url).origin}${item.data.image}`]
+              : []
+          }
+        />
       ))}
       <div style={{ flex: 1 }}>
         {(show ? list : list.slice(0, 1)).map((item, key) => (
@@ -179,7 +189,7 @@ export function Price() {
   }, [filters]);
 
   useEffect(() => {
-    fetch(`/api/taur?limit=${filters.limit}`)
+    fetch(`/api/petr?limit=${filters.limit}`)
       .then((res) => res.json())
       .then((data) => setData(data));
   }, [filters.limit]);
@@ -242,8 +252,8 @@ export function Price() {
         ([id, [{ data }]]) =>
           (queries.search === "" ||
             queries.search === id ||
-            data.name.toLowerCase().includes(queries.search) ||
-            data.variant.toLowerCase().includes(queries.search)) &&
+            // data.name.toLowerCase().includes(queries.search) ||
+            data.name.toLowerCase().includes(queries.search)) &&
           (queries.priceTo === PRICE_LIST[0] ||
             (data.price
               ? queries.priceFrom <= data.price && data.price <= queries.priceTo
