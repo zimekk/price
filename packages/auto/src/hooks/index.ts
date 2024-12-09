@@ -1,6 +1,8 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 
-export const useDimensions = (targetRef: React.RefObject<HTMLDivElement>) => {
+export const useDimensions = (
+  targetRef: React.RefObject<HTMLDivElement | null>,
+) => {
   const getDimensions = () => {
     return {
       width: targetRef.current ? targetRef.current.offsetWidth : 0,
