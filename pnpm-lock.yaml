@@ -127,7 +127,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       autoprefixer:
         specifier: ^10.4.12
         version: 10.4.20(postcss@8.4.49)
@@ -191,7 +191,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -237,7 +237,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -283,10 +283,10 @@ importers:
     devDependencies:
       '@types/leaflet':
         specifier: ^1.9.3
-        version: 1.9.15
+        version: 1.9.16
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -332,7 +332,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -378,7 +378,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -424,7 +424,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -476,7 +476,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -510,7 +510,7 @@ importers:
     devDependencies:
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -553,7 +553,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -599,7 +599,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -645,7 +645,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -688,7 +688,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -734,7 +734,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -777,7 +777,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -826,7 +826,7 @@ importers:
         version: 7.4.3
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -872,7 +872,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -915,7 +915,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -958,7 +958,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -1004,7 +1004,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -1050,7 +1050,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -1096,7 +1096,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -1127,7 +1127,7 @@ importers:
     devDependencies:
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -1179,7 +1179,7 @@ importers:
         version: 22.10.5
       '@types/react':
         specifier: latest
-        version: 19.0.3
+        version: 19.0.4
       eslint:
         specifier: ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -1770,8 +1770,8 @@ packages:
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
 
-  '@types/leaflet@1.9.15':
-    resolution: {integrity: sha512-7UuggAuAs+mva66gtf2OTB1nEhzU/9JED93TIaOEgvFMvG/dIGQaukHE7izHo1Zd+Ko1L4ETUw7TBc8yUxevpg==}
+  '@types/leaflet@1.9.16':
+    resolution: {integrity: sha512-wzZoyySUxkgMZ0ihJ7IaUIblG8Rdc8AbbZKLneyn+QjYsj5q1QU7TEKYqwTr10BGSzY5LI7tJk9Ifo+mEjdFRw==}
 
   '@types/node@22.10.5':
     resolution: {integrity: sha512-F8Q+SeGimwOo86fiovQh8qiXfFEh2/ocYv7tU5pJ3EXMSSxk1Joj5wefpFK2fHTf/N6HKGSxIDBT9f3gCxXPkQ==}
@@ -1779,8 +1779,8 @@ packages:
   '@types/rbush@4.0.0':
     resolution: {integrity: sha512-+N+2H39P8X+Hy1I5mC6awlTX54k3FhiUmvt7HWzGJZvF+syUAAxP/stwppS8JE84YHqFgRMv6fCy31202CMFxQ==}
 
-  '@types/react@19.0.3':
-    resolution: {integrity: sha512-UavfHguIjnnuq9O67uXfgy/h3SRJbidAYvNjLceB+2RIKVRBzVsh0QO+Pw6BCSQqFS9xwzKfwstXx0m6AbAREA==}
+  '@types/react@19.0.4':
+    resolution: {integrity: sha512-3O4QisJDYr1uTUMZHA2YswiQZRq+Pd8D+GdVFYikTutYsTz+QZgWkAPnP7rx9txoI6EXKcPiluMqWPFV3tT9Wg==}
 
   '@typescript-eslint/eslint-plugin@8.17.0':
     resolution: {integrity: sha512-HU1KAdW3Tt8zQkdvNoIijfWDMvdSweFYm4hWh+KwhPstv+sCmWb89hCIP8msFm9N1R/ooh9honpSuvqKWlYy3w==}
@@ -4401,7 +4401,7 @@ snapshots:
 
   '@types/json5@0.0.29': {}
 
-  '@types/leaflet@1.9.15':
+  '@types/leaflet@1.9.16':
     dependencies:
       '@types/geojson': 7946.0.15
 
@@ -4411,7 +4411,7 @@ snapshots:
 
   '@types/rbush@4.0.0': {}
 
-  '@types/react@19.0.3':
+  '@types/react@19.0.4':
     dependencies:
       csstype: 3.1.3
 
