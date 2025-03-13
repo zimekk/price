@@ -15,7 +15,7 @@
     "apps/*",
     "packages/*"
   ],
-  "packageManager": "pnpm@10.6.2",
+  "packageManager": "pnpm@10.6.3",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
