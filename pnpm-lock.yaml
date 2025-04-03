@@ -24,7 +24,7 @@ importers:
         version: 9.23.0(jiti@2.4.2)
       eslint-config-turbo:
         specifier: latest
-        version: 2.4.4(eslint@9.23.0(jiti@2.4.2))(turbo@2.4.4)
+        version: 2.5.0(eslint@9.23.0(jiti@2.4.2))(turbo@2.4.4)
       husky:
         specifier: ^9.0.0
         version: 9.1.7
@@ -127,7 +127,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       autoprefixer:
         specifier: ^10.4.12
         version: 10.4.21(postcss@8.5.3)
@@ -191,7 +191,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -237,7 +237,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -286,7 +286,7 @@ importers:
         version: 1.9.17
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -332,7 +332,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -378,7 +378,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -424,7 +424,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -476,7 +476,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -510,7 +510,7 @@ importers:
     devDependencies:
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -553,7 +553,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -599,7 +599,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -645,7 +645,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -688,7 +688,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -734,7 +734,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -777,7 +777,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -826,7 +826,7 @@ importers:
         version: 7.4.3
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -872,7 +872,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -915,7 +915,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -958,7 +958,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -1004,7 +1004,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -1050,7 +1050,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -1096,7 +1096,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -1127,7 +1127,7 @@ importers:
     devDependencies:
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -1179,7 +1179,7 @@ importers:
         version: 22.13.14
       '@types/react':
         specifier: latest
-        version: 19.0.12
+        version: 19.1.0
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -1783,8 +1783,8 @@ packages:
   '@types/rbush@4.0.0':
     resolution: {integrity: sha512-+N+2H39P8X+Hy1I5mC6awlTX54k3FhiUmvt7HWzGJZvF+syUAAxP/stwppS8JE84YHqFgRMv6fCy31202CMFxQ==}
 
-  '@types/react@19.0.12':
-    resolution: {integrity: sha512-V6Ar115dBDrjbtXSrS+/Oruobc+qVbbUxDFC1RSbRqLt5SYvxxyIDrSC85RWml54g+jfNeEMZhEj7wW07ONQhA==}
+  '@types/react@19.1.0':
+    resolution: {integrity: sha512-UaicktuQI+9UKyA4njtDOGBD/67t8YEBt2xdfqu8+gP9hqPUPsiXlNPcpS2gVdjmis5GKPG3fCxbQLVgxsQZ8w==}
 
   '@typescript-eslint/eslint-plugin@8.17.0':
     resolution: {integrity: sha512-HU1KAdW3Tt8zQkdvNoIijfWDMvdSweFYm4hWh+KwhPstv+sCmWb89hCIP8msFm9N1R/ooh9honpSuvqKWlYy3w==}
@@ -2447,8 +2447,8 @@ packages:
       typescript:
         optional: true
 
-  eslint-config-turbo@2.4.4:
-    resolution: {integrity: sha512-4w/heWywWkFw09a5MY5lCvb9suJlhBSkzNtGTwM5+zRif4rksubaMYy1pD0++5rqoDVcQax25jCrtii9ptsNDw==}
+  eslint-config-turbo@2.5.0:
+    resolution: {integrity: sha512-QJvZBEWDWQx1JyQCr0uwf4aQYhDSAGoHBdx+cPtpPzNEjZw16Ig8BglXxHZBh3I8/fI1U53cLgXwvb28BUZhPA==}
     peerDependencies:
       eslint: '>6.6.0'
       turbo: '>2.0.0'
@@ -2518,8 +2518,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
-  eslint-plugin-turbo@2.4.4:
-    resolution: {integrity: sha512-myEnQTjr3FkI0j1Fu0Mqnv1z8n0JW5iFTOUNzHaEevjzl+1uzMSsFwks/x8i3rGmI3EYtC1BY8K2B2pS0Vfx6w==}
+  eslint-plugin-turbo@2.5.0:
+    resolution: {integrity: sha512-qQk54MrUZv0gnpxV23sccTc+FL3UJ8q7vG7HmXuS2RP8gdjWDwI1CCJTJD8EdRIDjsMxF0xi0AKcMY0CwIlXVg==}
     peerDependencies:
       eslint: '>6.6.0'
       turbo: '>2.0.0'
@@ -4419,7 +4419,7 @@ snapshots:
 
   '@types/rbush@4.0.0': {}
 
-  '@types/react@19.0.12':
+  '@types/react@19.1.0':
     dependencies:
       csstype: 3.1.3
 
@@ -5210,10 +5210,10 @@ snapshots:
       - eslint-plugin-import-x
       - supports-color
 
-  eslint-config-turbo@2.4.4(eslint@9.23.0(jiti@2.4.2))(turbo@2.4.4):
+  eslint-config-turbo@2.5.0(eslint@9.23.0(jiti@2.4.2))(turbo@2.4.4):
     dependencies:
       eslint: 9.23.0(jiti@2.4.2)
-      eslint-plugin-turbo: 2.4.4(eslint@9.23.0(jiti@2.4.2))(turbo@2.4.4)
+      eslint-plugin-turbo: 2.5.0(eslint@9.23.0(jiti@2.4.2))(turbo@2.4.4)
       turbo: 2.4.4
 
   eslint-import-resolver-node@0.3.9:
@@ -5325,7 +5325,7 @@ snapshots:
       string.prototype.matchall: 4.0.11
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-turbo@2.4.4(eslint@9.23.0(jiti@2.4.2))(turbo@2.4.4):
+  eslint-plugin-turbo@2.5.0(eslint@9.23.0(jiti@2.4.2))(turbo@2.4.4):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.23.0(jiti@2.4.2)
