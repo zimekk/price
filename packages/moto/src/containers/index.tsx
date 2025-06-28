@@ -118,7 +118,6 @@ function Details({
       </strong>
       {data.priceEvaluation && (
         <>
-          &nbsp;
           <span
             style={{
               fontSize: "xx-small",
