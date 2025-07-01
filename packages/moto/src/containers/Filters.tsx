@@ -14,6 +14,8 @@ export interface FiltersState {
   make: string;
   search: string;
   limit: number;
+  enginePowerFrom: number;
+  enginePowerTo: number;
   mileageFrom: number;
   mileageTo: number;
   priceFrom: number;
@@ -24,6 +26,7 @@ export interface FiltersState {
 
 export interface OptionsState {
   country: string[];
+  engine_power: string[];
   fuel: string[];
   gearbox: string[];
   make: string[];
@@ -31,6 +34,8 @@ export interface OptionsState {
 }
 
 export const LIMIT = [...Array(10)].map((_value, index) => (index + 1) * 500);
+
+export const ENGINE_POWER_LIST = [0, 200, 250, 300, 400, 500, 900] as const;
 
 export const MILEAGE_LIST = [
   0, 10_000, 20_000, 30_000, 50_000, 100_000, 200_000, 300_000,
@@ -40,6 +45,23 @@ export const PRICE_LIST = [
   0, 30_000, 40_000, 50_000, 100_000, 200_000, 300_000, 400_000, 500_000,
   600_000,
 ] as const;
+
+export const INITIAL_FILTERS: FiltersState = ((yearTo) => ({
+  country: "",
+  fuel: "",
+  gearbox: "",
+  make: "",
+  search: "",
+  limit: LIMIT[0],
+  enginePowerFrom: ENGINE_POWER_LIST[2],
+  enginePowerTo: ENGINE_POWER_LIST[ENGINE_POWER_LIST.length - 1],
+  mileageFrom: MILEAGE_LIST[0],
+  mileageTo: MILEAGE_LIST[3],
+  priceFrom: PRICE_LIST[5],
+  priceTo: PRICE_LIST[7],
+  yearFrom: yearTo - 3,
+  yearTo,
+}))(new Date().getFullYear());
 
 export function Filters({
   options,
@@ -52,7 +74,7 @@ export function Filters({
 }) {
   const YEAR_LIST = useMemo(
     () => options.year.map(Number).sort(),
-    [options.year]
+    [options.year],
   );
 
   return (
@@ -68,7 +90,7 @@ export function Filters({
                 ...filters,
                 make: target.value,
               })),
-            []
+            [],
           )}
         />
         <Picker
@@ -81,7 +103,7 @@ export function Filters({
                 ...filters,
                 fuel: target.value,
               })),
-            []
+            [],
           )}
         />
         <Picker
@@ -94,7 +116,7 @@ export function Filters({
                 ...filters,
                 gearbox: target.value,
               })),
-            []
+            [],
           )}
         />
         <Picker
@@ -107,9 +129,49 @@ export function Filters({
                 ...filters,
                 country: target.value,
               })),
-            []
+            [],
           )}
         />
+      </div>
+      <div>
+        <Range
+          options={ENGINE_POWER_LIST}
+          labelFrom="Engine Power From"
+          labelTo="Engine Power To"
+          valueFrom={filters.enginePowerFrom}
+          valueTo={filters.enginePowerTo}
+          onChangeFrom={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ enginePowerTo, ...criteria }) =>
+                ((enginePowerFrom) => ({
+                  ...criteria,
+                  enginePowerFrom,
+                  enginePowerTo:
+                    enginePowerTo < enginePowerFrom
+                      ? enginePowerFrom
+                      : enginePowerTo,
+                }))(Number(target.value)),
+              ),
+            [],
+          )}
+          onChangeTo={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters(({ enginePowerFrom, ...criteria }) =>
+                ((enginePowerTo) => ({
+                  ...criteria,
+                  enginePowerFrom:
+                    enginePowerTo > enginePowerFrom
+                      ? enginePowerFrom
+                      : enginePowerTo,
+                  enginePowerTo,
+                }))(Number(target.value)),
+              ),
+            [],
+          )}
+        />
+        <span>{`${new Intl.NumberFormat().format(
+          filters.enginePowerFrom,
+        )} - ${new Intl.NumberFormat().format(filters.enginePowerTo)}`}</span>
       </div>
       <div>
         <Range
@@ -125,9 +187,9 @@ export function Filters({
                   ...criteria,
                   yearFrom,
                   yearTo: yearTo < yearFrom ? yearFrom : yearTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
           onChangeTo={useCallback<ChangeEventHandler<HTMLInputElement>>(
             ({ target }) =>
@@ -136,13 +198,13 @@ export function Filters({
                   ...criteria,
                   yearFrom: yearTo > yearFrom ? yearFrom : yearTo,
                   yearTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
         />
         <span>{`${new Intl.NumberFormat().format(
-          filters.yearFrom
+          filters.yearFrom,
         )} - ${new Intl.NumberFormat().format(filters.yearTo)}`}</span>
       </div>
       <div>
@@ -159,9 +221,9 @@ export function Filters({
                   ...criteria,
                   mileageFrom,
                   mileageTo: mileageTo < mileageFrom ? mileageFrom : mileageTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
           onChangeTo={useCallback<ChangeEventHandler<HTMLInputElement>>(
             ({ target }) =>
@@ -171,13 +233,13 @@ export function Filters({
                   mileageFrom:
                     mileageTo > mileageFrom ? mileageFrom : mileageTo,
                   mileageTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
         />
         <span>{`${new Intl.NumberFormat().format(
-          filters.mileageFrom
+          filters.mileageFrom,
         )} - ${new Intl.NumberFormat().format(filters.mileageTo)} km`}</span>
       </div>
       <div>
@@ -194,9 +256,9 @@ export function Filters({
                   ...criteria,
                   priceFrom,
                   priceTo: priceTo < priceFrom ? priceFrom : priceTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
           onChangeTo={useCallback<ChangeEventHandler<HTMLInputElement>>(
             ({ target }) =>
@@ -205,13 +267,13 @@ export function Filters({
                   ...criteria,
                   priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
                   priceTo,
-                }))(Number(target.value))
+                }))(Number(target.value)),
               ),
-            []
+            [],
           )}
         />
         <span>{`${new Intl.NumberFormat().format(
-          filters.priceFrom
+          filters.priceFrom,
         )} - ${new Intl.NumberFormat().format(filters.priceTo)} PLN`}</span>
       </div>
       <div>
@@ -225,7 +287,7 @@ export function Filters({
                 ...filters,
                 search: target.value,
               })),
-            []
+            [],
           )}
         />
         <Picker
@@ -238,7 +300,7 @@ export function Filters({
                 ...filters,
                 limit: Number(target.value),
               })),
-            []
+            [],
           )}
         />
       </div>
