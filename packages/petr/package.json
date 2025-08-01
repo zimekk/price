@@ -37,11 +37,11 @@
   "dependencies": {
     "@acme/components": "workspace:*",
     "@swc/helpers": "^0.5.17",
-    "@zimekk/scrap-schema": "^1.0.10",
+    "@zimekk/scrap-schema": "^1.0.11",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.7",
     "rxjs": "^7.8.1",
-    "zod": "^3.25.67"
+    "zod": "^4.0.14"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

@@ -180,8 +180,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/d3':
         specifier: ^7.4.0
@@ -208,8 +208,8 @@ importers:
         specifier: ^0.5.17
         version: 0.5.17
       '@zimekk/scrap-schema':
-        specifier: ^1.0.10
-        version: 1.0.10
+        specifier: ^1.0.11
+        version: 1.0.11
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -229,8 +229,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -303,8 +303,8 @@ importers:
         specifier: ^0.5.17
         version: 0.5.17
       '@zimekk/scrap-schema':
-        specifier: ^1.0.10
-        version: 1.0.10
+        specifier: ^1.0.11
+        version: 1.0.11
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -324,8 +324,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -370,8 +370,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -395,8 +395,8 @@ importers:
         specifier: ^0.5.17
         version: 0.5.17
       '@zimekk/scrap-schema':
-        specifier: ^1.0.10
-        version: 1.0.10
+        specifier: ^1.0.11
+        version: 1.0.11
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -416,8 +416,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -465,8 +465,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/d3':
         specifier: ^7.4.0
@@ -505,8 +505,8 @@ importers:
         specifier: ^18.0.0
         version: 18.3.1(react@18.3.1)
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/react':
         specifier: ^19.1.8
@@ -545,8 +545,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -570,8 +570,8 @@ importers:
         specifier: ^0.5.17
         version: 0.5.17
       '@zimekk/scrap-schema':
-        specifier: ^1.0.10
-        version: 1.0.10
+        specifier: ^1.0.11
+        version: 1.0.11
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -591,8 +591,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -616,8 +616,8 @@ importers:
         specifier: ^0.5.17
         version: 0.5.17
       '@zimekk/scrap-schema':
-        specifier: ^1.0.10
-        version: 1.0.10
+        specifier: ^1.0.11
+        version: 1.0.11
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -637,8 +637,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -680,8 +680,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -726,8 +726,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -769,8 +769,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -818,8 +818,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/d3':
         specifier: ^7.4.0
@@ -843,8 +843,8 @@ importers:
         specifier: ^0.5.17
         version: 0.5.17
       '@zimekk/scrap-rynek-schema':
-        specifier: ^1.0.6
-        version: 1.0.6
+        specifier: ^1.0.7
+        version: 1.0.7
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -864,8 +864,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -907,8 +907,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -950,8 +950,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -996,8 +996,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -1042,8 +1042,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -1067,8 +1067,8 @@ importers:
         specifier: ^0.5.17
         version: 0.5.17
       '@zimekk/scrap-schema':
-        specifier: ^1.0.10
-        version: 1.0.10
+        specifier: ^1.0.11
+        version: 1.0.11
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -1088,8 +1088,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -1171,8 +1171,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
       zod:
-        specifier: ^3.25.67
-        version: 3.25.67
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -1974,11 +1974,11 @@ packages:
       react: ^18.0.0
       react-dom: ^18.0.0
 
-  '@zimekk/scrap-rynek-schema@1.0.6':
-    resolution: {integrity: sha512-DqznvXpRjzrZNN3HFyELJmXUecX5gP0YmXJPjSfePLWpB66LDHSMedVeFMuqj2DhxwBLBEk3g3H0W6aIhe1dhQ==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-rynek-schema/1.0.6/807747bc7f146e1f63dfb5e174d386adf91e979b}
+  '@zimekk/scrap-rynek-schema@1.0.7':
+    resolution: {integrity: sha512-vZjA+9OZVe4+uS8tJfpzbo61v0Ndw9yEKMAkXhPo8zSzAcXvHp+FdjCSfsHXKyNAG+5yQW4Rs4DJTYpRUvqrTw==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-rynek-schema/1.0.7/7a66d4b918ab6c061c148edccbb1d33058899046}
 
-  '@zimekk/scrap-schema@1.0.10':
-    resolution: {integrity: sha512-+nELb1ZRyyRX7OOh4IA/DJDrhoMp9aIHKmwnV4tzpIaaL/8KcQSmfnxdly2bfV6H5WGhSZpEiuI5NHpPVHV+bg==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-schema/1.0.10/173086602b20e2b7afa3f614233e60da6080d90f}
+  '@zimekk/scrap-schema@1.0.11':
+    resolution: {integrity: sha512-gAEpyVQBgHvNugDvLJUQ4yw8a9P/+WdnudHGX49PrvJNxSKRzs9oJNATLPkexjxgGcpS3BQSbxkWnZ7NLkSZhQ==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-schema/1.0.11/6e37b01dc16491b98f365c3164141d1040a42e1b}
 
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -3987,8 +3987,8 @@ packages:
     resolution: {integrity: sha512-AyeEbWOu/TAXdxlV9wmGcR0+yh2j3vYPGOECcIj2S7MkrLyC7ne+oye2BKTItt0ii2PHk4cDy+95+LshzbXnGg==}
     engines: {node: '>=12.20'}
 
-  zod@3.25.67:
-    resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
+  zod@4.0.14:
+    resolution: {integrity: sha512-nGFJTnJN6cM2v9kXL+SOBq3AtjQby3Mv5ySGFof5UGRHrRioSJ5iG680cYNjE/yWk671nROcpPj4hAS8nyLhSw==}
 
   zstddec@0.1.0:
     resolution: {integrity: sha512-w2NTI8+3l3eeltKAdK8QpiLo/flRAr2p8AGeakfMZOXBxOg9HIu4LVDxBi81sYgVhFhdJjv1OrB5ssI8uFPoLg==}
@@ -4773,13 +4773,13 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       sugar-high: 0.4.7
 
-  '@zimekk/scrap-rynek-schema@1.0.6':
+  '@zimekk/scrap-rynek-schema@1.0.7':
     dependencies:
-      zod: 3.25.67
+      zod: 4.0.14
 
-  '@zimekk/scrap-schema@1.0.10':
+  '@zimekk/scrap-schema@1.0.11':
     dependencies:
-      zod: 3.25.67
+      zod: 4.0.14
 
   JSONStream@1.3.5:
     dependencies:
@@ -7088,6 +7088,6 @@ snapshots:
 
   yocto-queue@1.2.1: {}
 
-  zod@3.25.67: {}
+  zod@4.0.14: {}
 
   zstddec@0.1.0: {}

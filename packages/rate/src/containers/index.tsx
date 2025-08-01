@@ -30,7 +30,7 @@ export const RateSchema = z.object({
 
 export const DataSchema = z.object({
   date: z.string(),
-  rates: z.record(RateSchema.array()),
+  rates: z.record(z.string(), RateSchema.array()),
   range: z.object({ minRateDate: z.string(), maxRateDate: z.string() }),
 });
 
