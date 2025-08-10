@@ -38,8 +38,8 @@
     "@acme/xkom": "workspace:*",
     "@vercel/examples-ui": "^1.0.4",
     "next": "^15.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
