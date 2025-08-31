@@ -50,6 +50,8 @@ const Advert = z.object({
         "engine_power",
         "fuel_type",
         "gearbox",
+        "lease-url",
+        "leasing_concession",
         "make",
         "mileage",
         "model",
