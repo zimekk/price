@@ -9,7 +9,10 @@ export const DataSchema = z.object({
   fullPrice: z.string().transform((price) => Number(price.replace(",", ""))),
   saleprice: z.string().transform((price) => Number(price.replace(",", ""))),
   primaryImageUrl: z.string(),
-  badge: z.object({ theme: z.string(), text: z.string() }),
+  badge: z.object({
+    theme: z.string().or(z.boolean()),
+    text: z.string().or(z.boolean().transform((v) => String(v))),
+  }),
   review: z.object({ number: z.number(), stars: z.coerce.string() }),
   promotionalPriceCopy: z.string().optional(),
   parents: z.string().array().optional(),
