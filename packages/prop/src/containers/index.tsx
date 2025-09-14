@@ -66,7 +66,7 @@ function Summary({ data }: { data: Data }) {
             ((selection) =>
               selection &&
               (selection.removeAllRanges(), selection.addRange(range)))(
-              window.getSelection()
+              window.getSelection(),
             );
           }}
         >
@@ -123,7 +123,7 @@ function Summary({ data }: { data: Data }) {
           ))(
             data.locationLabel
               ? data.locationLabel.value
-              : getLocationAddress(data.location)
+              : getLocationAddress(data.location),
           )}
         </div>
       )}
@@ -203,8 +203,12 @@ function Details({
             {formatPrice(data.totalPrice.value, data.totalPrice.currency)}
           </strong>
         )}
-        {" / "}
-        <strong>{formatArea(data.areaInSquareMeters)} m&sup2;</strong>
+        {data.areaInSquareMeters && (
+          <span>
+            {" / "}
+            <strong>{formatArea(data.areaInSquareMeters)} m&sup2;</strong>
+          </span>
+        )}
         {data.terrainAreaInSquareMeters && (
           <span>
             {" "}
@@ -218,7 +222,7 @@ function Details({
             <strong>
               {formatPrice(
                 data.pricePerSquareMeter.value,
-                data.pricePerSquareMeter.currency
+                data.pricePerSquareMeter.currency,
               )}
               /m&sup2;
             </strong>
@@ -296,13 +300,13 @@ export function Price() {
             ...queries,
             ...filters,
             search: search.toLowerCase().trim(),
-          })
+          }),
         ),
         distinctUntilChanged(),
-        debounceTime(400)
+        debounceTime(400),
       )
       .subscribe((filters) =>
-        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) })),
       );
     return () => subscription.unsubscribe();
   }, [search$]);
@@ -327,8 +331,8 @@ export function Price() {
               Object.assign(list, {
                 [item.item]: (list[item.item] || []).concat(item),
               }),
-            {} as Record<string, Item[]>
-          )
+            {} as Record<string, Item[]>,
+          ),
       )
         .map(
           ([item, list]) =>
@@ -345,7 +349,7 @@ export function Price() {
                     0 === meta.dateCreatedFirst &&
                       data.dateCreatedFirst && {
                         dateCreatedFirst: new Date(
-                          data.dateCreatedFirst
+                          data.dateCreatedFirst,
                         ).getTime(),
                       },
                     0 === meta.totalPrice &&
@@ -364,7 +368,7 @@ export function Price() {
                       terrainAreaInSquareMeters:
                         data.terrainAreaInSquareMeters ||
                         data.areaInSquareMeters,
-                    }
+                    },
                   ),
                 {
                   dateCreated: 0,
@@ -373,9 +377,9 @@ export function Price() {
                   pricePerSquareMeter: 0,
                   areaInSquareMeters: 0,
                   terrainAreaInSquareMeters: 0,
-                }
+                },
               ),
-            ] as [string, Item[], Meta]
+            ] as [string, Item[], Meta],
         )
         .sort(
           (a, b) =>
@@ -383,9 +387,9 @@ export function Price() {
               ? -1
               : 1) *
             (b[2][filters.sortBy as keyof typeof SORT_BY] -
-              a[2][filters.sortBy as keyof typeof SORT_BY])
+              a[2][filters.sortBy as keyof typeof SORT_BY]),
         ),
-    [data, filters.sortBy]
+    [data, filters.sortBy],
   );
 
   const filtered = useMemo(
@@ -410,9 +414,9 @@ export function Price() {
             (data.totalPrice
               ? queries.priceFrom <= data.totalPrice.value &&
                 data.totalPrice.value <= queries.priceTo
-              : true))
+              : true)),
       ),
-    [queries, grouped]
+    [queries, grouped],
   );
 
   const options = useMemo(
@@ -425,13 +429,13 @@ export function Price() {
                 options.agency || {},
                 data.agency && {
                   [data.agency.name]: true,
-                }
+                },
               ),
               agencyType: Object.assign(
                 options.agencyType || {},
                 data.agency && {
                   [data.agency.type]: true,
-                }
+                },
               ),
               estate: Object.assign(options.estate || {}, {
                 [data.estate]: true,
@@ -440,16 +444,16 @@ export function Price() {
                 [data.location.address.city.name]: true,
               }),
             }),
-          {} as OptionsState
-        )
+          {} as OptionsState,
+        ),
       ).reduce(
         (options, [key, value]) =>
           Object.assign(options, {
             [key]: Object.keys(value).sort(),
           }),
-        {} as OptionsState
+        {} as OptionsState,
       ),
-    [data]
+    [data],
   );
 
   if (data === null) return <Loading />;
