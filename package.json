@@ -31,12 +31,12 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "eslint": "^9.30.0",
-    "eslint-config-turbo": "^2.5.4",
+    "eslint": "^9.37.0",
+    "eslint-config-turbo": "^2.5.8",
     "husky": "^9.0.0",
-    "lint-staged": "^15.0.2",
+    "lint-staged": "^15.5.2",
     "prettier": "^3.6.2",
-    "turbo": "^2.5.4"
+    "turbo": "^2.5.8"
   },
   "resolutions": {
     "next": "^15.0.0",

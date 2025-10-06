@@ -41,7 +41,7 @@
     "dist"
   ],
   "devDependencies": {
-    "eslint": "^9.30.0",
-    "typescript": "^5.8.3"
+    "eslint": "^9.37.0",
+    "typescript": "^5.9.3"
   }
 }
