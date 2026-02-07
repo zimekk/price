@@ -48,7 +48,7 @@ export const Equipment = z.object({
 export const DataSchema = z.object({
   documentId: z.string(),
   media: z.object({
-    cosyImages: z.record(z.string()),
+    cosyImages: z.record(z.string(), z.string()),
     // eveCpMedia: z.object({
     //   configId: z.string(),
     //   contentBaseUrl: z.string(),

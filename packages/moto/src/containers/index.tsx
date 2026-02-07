@@ -7,6 +7,7 @@ import {
   type FiltersState,
   type OptionsState,
   Filters,
+  INITIAL_FILTERS,
   LIMIT,
   MILEAGE_LIST,
   PRICE_LIST,
@@ -118,7 +119,6 @@ function Details({
       </strong>
       {data.priceEvaluation && (
         <>
-          &nbsp;
           <span
             style={{
               fontSize: "xx-small",
@@ -203,22 +203,7 @@ export function Price() {
     result?: Item[];
   }>({});
 
-  const [filters, setFilters] = useState<FiltersState>(() =>
-    ((yearTo) => ({
-      country: "",
-      fuel: "",
-      gearbox: "",
-      make: "",
-      search: "",
-      limit: LIMIT[0],
-      mileageFrom: MILEAGE_LIST[0],
-      mileageTo: MILEAGE_LIST[3],
-      priceFrom: PRICE_LIST[5],
-      priceTo: PRICE_LIST[7],
-      yearFrom: yearTo - 3,
-      yearTo,
-    }))(new Date().getFullYear()),
-  );
+  const [filters, setFilters] = useState<FiltersState>(() => INITIAL_FILTERS);
 
   const [queries, setQueries] = useState(() => filters);
   const search$ = useMemo(() => new Subject<any>(), []);
@@ -323,6 +308,14 @@ export function Price() {
             queries.search === id ||
             data.title?.toLowerCase().includes(queries.search) ||
             data.shortDescription?.toLowerCase().includes(queries.search)) &&
+          (queries.enginePowerTo === MILEAGE_LIST[0] ||
+            (values.engine_power
+              ? ((engine_power) =>
+                  queries.enginePowerFrom <= engine_power &&
+                  engine_power <= queries.enginePowerTo)(
+                  Number(values.engine_power),
+                )
+              : true)) &&
           (queries.mileageTo === MILEAGE_LIST[0] ||
             (values.mileage
               ? ((mileage) =>
@@ -359,6 +352,12 @@ export function Price() {
                 options.country || {},
                 values.country_origin && {
                   [values.country_origin]: true,
+                },
+              ),
+              engine_power: Object.assign(
+                options.engine_power || {},
+                values.engine_power && {
+                  [values.engine_power]: true,
                 },
               ),
               fuel: Object.assign(

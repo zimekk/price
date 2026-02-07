@@ -49,7 +49,7 @@ export const INITIAL_FILTERS: FiltersState = {
   type: "SALE",
   search: "",
   sortBy: Object.keys(SORT_BY)[0],
-  limit: LIMIT[0],
+  limit: LIMIT[1],
   priceFrom: SALE_PRICE_LIST[1],
   priceTo: SALE_PRICE_LIST[4],
   areaFrom: AREA_LIST[1],

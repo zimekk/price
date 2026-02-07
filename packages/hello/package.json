@@ -35,13 +35,13 @@
   },
   "dependencies": {
     "@acme/components": "workspace:*",
-    "@swc/helpers": "^0.5.0",
+    "@swc/helpers": "^0.5.17",
     "clsx": "^2.0.0",
-    "zod": "^3.21.4"
+    "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@types/react": "latest",
-    "eslint": "^9.0.0",
-    "typescript": "5.7.2"
+    "@types/react": "^19.2.0",
+    "eslint": "^9.37.0",
+    "typescript": "5.8.3"
   }
 }

@@ -15,7 +15,7 @@
     "apps/*",
     "packages/*"
   ],
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@10.8.1",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -29,14 +29,14 @@
     "prepare": "husky && turbo telemetry disable"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.0.0",
-    "@commitlint/config-conventional": "^19.0.0",
-    "eslint": "^9.0.0",
-    "eslint-config-turbo": "latest",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "eslint": "^9.37.0",
+    "eslint-config-turbo": "^2.5.8",
     "husky": "^9.0.0",
-    "lint-staged": "^15.0.2",
-    "prettier": "^3.0.0",
-    "turbo": "^2.0.0"
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.8"
   },
   "resolutions": {
     "next": "^15.0.0",

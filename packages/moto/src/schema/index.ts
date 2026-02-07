@@ -50,6 +50,8 @@ const Advert = z.object({
         "engine_power",
         "fuel_type",
         "gearbox",
+        "lease-url",
+        "leasing_concession",
         "make",
         "mileage",
         "model",
@@ -79,9 +81,11 @@ const Advert = z.object({
       logo: z.any(),
       name: z.any(),
       searchUrl: z.any(),
+      url: z.any(),
       __typename: z.enum(["BrandProgram"]),
     })
-    .strict(),
+    .strict()
+    .nullable(),
   dealer4thPackage: z
     .object({
       package: z.object({

@@ -16,6 +16,7 @@ import { Installment } from "./Installment";
 
 interface FiltersState {
   search: string;
+  cutoff: number;
 }
 
 export const RateSchema = z.object({
@@ -30,7 +31,7 @@ export const RateSchema = z.object({
 
 export const DataSchema = z.object({
   date: z.string(),
-  rates: z.record(RateSchema.array()),
+  rates: z.record(z.string(), RateSchema.array()),
   range: z.object({ minRateDate: z.string(), maxRateDate: z.string() }),
 });
 
@@ -68,6 +69,25 @@ function Filters({
           )}
         />
       </label>
+      <label>
+        <span>Cutoff</span>
+        <input
+          type="range"
+          min={0}
+          max={10}
+          step={0.1}
+          value={filters.cutoff}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                cutoff: Number(target.value),
+              })),
+            [],
+          )}
+        />
+      </label>
+      {filters.cutoff}
     </fieldset>
   );
 }
@@ -76,6 +96,7 @@ export function Price() {
   const [data, setData] = useState<{ result: Item[] } | null>(null);
   const [filters, setFilters] = useState<FiltersState>(() => ({
     search: "",
+    cutoff: 0,
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -181,9 +202,21 @@ export function Price() {
                       href="#"
                       onClick={(e) => (
                         e.preventDefault(),
+                        setFilters((filters) => ({
+                          ...filters,
+                          cutoff: Number(item.sell),
+                        })),
                         setValue(Number(item.sell)),
                         setDate(date)
                       )}
+                      style={{
+                        color: ((value) =>
+                          queries.cutoff > value
+                            ? "red"
+                            : queries.cutoff === value
+                              ? "blue"
+                              : "inherit")(Number(item.sell)),
+                      }}
                     >
                       {item.sell}
                     </a>
