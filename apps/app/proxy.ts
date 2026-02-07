@@ -1,7 +1,7 @@
 // https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy
 import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
+export default function (request: NextRequest) {
   //   const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
   //   const cspHeader = `
   //     default-src 'self';

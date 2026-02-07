@@ -11,7 +11,7 @@ const nextConfig = {
     // "@acme/hello",
     // "@acme/ross",
     // "@acme/xkom",
-    "@acme/ui",
+    // "@acme/ui",
   ],
 };
 
