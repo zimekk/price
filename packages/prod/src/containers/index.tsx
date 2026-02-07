@@ -121,7 +121,7 @@ function Details({
         )}
       </div>
       <strong>
-        {meta.minPriceChanged === dayjs(created).valueOf() && (
+        {meta.minPriceChanged === dayjs(created).valueOf() ? (
           <i
             style={{
               position: "absolute",
@@ -131,6 +131,18 @@ function Details({
           >
             &#8594;
           </i>
+        ) : (
+          meta.minPrice === data.price && (
+            <i
+              style={{
+                position: "absolute",
+                marginLeft: "-1em",
+                color: "lightgray",
+              }}
+            >
+              &#8594;
+            </i>
+          )
         )}
         {data.oldPrice && (
           <span>
