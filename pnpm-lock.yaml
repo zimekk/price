@@ -6,8 +6,8 @@ settings:
 
 overrides:
   next: ^15.0.0
-  react: ^18.0.0
-  react-dom: ^18.0.0
+  react: ^19.0.0
+  react-dom: ^19.0.0
 
 importers:
 
@@ -111,16 +111,16 @@ importers:
         version: link:../../packages/xkom
       '@vercel/examples-ui':
         specifier: ^1.0.4
-        version: 1.0.5(next@15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.0.5(next@15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
     devDependencies:
       '@types/node':
         specifier: ^22.18.8
@@ -169,13 +169,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -218,13 +218,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -255,7 +255,7 @@ importers:
         version: 6.7.2
       '@fortawesome/react-fontawesome':
         specifier: ^0.2.6
-        version: 0.2.6(@fortawesome/fontawesome-svg-core@6.7.2)(react@18.3.1)
+        version: 0.2.6(@fortawesome/fontawesome-svg-core@6.7.2)(react@19.2.4)
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -264,22 +264,22 @@ importers:
         version: 1.9.4
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       ol:
         specifier: ^10.6.1
         version: 10.6.1
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       react-leaflet:
         specifier: ^4.2.1
-        version: 4.2.1(leaflet@1.9.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.2.1(leaflet@1.9.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       use-asset:
         specifier: ^1.0.4
-        version: 1.0.4(react@18.3.1)
+        version: 1.0.4(react@19.2.4)
     devDependencies:
       '@types/leaflet':
         specifier: ^1.9.20
@@ -313,13 +313,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -359,13 +359,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -405,13 +405,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -454,13 +454,13 @@ importers:
         version: 10.6.0
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -497,13 +497,13 @@ importers:
         version: 2.1.1
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       zod:
         specifier: ^4.1.12
         version: 4.1.12
@@ -534,13 +534,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -580,13 +580,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -626,13 +626,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -669,13 +669,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -715,13 +715,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -758,13 +758,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -807,13 +807,13 @@ importers:
         version: 10.6.0
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -853,13 +853,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -896,13 +896,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -939,13 +939,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -985,13 +985,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -1031,13 +1031,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -1077,13 +1077,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -1111,19 +1111,19 @@ importers:
         version: 0.5.17
       '@vercel/examples-ui':
         specifier: ^1.0.4
-        version: 1.0.5(next@15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.0.5(next@15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
     devDependencies:
       '@types/react':
         specifier: ^19.2.0
@@ -1160,13 +1160,13 @@ importers:
         version: 1.11.18
       next:
         specifier: ^15.0.0
-        version: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
+        version: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
       react:
-        specifier: ^18.0.0
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.2.4
       react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
@@ -1333,7 +1333,7 @@ packages:
     resolution: {integrity: sha512-mtBFIi1UsYQo7rYonYFkjgYKGoL8T+fEH6NGUpvuqtY3ytMsAoDaPo5rk25KuMtKDipY4bGYM/CkmCHA1N3FUg==}
     peerDependencies:
       '@fortawesome/fontawesome-svg-core': ~1 || ~6 || ~7
-      react: ^18.0.0
+      react: ^19.0.0
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1669,8 +1669,8 @@ packages:
     resolution: {integrity: sha512-Qk7Pfu8BSarKGqILj4x7bCSZ1pjuAPZ+qmRwH5S7mDS91VSbVVsJSrW4qA+GPrro8t69gFYVMWb1Zc4yFmPiVg==}
     peerDependencies:
       leaflet: ^1.9.0
-      react: ^18.0.0
-      react-dom: ^18.0.0
+      react: ^19.0.0
+      react-dom: ^19.0.0
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -1974,8 +1974,8 @@ packages:
     resolution: {integrity: sha512-6pj8V9MPLgrPajIUbqEkbmupEMnK6xBk5zkwsilwhA9mYQdxttqgVyDqlFMQhEVqb3tk0PshA+XxnZoDfLCpoQ==}
     peerDependencies:
       next: ^15.0.0
-      react: ^18.0.0
-      react-dom: ^18.0.0
+      react: ^19.0.0
+      react-dom: ^19.0.0
 
   '@zimekk/scrap-rynek-schema@1.0.8':
     resolution: {integrity: sha512-Dcob90b4B78mp/F630aHbKJrSRnqVNzKZe0Kh3m0kfgIEFR0WTWRJhIiCYt3QOTMlk3GxmafO1SZUs5Qy4HFJA==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-rynek-schema/1.0.8/462fd32262c412712e3202f09716b4b813c64b17}
@@ -3233,8 +3233,8 @@ packages:
       '@opentelemetry/api': ^1.1.0
       '@playwright/test': ^1.51.1
       babel-plugin-react-compiler: '*'
-      react: ^18.0.0
-      react-dom: ^18.0.0
+      react: ^19.0.0
+      react-dom: ^19.0.0
       sass: ^1.3.0
     peerDependenciesMeta:
       '@opentelemetry/api':
@@ -3484,10 +3484,10 @@ packages:
   rbush@4.0.1:
     resolution: {integrity: sha512-IP0UpfeWQujYC8Jg162rMNc01Rf0gWMMAb2Uxus/Q0qOFw4lCcq6ZnQEZwUoJqWyUGJ9th7JjwI4yIWo+uvoAQ==}
 
-  react-dom@18.3.1:
-    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
+  react-dom@19.2.4:
+    resolution: {integrity: sha512-AXJdLo8kgMbimY95O2aKQqsz2iWi9jMgKJhRBAxECE4IFxfcazB2LmzloIoibJI3C12IlY20+KFaLv+71bUJeQ==}
     peerDependencies:
-      react: ^18.0.0
+      react: ^19.0.0
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -3496,11 +3496,11 @@ packages:
     resolution: {integrity: sha512-p9chkvhcKrWn/H/1FFeVSqLdReGwn2qmiobOQGO3BifX+/vV/39qhY8dGqbdcPh1e6jxh/QHriLXr7a4eLFK4Q==}
     peerDependencies:
       leaflet: ^1.9.0
-      react: ^18.0.0
-      react-dom: ^18.0.0
+      react: ^19.0.0
+      react-dom: ^19.0.0
 
-  react@18.3.1:
-    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
+  react@19.2.4:
+    resolution: {integrity: sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==}
     engines: {node: '>=0.10.0'}
 
   read-cache@1.0.0:
@@ -3596,8 +3596,8 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  scheduler@0.23.2:
-    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
+  scheduler@0.27.0:
+    resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -3740,7 +3740,7 @@ packages:
     peerDependencies:
       '@babel/core': '*'
       babel-plugin-macros: '*'
-      react: ^18.0.0
+      react: ^19.0.0
     peerDependenciesMeta:
       '@babel/core':
         optional: true
@@ -3901,7 +3901,7 @@ packages:
   use-asset@1.0.4:
     resolution: {integrity: sha512-7/hqDrWa0iMnCoET9W1T07EmD4Eg/Wmoj/X8TGBc++ECRK4m5yTsjP4O6s0yagbxfqIOuUkIxe2/sA+VR2GxZA==}
     peerDependencies:
-      react: ^18.0.0
+      react: ^19.0.0
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -4174,11 +4174,11 @@ snapshots:
     dependencies:
       '@fortawesome/fontawesome-common-types': 6.7.2
 
-  '@fortawesome/react-fontawesome@0.2.6(@fortawesome/fontawesome-svg-core@6.7.2)(react@18.3.1)':
+  '@fortawesome/react-fontawesome@0.2.6(@fortawesome/fontawesome-svg-core@6.7.2)(react@19.2.4)':
     dependencies:
       '@fortawesome/fontawesome-svg-core': 6.7.2
       prop-types: 15.8.1
-      react: 18.3.1
+      react: 19.2.4
 
   '@humanfs/core@0.19.1': {}
 
@@ -4425,11 +4425,11 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@react-leaflet/core@2.1.0(leaflet@1.9.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@react-leaflet/core@2.1.0(leaflet@1.9.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       leaflet: 1.9.4
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
 
   '@rtsao/scc@1.1.0': {}
 
@@ -4755,13 +4755,13 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.9.2':
     optional: true
 
-  '@vercel/examples-ui@1.0.5(next@15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@vercel/examples-ui@1.0.5(next@15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@swc/helpers': 0.4.36
       clsx: 1.2.1
-      next: 15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      next: 15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
       sugar-high: 0.4.7
 
   '@zimekk/scrap-rynek-schema@1.0.8':
@@ -6184,15 +6184,15 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next@15.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2):
+  next@15.5.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2):
     dependencies:
       '@next/env': 15.5.4
       '@swc/helpers': 0.5.15
       caniuse-lite: 1.0.30001726
       postcss: 8.4.31
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      styled-jsx: 5.1.6(react@18.3.1)
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+      styled-jsx: 5.1.6(react@19.2.4)
     optionalDependencies:
       '@next/swc-darwin-arm64': 15.5.4
       '@next/swc-darwin-x64': 15.5.4
@@ -6429,24 +6429,21 @@ snapshots:
     dependencies:
       quickselect: 3.0.0
 
-  react-dom@18.3.1(react@18.3.1):
+  react-dom@19.2.4(react@19.2.4):
     dependencies:
-      loose-envify: 1.4.0
-      react: 18.3.1
-      scheduler: 0.23.2
+      react: 19.2.4
+      scheduler: 0.27.0
 
   react-is@16.13.1: {}
 
-  react-leaflet@4.2.1(leaflet@1.9.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-leaflet@4.2.1(leaflet@1.9.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
-      '@react-leaflet/core': 2.1.0(leaflet@1.9.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-leaflet/core': 2.1.0(leaflet@1.9.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       leaflet: 1.9.4
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
 
-  react@18.3.1:
-    dependencies:
-      loose-envify: 1.4.0
+  react@19.2.4: {}
 
   read-cache@1.0.0:
     dependencies:
@@ -6554,9 +6551,7 @@ snapshots:
     optionalDependencies:
       '@parcel/watcher': 2.5.1
 
-  scheduler@0.23.2:
-    dependencies:
-      loose-envify: 1.4.0
+  scheduler@0.27.0: {}
 
   semver@6.3.1: {}
 
@@ -6755,10 +6750,10 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  styled-jsx@5.1.6(react@18.3.1):
+  styled-jsx@5.1.6(react@19.2.4):
     dependencies:
       client-only: 0.0.1
-      react: 18.3.1
+      react: 19.2.4
 
   sucrase@3.35.0:
     dependencies:
@@ -6958,10 +6953,10 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  use-asset@1.0.4(react@18.3.1):
+  use-asset@1.0.4(react@19.2.4):
     dependencies:
       fast-deep-equal: 3.1.3
-      react: 18.3.1
+      react: 19.2.4
 
   util-deprecate@1.0.2: {}
 
