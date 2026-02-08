@@ -12,6 +12,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./api": "./src/api/index.ts",
+    "./api/history": "./src/api/history/index.ts",
     "./*": [
       "./src/*.ts",
       "./src/*.tsx",

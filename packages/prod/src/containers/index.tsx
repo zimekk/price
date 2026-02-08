@@ -12,7 +12,7 @@ import {
 } from "./Filters";
 
 type Meta = {
-  type: string;
+  // type: string;
   minPrice: number;
   maxPrice: number;
   minPriceChanged: number;
@@ -25,6 +25,33 @@ export const formatPrice = (price: number) =>
     minimumFractionDigits: 2,
   }).format(price)} zł`;
 
+export const getMeta = (list: Item[]) =>
+  list.reduce(
+    (meta, { type, data, created }) =>
+      Object.assign(
+        meta,
+        // { type },
+        data.price <= meta.minPrice && {
+          minPrice: data.price,
+          minPriceChanged: new Date(created).getTime(),
+        },
+        data.price > meta.maxPrice && {
+          maxPrice: data.price,
+        },
+        0 === meta.price && {
+          price: data.price,
+          priceChanged: new Date(created).getTime(),
+        },
+      ),
+    {
+      minPrice: Infinity,
+      maxPrice: 0,
+      minPriceChanged: 0,
+      price: 0,
+      priceChanged: 0,
+    },
+  );
+
 export const getPercentage = ({
   price,
   oldPrice = price,
@@ -33,7 +60,23 @@ export const getPercentage = ({
   oldPrice?: number | null;
 }) => (oldPrice !== null ? (price / oldPrice - 1) * 100 : 0);
 
-function Summary({ data }: { data: Data; type: string }) {
+function Summary({
+  data,
+  item,
+  setList,
+}: {
+  data: Data;
+  item: string;
+  setList: (list: Item[]) => void;
+}) {
+  const fetcher = () =>
+    fetch(`/api/prod/history?item=${item}`)
+      .then(async (res) =>
+        res.ok ? await res.json() : Promise.reject(await res.text()),
+      )
+      .then(({ result }: { result: Item[] }) => setList(result))
+      .catch(console.error);
+
   return (
     <div>
       <div style={{ float: "right", fontSize: "small" }}>
@@ -49,6 +92,7 @@ function Summary({ data }: { data: Data; type: string }) {
               (selection.removeAllRanges(), selection.addRange(range)))(
               window.getSelection(),
             );
+            fetcher();
           }}
         >
           {data.id}
@@ -178,8 +222,11 @@ function Details({
   );
 }
 
-export function List({ list, meta }: { list: Item[]; meta: Meta }) {
+export function List({ list: initialList }: { list: Item[] }) {
   const [show, setShow] = useState(false);
+  const [list, setList] = useState(initialList);
+
+  const meta = useMemo(() => getMeta(list), [list]);
 
   return (
     <div style={{ display: "flex", margin: "1em 0" }}>
@@ -192,7 +239,9 @@ export function List({ list, meta }: { list: Item[]; meta: Meta }) {
         [{dayjs(meta.minPriceChanged).format("MMM D, YYYY H:mm")}] */}
         {(show ? list : list.slice(0, 1)).map((item, key) => (
           <div key={item.id}>
-            {!key && <Summary data={item.data} type={meta.type} />}
+            {!key && (
+              <Summary data={item.data} item={item.item} setList={setList} />
+            )}
             <Details
               meta={meta}
               data={item.data}
@@ -239,35 +288,7 @@ export function Main({
       )
         .map(
           ([item, list]) =>
-            [
-              item,
-              list,
-              list.reduce(
-                (meta, { type, data, created }) =>
-                  Object.assign(
-                    meta,
-                    { type },
-                    data.price <= meta.minPrice && {
-                      minPrice: data.price,
-                      minPriceChanged: new Date(created).getTime(),
-                    },
-                    data.price > meta.maxPrice && {
-                      maxPrice: data.price,
-                    },
-                    0 === meta.price && {
-                      price: data.price,
-                      priceChanged: new Date(created).getTime(),
-                    },
-                  ),
-                {
-                  minPrice: Infinity,
-                  maxPrice: 0,
-                  minPriceChanged: 0,
-                  price: 0,
-                  priceChanged: 0,
-                },
-              ),
-            ] as [string, Item[], Meta],
+            [item, list, getMeta(list)] as [string, Item[], Meta],
         )
         .sort(
           (a, b) =>
@@ -310,9 +331,9 @@ export function Main({
           : `Found ${filtered.length} items out of a total of ${grouped.length}`}
       </small>
       <ol>
-        {filtered.map(([id, list, meta]) => (
+        {filtered.map(([id, list]) => (
           <li key={id}>
-            <List list={list} meta={meta} />
+            <List list={list} />
           </li>
         ))}
       </ol>
