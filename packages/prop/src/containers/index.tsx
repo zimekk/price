@@ -343,9 +343,10 @@ export function Price() {
                 (meta, { data, created }) =>
                   Object.assign(
                     meta,
-                    0 === meta.dateCreated && {
-                      dateCreated: new Date(data.dateCreated).getTime(),
-                    },
+                    0 === meta.dateCreated &&
+                      data.dateCreated && {
+                        dateCreated: new Date(data.dateCreated).getTime(),
+                      },
                     0 === meta.dateCreatedFirst &&
                       data.dateCreatedFirst && {
                         dateCreatedFirst: new Date(

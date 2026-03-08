@@ -30,22 +30,22 @@
     }
   },
   "peerDependencies": {
-    "next": "^15.0.0",
+    "next": "^16.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "dependencies": {
     "@acme/components": "workspace:*",
     "@swc/helpers": "^0.5.17",
-    "@zimekk/scrap-rynek-schema": "^1.0.8",
+    "@zimekk/scrap-rynek-schema": "^1.0.10",
     "clsx": "^2.0.0",
-    "dayjs": "^1.11.18",
+    "dayjs": "^1.11.19",
     "rxjs": "^7.8.1",
     "zod": "^4.1.12"
   },
   "devDependencies": {
     "@types/node": "^22.18.8",
-    "@types/react": "^19.2.0",
+    "@types/react": "^19.2.14",
     "eslint": "^9.37.0",
     "typescript": "5.8.3"
   }
