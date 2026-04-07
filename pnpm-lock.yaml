@@ -64,6 +64,9 @@ importers:
       '@acme/moto':
         specifier: workspace:*
         version: link:../../packages/moto
+      '@acme/offr':
+        specifier: workspace:*
+        version: link:../../packages/offr
       '@acme/petr':
         specifier: workspace:*
         version: link:../../packages/petr
@@ -519,6 +522,49 @@ importers:
         version: 5.8.3
 
   packages/moto:
+    dependencies:
+      '@acme/components':
+        specifier: workspace:*
+        version: link:../components
+      '@swc/helpers':
+        specifier: ^0.5.17
+        version: 0.5.17
+      clsx:
+        specifier: ^2.0.0
+        version: 2.1.1
+      dayjs:
+        specifier: ^1.11.19
+        version: 1.11.19
+      next:
+        specifier: ^16.0.0
+        version: 16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.93.2)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.2
+      zod:
+        specifier: ^4.1.12
+        version: 4.3.6
+    devDependencies:
+      '@types/node':
+        specifier: ^22.18.8
+        version: 22.18.8
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.14
+      eslint:
+        specifier: ^9.37.0
+        version: 9.37.0(jiti@2.4.2)
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+
+  packages/offr:
     dependencies:
       '@acme/components':
         specifier: workspace:*
