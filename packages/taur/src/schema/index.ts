@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const DataSchema = z.object({
-  brand: z.string(),
+  brand: z.string().nullable(),
   category: z.string(),
   id: z.number(),
   image: z.string(),
