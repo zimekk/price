@@ -14,7 +14,7 @@ export const MARKS = [
 
 export const DataSchema = z.object({
   brand: z.string(),
-  description: z.string(),
+  description: z.string().nullable(),
   gtin: z.string().optional(),
   gtin13: z.string().optional(),
   image: z.string().optional(),
