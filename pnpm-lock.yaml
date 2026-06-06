@@ -797,8 +797,8 @@ importers:
         specifier: ^0.5.17
         version: 0.5.17
       '@zimekk/scrap-props-schema':
-        specifier: ^1.0.3
-        version: 1.0.3
+        specifier: ^1.0.4
+        version: 1.0.4
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -892,8 +892,8 @@ importers:
         specifier: ^0.5.17
         version: 0.5.17
       '@zimekk/scrap-rynek-schema':
-        specifier: ^1.0.10
-        version: 1.0.10
+        specifier: ^1.0.11
+        version: 1.0.11
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -2038,11 +2038,11 @@ packages:
       react: ^19.0.0
       react-dom: ^19.0.0
 
-  '@zimekk/scrap-props-schema@1.0.3':
-    resolution: {integrity: sha512-zdQBjGuGzC42kLACcCRnN7SFj528XWfnvcIWGD/DXMG6p6uSNOCyRh+jUQVTRn8s5CegPpd0xpKJqWFKPYP1fA==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-props-schema/1.0.3/52f4b45d4a2bd8c0402930a44aa88eb57c256f15}
+  '@zimekk/scrap-props-schema@1.0.4':
+    resolution: {integrity: sha512-kA2xhqryQE2tkOTO28BHywr26mM5ZurmnZucko2PZGSDgQs4okNPsxei3Dm3GjbE0lmJ0G5rAY4AW5dkMjFKeQ==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-props-schema/1.0.4/4599fdf2d07fd29e6a8f5b98437a75b95291967d}
 
-  '@zimekk/scrap-rynek-schema@1.0.10':
-    resolution: {integrity: sha512-le+C4hVtf2bDNIOxJ5P8lc+k8AJWMVatpQZ/q5y3CcQTpvuYpvbbBchDq0hUdbNM/21O+o/ZvbXIb9pXJcjfBg==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-rynek-schema/1.0.10/b5c6e2a79eefa1262d58f62b9cfb20b0eb2a9e00}
+  '@zimekk/scrap-rynek-schema@1.0.11':
+    resolution: {integrity: sha512-ba3zarN151zgrJWaPIjyGvqniAPY5vsOGxIH1OCCJh0AH/jx8SjrF/f1oOO+arZDPYX5XsJ/mJTIzhZ7AydwTw==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-rynek-schema/1.0.11/f9ba27d8fd53322078a94b205a6fc7c91d5112ed}
 
   '@zimekk/scrap-schema@1.0.12':
     resolution: {integrity: sha512-b0QHrPwYoBmqzUsOtP9DNCoxCNH3MMjt/zwh6NBVbAhqk8MhPydbYZN3SuOTE4BWE210bVc1/6zOn+ZKsZM/NA==, tarball: https://npm.pkg.github.com/download/@zimekk/scrap-schema/1.0.12/979ef07ba85653812418d8542b3ac95a93dc1113}
@@ -4839,11 +4839,11 @@ snapshots:
       react-dom: 19.2.4(react@19.2.4)
       sugar-high: 0.4.7
 
-  '@zimekk/scrap-props-schema@1.0.3':
+  '@zimekk/scrap-props-schema@1.0.4':
     dependencies:
       zod: 4.3.6
 
-  '@zimekk/scrap-rynek-schema@1.0.10':
+  '@zimekk/scrap-rynek-schema@1.0.11':
     dependencies:
       zod: 4.3.6
 

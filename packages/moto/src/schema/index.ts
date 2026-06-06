@@ -86,18 +86,20 @@ const Advert = z.object({
       __typename: z.enum(["AdvertParameter"]),
     })
     .array(),
-  sellerLink: z.object({
-    id: z.string(),
-    name: z.string().nullable(),
-    websiteUrl: z.string().nullable(),
-    logo: z
-      .object({
-        x1: z.string(),
-        __typename: z.enum(["Image"]),
-      })
-      .nullable(),
-    __typename: z.enum(["AdvertSellerLink"]),
-  }),
+  sellerLink: z
+    .object({
+      id: z.string(),
+      name: z.string().nullable(),
+      websiteUrl: z.string().nullable(),
+      logo: z
+        .object({
+          x1: z.string(),
+          __typename: z.enum(["Image"]),
+        })
+        .nullable(),
+      __typename: z.enum(["AdvertSellerLink"]),
+    })
+    .nullable(),
   brandProgram: z
     .object({
       logo: z.any(),
