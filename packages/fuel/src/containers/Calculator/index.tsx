@@ -53,7 +53,7 @@ function Filters({
                   ...filters,
                   price: Number(target.value),
                 })),
-              []
+              [],
             )}
           />
           <datalist id="price-list">
@@ -77,7 +77,7 @@ function Filters({
                   ...filters,
                   amount: Number(target.value),
                 })),
-              []
+              [],
             )}
           />
           <datalist id="amount-list">
@@ -95,15 +95,45 @@ function Filters({
           {
             maximumFractionDigits: 2,
             minimumFractionDigits: 2,
-          }
+          },
         ).format(
           filters.price * filters.amount +
             ((filters.roundTrip ? 2 : 1) *
               filters.price *
               filters.consumption *
               filters.distance) /
-              100
+              100,
         )} pln)`}</span>
+      </div>
+      <div>
+        <label>
+          <span>Consumption</span>
+          <input
+            type="range"
+            list="consumption-list"
+            min={CONSUMPTION_LIST[0]}
+            max={CONSUMPTION_LIST[CONSUMPTION_LIST.length - 1]}
+            value={String(filters.consumption)}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  consumption: Number(target.value),
+                })),
+              [],
+            )}
+          />
+          <datalist id="consumption-list">
+            {CONSUMPTION_LIST.map((value) => (
+              <option key={value} value={value}></option>
+            ))}
+          </datalist>
+          <span>{`${filters.consumption} l/100km`}</span>
+        </label>
+        <span>{`Total distance: ${new Intl.NumberFormat("pl-PL", {
+          maximumFractionDigits: 2,
+          minimumFractionDigits: 2,
+        }).format((filters.amount / filters.consumption) * 100)} km`}</span>
       </div>
       <div>
         <label>
@@ -120,7 +150,7 @@ function Filters({
                   ...filters,
                   distance: Number(target.value),
                 })),
-              []
+              [],
             )}
           />
           <datalist id="distance-list">
@@ -129,30 +159,6 @@ function Filters({
             ))}
           </datalist>
           <span>{`${filters.distance} km`}</span>
-        </label>
-        <label>
-          <span>Consumption</span>
-          <input
-            type="range"
-            list="consumption-list"
-            min={CONSUMPTION_LIST[0]}
-            max={CONSUMPTION_LIST[CONSUMPTION_LIST.length - 1]}
-            value={String(filters.consumption)}
-            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  consumption: Number(target.value),
-                })),
-              []
-            )}
-          />
-          <datalist id="consumption-list">
-            {CONSUMPTION_LIST.map((value) => (
-              <option key={value} value={value}></option>
-            ))}
-          </datalist>
-          <span>{`${filters.consumption} l/100km`}</span>
         </label>
         <label>
           <input
@@ -164,9 +170,9 @@ function Filters({
                   ...filters,
                   roundTrip: target.checked,
                 })),
-              []
+              [],
             )}
-          />
+          />{" "}
           <span>Round trip</span>
         </label>
         <span>{`Cost of trip: ${filters.roundTrip ? "2 x " : ""}${
@@ -179,7 +185,7 @@ function Filters({
             filters.price *
             filters.consumption *
             filters.distance) /
-            100
+            100,
         )} pln)`}</span>
       </div>
     </fieldset>
